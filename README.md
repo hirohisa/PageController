@@ -82,4 +82,4 @@ class CustomViewController: PageController {
 
 ## License
 
-PageController is available under the MIT license.
+PageController is available under the MIT license.
