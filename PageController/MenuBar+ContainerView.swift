@@ -92,9 +92,9 @@ extension MenuBar.ContainerView {
         var newCells = [MenuCell]()
         if let first = cells.first, let last = cells.last {
             var distance = abs(first.frame.minX - frame.minX)
-            newCells += bar!.createMenuCells(from: first.frame.minX, distance: 300, index: first.index - 1, asc: false)
+            newCells += bar!.createMenuCells(from: first.frame.minX, distance: distance + bar!.frame.width, index: first.index - 1, asc: false)
             distance = abs(last.frame.maxX - frame.maxX)
-            newCells += bar!.createMenuCells(from: last.frame.maxX, distance: distance, index: last.index + 1, asc: true)
+            newCells += bar!.createMenuCells(from: last.frame.maxX, distance: distance + bar!.frame.width, index: last.index + 1, asc: true)
         }
 
         for newCell in newCells {
