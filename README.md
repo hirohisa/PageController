@@ -12,7 +12,7 @@ Requirements
 Features
 ----------
 
-- [x] To inherit from DCScrollView
+- [x] To inherit from [DCScrollView](https://github.com/hirohisa/DCScrollView)
 - [x] Use `UIViewController`, not `UIView` like `UITabBarController`
 - [x] Scrolling smoothly and effortlessly
 - [x] Support AutoLayout about MenuCell
