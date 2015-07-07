@@ -18,7 +18,7 @@ public class MenuBar: UIView {
             reloadData()
         }
     }
-    var protoCells: [MenuCell] = []
+    var sizes: [CGSize] = []
 
     private var menuCellClass: MenuCell.Type = MenuCell.self
     public func registerClass(cellClass: MenuCell.Type) {
@@ -74,21 +74,21 @@ public extension MenuBar {
         scrollView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
 
-        protoCells = createProtoCells()
+        sizes = measureCells()
 
         scrollView.reloadData()
         controller?.reloadPages(AtIndex: 0)
     }
 
-    func createProtoCells() -> [MenuCell] {
+    func measureCells() -> [CGSize] {
 
-        var menuCells = [MenuCell]()
+        var sizes = [CGSize]()
         for index in 0 ..< items.count {
             let cell = createMenuCell(AtIndex: index)
-            menuCells.append(cell)
+            sizes.append(cell.frame.size)
         }
 
-        return menuCells
+        return sizes
     }
 
     func createMenuCell(AtIndex index: Int) -> MenuCell {

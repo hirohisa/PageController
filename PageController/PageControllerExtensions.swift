@@ -104,8 +104,8 @@ public extension MenuBar {
         indexes.removeAtIndex(0)
 
         for index in indexes {
-            let cell = protoCells[index.relative(protoCells.count)]
-            distance += cell.frame.width
+            let size = sizes[index.relative(sizes.count)]
+            distance += size.width
         }
 
         return distance
@@ -120,9 +120,9 @@ extension MenuBar {
         var offsetX = from
         var index = index
         while offsetX <= from + distance {
-            let protoCell = protoCells[index.relative(protoCells.count)]
-            let cell = createMenuCell(AtIndex: protoCell.index)
-            cell.frame = CGRect(x: offsetX, y: 0, width: protoCell.frame.width, height: protoCell.frame.height)
+            let size = sizes[index.relative(sizes.count)]
+            let cell = createMenuCell(AtIndex: index.relative(sizes.count))
+            cell.frame = CGRect(x: offsetX, y: 0, width: size.width, height: size.height)
             cells.append(cell)
             offsetX = cell.frame.maxX
             index++
@@ -137,9 +137,9 @@ extension MenuBar {
         var maxX = from
         var index = index
         while maxX >= from - distance {
-            let protoCell = protoCells[index.relative(protoCells.count)]
-            let cell = createMenuCell(AtIndex: protoCell.index)
-            cell.frame = CGRect(x: maxX - protoCell.frame.width, y: 0, width: protoCell.frame.width, height: protoCell.frame.height)
+            let size = sizes[index.relative(sizes.count)]
+            let cell = createMenuCell(AtIndex: index.relative(sizes.count))
+            cell.frame = CGRect(x: maxX - size.width, y: 0, width: size.width, height: size.height)
             cells.append(cell)
             maxX = cell.frame.minX
             index--
