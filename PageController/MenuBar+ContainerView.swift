@@ -14,7 +14,6 @@ extension MenuBar {
 
         weak var bar: MenuBar?
         var visibledCells = [MenuCell]()
-        var animating = false
 
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -145,11 +144,9 @@ extension MenuBar.ContainerView {
 
     func scrollOffsetTo(offset: CGPoint, animated: Bool) {
         let duration = animated ? bar!.durationForAnimation : 0
-        animating = true
         UIView.animateWithDuration(duration, animations: {
             self.contentOffset = offset
             }, completion: { _ in
-                self.animating = false
                 self.updateSubviews()
         })
     }
@@ -168,12 +165,6 @@ extension MenuBar.ContainerView {
 }
 
 extension MenuBar.ContainerView : UIScrollViewDelegate {
-
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
-        if dragging && !animating {
-            render()
-        }
-    }
 
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         userInteractionDidEnd()
