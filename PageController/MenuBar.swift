@@ -108,6 +108,7 @@ public extension MenuBar {
     }
 
     func revertToMove(AtIndex index: Int) {
+
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
 
             if view.index > index || index - view.index == items.count - 1 {
@@ -122,8 +123,10 @@ public extension MenuBar {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             let distance = distanceBetweenCells(from: view.index, to: index, asc: false)
+            let diff = view.frame.width - sizes[index].width
+            let x = scrollView.contentOffset.x - distance - diff
 
-            let contentOffset = CGPoint(x: scrollView.contentOffset.x - distance, y: 0)
+            let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
@@ -135,10 +138,11 @@ public extension MenuBar {
     func movePlusOffsetUntilIndex(#index: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
-
             let distance = distanceBetweenCells(from: view.index, to: index, asc: true)
+            let diff = view.frame.width - sizes[index].width
+            let x = scrollView.contentOffset.x + distance + diff
 
-            let contentOffset = CGPoint(x: scrollView.contentOffset.x + distance, y: 0)
+            let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
