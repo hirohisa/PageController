@@ -64,20 +64,32 @@ class CustomViewController: PageController {
         var viewControllers = [UIViewController]()
 
         let names = [
-            "Home",
-            "Innovation",
-            "Technology",
-            "Life",
+            "favorites",
+            "recents",
+            "contacts",
+            "history",
+            "more",
         ]
 
         for name in names {
-            let viewController = ItemsCollectionViewController()
+            let viewController = UIViewController()
             viewController.title = name
             viewControllers.append(viewController)
         }
+
+        return viewControllers
     }
 }
 
+```
+
+**MenuBar**
+
+Enable to change backgroundColor, frame and MenuCell.
+
+```swift
+menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+menuBar.registerClass(CustomMenuCell.self)
 ```
 
 ## License
