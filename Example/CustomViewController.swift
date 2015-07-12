@@ -34,6 +34,7 @@ class CustomViewController: PageController {
         menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
         menuBar.registerClass(CustomMenuCell.self)
         viewControllers = createViewControllers()
+        delegate = self
     }
 
 }
@@ -61,5 +62,17 @@ extension CustomViewController {
         }
 
         return viewControllers
+    }
+}
+
+extension CustomViewController: PageControllerDelegate {
+
+    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController) {
+        println("now title is \(pageController.visibleViewController.title!)")
+        println("did change from \(fromViewController.title!) to \(visibleViewController.title!)")
+
+        if pageController.visibleViewController == visibleViewController {
+            println("visibleViewController is assigned pageController.visibleViewController")
+        }
     }
 }

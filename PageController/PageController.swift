@@ -8,7 +8,14 @@
 
 import UIKit
 
+public protocol PageControllerDelegate: class {
+
+    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController)
+}
+
 public class PageController: UIViewController {
+
+    public weak var delegate: PageControllerDelegate?
 
     public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
     public var visibleViewController: UIViewController!
@@ -131,7 +138,7 @@ extension PageController {
     func loadPages(AtCenter index: Int) {
         let childViewControllers = self.childViewControllers as! [UIViewController]
 
-        visibleViewController = viewControllers[index]
+        switchVisibleViewController(viewControllers[index])
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         for viewController in childViewControllers {
@@ -163,6 +170,14 @@ extension PageController {
         }
         if !existForRight {
             displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController())
+        }
+    }
+
+    func switchVisibleViewController(viewController: UIViewController) {
+        if visibleViewController != viewController {
+            let _visibleViewController = visibleViewController
+            visibleViewController = viewController
+            delegate?.pageController(self, didChangeVisibleController: viewController, fromViewController: _visibleViewController)
         }
     }
 }
