@@ -16,7 +16,7 @@ Features
 - [x] Use `UIViewController`, not `UIView` like `UITabBarController`
 - [x] Scrolling smoothly and effortlessly
 - [x] Support AutoLayout about MenuCell
-- [ ] Handling to change current view controller with Delegate.
+- [x] Handling to change current view controller with Delegate.
 
 Installation
 ----------
