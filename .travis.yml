@@ -1,0 +1,11 @@
+language: objective-c
+osx_image: xcode6.4
+
+before_install:
+  #- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
+script:
+  - make test
+
+after_success:
+  #- make send-coverage
