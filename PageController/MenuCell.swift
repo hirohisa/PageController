@@ -64,7 +64,7 @@ extension MenuCell {
 
     func _addFittingConstraint(view: UIView) {
         view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let views: [NSObject : AnyObject] = ["view": titleLabel]
+        let views: [NSObject : AnyObject] = ["view": view]
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[view]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
         addConstraints(horizontalConstraints)
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
