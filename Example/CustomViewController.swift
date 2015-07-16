@@ -13,6 +13,9 @@ class CustomMenuCell: MenuCell {
 
     required init(frame: CGRect) {
         super.init(frame: frame)
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: 0xcccccc)
+        backgroundView = view
     }
 
     required init(coder aDecoder: NSCoder) {

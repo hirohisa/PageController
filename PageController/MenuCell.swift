@@ -21,8 +21,20 @@ public class MenuCell: UIView {
             updateData()
         }
     }
-    public var backgroundView: UIView?
-    public var selectedBackgroundView: UIView?
+    public var backgroundView: UIView? {
+        didSet {
+            if let view = backgroundView {
+                insertSubview(view, belowSubview: titleLabel)
+            }
+        }
+    }
+    public var selectedBackgroundView: UIView? {
+        didSet {
+            if let view = selectedBackgroundView {
+                insertSubview(view, belowSubview: titleLabel)
+            }
+        }
+    }
 
     public required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,23 +48,21 @@ public class MenuCell: UIView {
 
     public func updateData() {
         backgroundView?.hidden = selected
+        backgroundView?.frame = bounds
         selectedBackgroundView?.hidden = !selected
+        selectedBackgroundView?.frame = bounds
     }
 
     func _configure() {
-        if let view = backgroundView {
-            addSubview(view)
-            _addFittingConstraint(view)
-        }
-
-        if let view = selectedBackgroundView {
-            addSubview(view)
-            _addFittingConstraint(view)
-        }
-
         addSubview(titleLabel)
         titleLabel.textAlignment = .Center
         _addFittingConstraint(titleLabel)
+    }
+
+    public override var frame: CGRect {
+        didSet {
+            updateData()
+        }
     }
 
     public var index = 0
