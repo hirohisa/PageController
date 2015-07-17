@@ -11,6 +11,11 @@ import UIKit
 public class MenuCell: UIView {
 
     public let titleLabel = UILabel(frame: CGRectZero)
+    public var contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) {
+        didSet {
+            updateContentInset()
+        }
+    }
 
     public var selected: Bool {
         return _selected
@@ -53,12 +58,6 @@ public class MenuCell: UIView {
         selectedBackgroundView?.frame = bounds
     }
 
-    func _configure() {
-        addSubview(titleLabel)
-        titleLabel.textAlignment = .Center
-        _addFittingConstraint(titleLabel)
-    }
-
     public override var frame: CGRect {
         didSet {
             updateData()
@@ -68,16 +67,20 @@ public class MenuCell: UIView {
     public var index = 0
 }
 
-// NSLayoutConstraint
-
 extension MenuCell {
 
-    func _addFittingConstraint(view: UIView) {
-        view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let views: [NSObject : AnyObject] = ["view": view]
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[view]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+    func updateContentInset() {
+        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let views: [NSObject : AnyObject] = ["view": titleLabel]
+        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(contentInset.left)-[view]-\(contentInset.right)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
         addConstraints(horizontalConstraints)
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(contentInset.top)-[view]-\(contentInset.bottom)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
         addConstraints(verticalConstraints)
+    }
+
+    func _configure() {
+        addSubview(titleLabel)
+        titleLabel.textAlignment = .Center
+        updateContentInset()
     }
 }
