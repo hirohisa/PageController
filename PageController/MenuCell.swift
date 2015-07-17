@@ -69,14 +69,41 @@ public class MenuCell: UIView {
 
 extension MenuCell {
 
+    enum Direction {
+        case Horizontal, Vertical
+    }
+
     func updateContentInset() {
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         removeConstraints(constraints())
+
+        let newConstraints = makeConstraints(.Horizontal) + makeConstraints(.Vertical)
+        addConstraints(newConstraints)
+    }
+
+    func makeConstraints(direction: Direction) -> [NSLayoutConstraint] {
         let views: [NSObject : AnyObject] = ["view": titleLabel]
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(contentInset.left)-[view]-\(contentInset.right)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
-        addConstraints(horizontalConstraints)
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(contentInset.top)-[view]-\(contentInset.bottom)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
-        addConstraints(verticalConstraints)
+        switch direction {
+        case .Horizontal:
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Horizontal), options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+        case .Vertical:
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Vertical), options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+        }
+    }
+
+    func constraintFormat(direction: Direction) -> String {
+        switch direction {
+        case .Horizontal:
+            return "H:|-\(contentInset.left)-[view]-\(contentInset.right)-|"
+        case .Vertical:
+            if contentInset.top == 0 && contentInset.bottom == 0 {
+                return "V:|-[view]-|"
+            } else if contentInset.top > 0 {
+                return "V:|-\(contentInset.top)-[view]-|"
+            }
+
+            return "V:|-[view]-\(contentInset.bottom)-|"
+        }
     }
 
     func _configure() {

@@ -14,7 +14,7 @@ class CustomMenuCell: MenuCell {
     required init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
+        contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 1, right: 40)
     }
 
     required init(coder aDecoder: NSCoder) {

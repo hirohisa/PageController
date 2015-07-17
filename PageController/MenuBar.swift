@@ -96,6 +96,7 @@ public extension MenuBar {
         cell.titleLabel.text = items[index]
         cell.index = index
         cell.updateData()
+        cell.updateConstraints()
 
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
