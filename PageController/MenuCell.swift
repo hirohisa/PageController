@@ -71,6 +71,7 @@ extension MenuCell {
 
     func updateContentInset() {
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        removeConstraints(constraints())
         let views: [NSObject : AnyObject] = ["view": titleLabel]
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(contentInset.left)-[view]-\(contentInset.right)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
         addConstraints(horizontalConstraints)
