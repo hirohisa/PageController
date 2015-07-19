@@ -5,7 +5,7 @@ before_install:
   #- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 
 script:
-  - make test
+  - rake test
 
 after_success:
   #- make send-coverage
