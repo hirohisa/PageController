@@ -20,7 +20,6 @@ class MenuBarTests: XCTestCase {
         super.tearDown()
     }
 
-    /*
     func testReload() {
 
         var menuBar: MenuBar!
@@ -28,27 +27,15 @@ class MenuBarTests: XCTestCase {
 
         menuBar = MenuBar(frame: CGRectZero)
         menuBar.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
-        menuBar.sizeForMenuItem = CGSize(width: 100, height: 44)
         menuBar.items = ["1", "2", "3"]
         menuBar.reloadData()
 
         view = menuBar.scrollView.viewForCurrentPage() as! MenuCell
         XCTAssertEqual(view.index, 0, "is failed")
 
-        menuBar = MenuBar(frame: CGRectZero)
-        menuBar.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
-        menuBar.sizeForMenuItem = CGSize(width: 150, height: 44)
-        menuBar.items = ["1", "2", "3"]
-        menuBar.reloadData()
-
-        view = menuBar.scrollView.viewForCurrentPage() as! MenuCell
-        XCTAssertEqual(view.index, 0, "is failed")
     }
-    
-    */
-    /*
 
-    func testMoveMinusOffsetUntilIndex() {
+    func testMoveMinus() {
 
         let expectation = expectationWithDescription("try move left to index")
 
@@ -62,7 +49,7 @@ class MenuBarTests: XCTestCase {
         menuBar.reloadData()
         menuBar.layoutIfNeeded()
         XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
-        menuBar.moveMinusOffsetUntilIndex(index: 3)
+        menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(after)), dispatch_get_main_queue()) {
@@ -78,7 +65,7 @@ class MenuBarTests: XCTestCase {
         })
     }
 
-    func testMovePlusOffsetUntilIndex() {
+    func testMovePlus() {
 
         let expectation = expectationWithDescription("try move right to index")
 
@@ -92,7 +79,7 @@ class MenuBarTests: XCTestCase {
         menuBar.reloadData()
         menuBar.layoutIfNeeded()
         XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
-        menuBar.movePlusOffsetUntilIndex(index: 3)
+        menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(after)), dispatch_get_main_queue()) {
@@ -107,5 +94,4 @@ class MenuBarTests: XCTestCase {
             }
         })
     }
-    */
 }
