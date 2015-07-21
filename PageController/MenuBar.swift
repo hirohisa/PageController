@@ -122,6 +122,14 @@ public extension MenuBar {
         }
     }
 
+    func revert(to: Int) {
+        if let view = scrollView.viewForCurrentPage() as? MenuCell {
+            if view.index != to {
+                move(from: view.index, until: to)
+            }
+        }
+    }
+
     private func moveMinus(#from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {

@@ -191,10 +191,9 @@ extension PageController: UIScrollViewDelegate {
             if viewController != visibleViewController {
                 move(from: from, to: to)
             } else {
-                if !scrollView.tracking || !scrollView.dragging {
-                    return
+                if from == to {
+                    revert(to)
                 }
-                menuBar.move(from: from, until: to)
             }
         }
     }
@@ -206,6 +205,14 @@ extension PageController: UIScrollViewDelegate {
         } else if scrollView.contentOffset.x < width * 0.5 {
             menuBar.move(from: from, until: to)
         }
+    }
+
+    func revert(to: Int) {
+        if !scrollView.tracking || !scrollView.dragging {
+            return
+        }
+
+        menuBar.revert(to)
     }
 }
 
