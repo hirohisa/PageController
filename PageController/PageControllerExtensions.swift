@@ -97,6 +97,8 @@ public extension MenuBar {
     }
 
     func distanceBetweenCells(#from: Int, to: Int, asc: Bool) -> CGFloat {
+//        println(__FUNCTION__)
+//        println("\(from) -> \(to)")
 
         var distance: CGFloat = 0
         var indexes = NSArray.indexesBetween(from: from, to: to, count: items.count, asc: asc)

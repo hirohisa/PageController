@@ -186,22 +186,25 @@ extension PageController: UIScrollViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         if let viewController = viewControllerForCurrentPage() {
-            let index = NSArray(array: viewControllers).indexOfObject(viewController)
-            moveToIndex(index)
+            let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
+            let to = NSArray(array: viewControllers).indexOfObject(viewController)
+            if viewController != visibleViewController {
+                move(from: from, to: to)
+            } else {
+                if !scrollView.tracking || !scrollView.dragging {
+                    return
+                }
+                menuBar.move(from: from, until: to)
+            }
         }
     }
 
-    func moveToIndex(index: Int) {
+    func move(#from: Int, to: Int) {
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {
-            menuBar.movePlusOffsetUntilIndex(index: index)
+            menuBar.move(from: from, until: to)
         } else if scrollView.contentOffset.x < width * 0.5 {
-            menuBar.moveMinusOffsetUntilIndex(index: index)
-        } else {
-            if !scrollView.tracking || !scrollView.dragging {
-                return
-            }
-            menuBar.revertToMove(AtIndex: index)
+            menuBar.move(from: from, until: to)
         }
     }
 }

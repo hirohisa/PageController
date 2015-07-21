@@ -46,6 +46,7 @@ class MenuBarTests: XCTestCase {
     }
     
     */
+    /*
 
     func testMoveMinusOffsetUntilIndex() {
 
@@ -106,4 +107,5 @@ class MenuBarTests: XCTestCase {
             }
         })
     }
+    */
 }
