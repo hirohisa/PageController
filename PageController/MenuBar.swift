@@ -50,6 +50,7 @@ public class MenuBar: UIView {
     }
 
     public let scrollView = ContainerView(frame: CGRectZero)
+    private var animating = false
 }
 
 public extension MenuBar {
@@ -108,51 +109,85 @@ public extension MenuBar {
         return cell
     }
 
-    func revertToMove(AtIndex index: Int) {
+    func move(#from: Int, until to: Int) {
 
+        if to - from == items.count - 1 {
+            moveMinus(from: from, until: to)
+        } else if from - to == items.count - 1 {
+            movePlus(from: from, until: to)
+        } else if from > to {
+            moveMinus(from: from, until: to)
+        } else if from < to {
+            movePlus(from: from, until: to)
+        }
+    }
+
+    func revert(to: Int) {
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
-
-            if view.index > index || index - view.index == items.count - 1 {
-                moveMinusOffsetUntilIndex(index: index)
-            } else if view.index < index || view.index - index == items.count - 1 {
-                movePlusOffsetUntilIndex(index: index)
+            if view.index != to {
+                move(from: view.index, until: to)
             }
         }
     }
 
-    func moveMinusOffsetUntilIndex(#index: Int) {
+    private func moveMinus(#from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
-            let distance = distanceBetweenCells(from: view.index, to: index, asc: false)
-            let diff = view.frame.width - sizes[index].width
-            let x = scrollView.contentOffset.x - distance - diff
+            if view.index == to {
+                return
+            }
+            if animating {
+                return
+            }
+            animating = true
+
+//            println(__FUNCTION__)
+//            println("\(view.index), \(from) -> \(to)")
+            let distance = distanceBetweenCells(from: from, to: to, asc: false)
+            let x = scrollView.contentOffset.x - distance
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
-                    self.scrollView.updateSubviews()
+                    self.completion()
             })
         }
     }
 
-    func movePlusOffsetUntilIndex(#index: Int) {
+    private func movePlus(#from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
-            let distance = distanceBetweenCells(from: view.index, to: index, asc: true)
-            let diff = view.frame.width - sizes[index].width
-            let x = scrollView.contentOffset.x + distance + diff
+            if view.index == to {
+                return
+            }
+            if animating {
+                return
+            }
+            animating = true
+
+//            println(__FUNCTION__)
+//            println("\(view.index), \(from) -> \(to)")
+            let distance = distanceBetweenCells(from: from, to: to, asc: true)
+            let x = scrollView.contentOffset.x + distance
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
-                    self.scrollView.updateSubviews()
+                    self.completion()
             })
         }
+    }
+
+    private func completion() {
+        animating = false
+        scrollView.updateSubviews()
+        scrollView.adjustCurrentPageToCenter(animated: true)
     }
 
     func contentDidChangePage(AtIndex index: Int) {
+        println(__FUNCTION__)
         controller?.switchPage(AtIndex: index)
     }
 
