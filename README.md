@@ -92,6 +92,18 @@ menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 menuBar.registerClass(CustomMenuCell.self)
 ```
 
+**MenuCell**
+
+- constentInset
+
+Margins between cells are zero, because it is difficult that calculating distance of scrolling.
+If you change margins between cell's labels, use constentInset.
+
+- updateData()
+
+If property cell's selected is changed, `updateData()` is called. You customize animations of activate to dis-activate, or dis-activate to activate, implement as override `updateData()`.
+
+
 ## License
 
 PageController is available under the MIT license.
