@@ -141,8 +141,6 @@ public extension MenuBar {
             }
             animating = true
 
-//            println(__FUNCTION__)
-//            println("\(view.index), \(from) -> \(to)")
             let distance = distanceBetweenCells(from: from, to: to, asc: false)
             let x = scrollView.contentOffset.x - distance
 
@@ -166,8 +164,6 @@ public extension MenuBar {
             }
             animating = true
 
-//            println(__FUNCTION__)
-//            println("\(view.index), \(from) -> \(to)")
             let distance = distanceBetweenCells(from: from, to: to, asc: true)
             let x = scrollView.contentOffset.x + distance
 
@@ -187,7 +183,6 @@ public extension MenuBar {
     }
 
     func contentDidChangePage(AtIndex index: Int) {
-        println(__FUNCTION__)
         controller?.switchPage(AtIndex: index)
     }
 
