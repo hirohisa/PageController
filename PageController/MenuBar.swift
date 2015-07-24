@@ -142,7 +142,8 @@ public extension MenuBar {
             animating = true
 
             let distance = distanceBetweenCells(from: from, to: to, asc: false)
-            let x = scrollView.contentOffset.x - distance
+            let diff = (sizes[from].width - sizes[to].width) / 2
+            let x = scrollView.contentOffset.x - distance - diff
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
@@ -165,7 +166,8 @@ public extension MenuBar {
             animating = true
 
             let distance = distanceBetweenCells(from: from, to: to, asc: true)
-            let x = scrollView.contentOffset.x + distance
+            let diff = (sizes[from].width - sizes[to].width) / 2
+            let x = scrollView.contentOffset.x + distance + diff
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animateWithDuration(durationForAnimation, animations: {
@@ -179,7 +181,6 @@ public extension MenuBar {
     private func completion() {
         animating = false
         scrollView.updateSubviews()
-        scrollView.adjustCurrentPageToCenter(animated: true)
     }
 
     func contentDidChangePage(AtIndex index: Int) {
