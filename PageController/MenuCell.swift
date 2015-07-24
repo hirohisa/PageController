@@ -11,6 +11,11 @@ import UIKit
 public class MenuCell: UIView {
 
     public let titleLabel = UILabel(frame: CGRectZero)
+    /**
+
+    Margins between cells are zero, because it is difficult that calculating distance of scrolling. If you change margins between cell's labels, use constentInset.
+
+    */
     public var contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) {
         didSet {
             updateContentInset()
@@ -51,6 +56,11 @@ public class MenuCell: UIView {
         _configure()
     }
 
+    /**
+
+    If property cell's selected is changed, `updateData()` is called. You customize animations of activate to dis-activate, or dis-activate to activate, implement as override `updateData()`.
+
+    */
     public func updateData() {
         backgroundView?.hidden = selected
         backgroundView?.frame = bounds
