@@ -97,7 +97,7 @@ menuBar.registerClass(CustomMenuCell.self)
 - constentInset
 
 Margins between cells are zero, because it is difficult that calculating distance of scrolling.
-If you change margins between cell's labels, use constentInset.
+If you change margins between cell's labels or vertical position, use constentInset.
 
 - updateData()
 
