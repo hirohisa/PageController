@@ -5,6 +5,6 @@
       location = "group:PageController.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Example.xcodeproj">
+      location = "group:Example project/Example.xcodeproj">
    </FileRef>
 </Workspace>
