@@ -3,7 +3,7 @@ PageController [![Carthage compatible](https://img.shields.io/badge/Carthage-com
 
 PageController is infinite paging controller, scrolling through contents and title bar scrolls with a delay. Then it provide user interaction to smoothly and effortlessly moving. It is for iOS written in Swift.
 
-![sample](Example/example.gif)
+![sample](Example project/example.gif)
 
 Requirements
 ----------
