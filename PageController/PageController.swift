@@ -95,7 +95,7 @@ extension PageController {
             return
         }
 
-        menuBar.items = viewControllers.map { (viewController: UIViewController) -> String in
+        menuBar.items = viewControllers.map { viewController -> String in
             return viewController.title ?? ""
         }
     }
@@ -151,24 +151,14 @@ extension PageController {
         displayViewController(visibleViewController, frame: frameForCenterContentController())
 
         // left
-        var existForLeft = false
-        for viewController in childViewControllers {
-            if viewController.view.include(frame: frameForLeftContentController()) {
-                existForLeft = true
-            }
-        }
-        if !existForLeft {
+        var exists = childViewControllers.filter { $0.view.include(frame: self.frameForLeftContentController()) }
+        if exists.isEmpty {
             displayViewController(viewControllers[(index - 1).relative(viewControllers.count)], frame: frameForLeftContentController())
         }
 
         // right
-        var existForRight = false
-        for viewController in childViewControllers {
-            if viewController.view.include(frame: frameForRightContentController()) {
-                existForRight = true
-            }
-        }
-        if !existForRight {
+        exists = childViewControllers.filter { $0.view.include(frame: self.frameForRightContentController()) }
+        if exists.isEmpty {
             displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController())
         }
     }

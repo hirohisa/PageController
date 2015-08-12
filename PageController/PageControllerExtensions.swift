@@ -81,9 +81,6 @@ public extension NSArray {
 
         return indexes.reverse()
     }
-
-
-
 }
 
 public extension MenuBar {
@@ -97,17 +94,11 @@ public extension MenuBar {
     }
 
     func distanceBetweenCells(#from: Int, to: Int, asc: Bool) -> CGFloat {
-        var distance: CGFloat = 0
         var indexes = NSArray.indexesBetween(from: from, to: to, count: items.count, asc: asc)
 
         indexes.removeAtIndex(0)
 
-        for index in indexes {
-            let size = sizes[index.relative(items.count)]
-            distance += size.width
-        }
-
-        return distance
+        return indexes.reduce(0) { (a: CGFloat, b: Int) -> CGFloat in a + self.sizes[b.relative(self.items.count)].width }
     }
 }
 
@@ -181,11 +172,11 @@ public extension UIViewController {
 
     func childViewControllerOrderedByX(#asc: Bool) -> [UIViewController] {
         let viewControllers = childViewControllers as! [UIViewController]
-        return viewControllers.sorted { (a, b) -> Bool in
+        return viewControllers.sorted {
             if asc {
-                return a.view.frame.origin.x < b.view.frame.origin.x
+                return $0.view.frame.origin.x < $1.view.frame.origin.x
             }
-            return a.view.frame.origin.x > b.view.frame.origin.x
+            return $0.view.frame.origin.x > $1.view.frame.origin.x
         }
     }
 }
@@ -203,13 +194,7 @@ public extension UIScrollView {
 
     func viewForCurrentPage() -> UIView? {
         let center = centerForVisibleFrame()
-        for view in subviews {
-            if view.frame.contains(center) {
-                return view as? UIView
-            }
-        }
-
-        return nil
+        return subviews.filter { $0.frame.contains(center) }.first as? UIView
     }
 
     func centerForVisibleFrame() -> CGPoint {
