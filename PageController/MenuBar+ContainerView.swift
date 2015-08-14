@@ -82,28 +82,20 @@ extension MenuBar.ContainerView {
 
         let frame = bar!.frame
 
-        var cells = [MenuCell]()
-        for cell in visibledCells {
-            if !cell.removeIfExcluded(frame: bar!.bounds) {
-                cells.append(cell)
-            }
-        }
+        var cells = visibledCells.filter { !$0.removeIfExcluded(frame: self.bar!.bounds) }
+
         var newCells = [MenuCell]()
         if let first = cells.first, let last = cells.last {
             var distance = abs(first.frame.minX - frame.minX)
             newCells += bar!.createMenuCells(from: first.frame.minX, distance: distance + bar!.frame.width, index: first.index - 1, asc: false)
             distance = abs(last.frame.maxX - frame.maxX)
             newCells += bar!.createMenuCells(from: last.frame.maxX, distance: distance + bar!.frame.width, index: last.index + 1, asc: true)
+            for newCell in newCells {
+                addSubview(newCell)
+            }
         }
 
-        for newCell in newCells {
-            cells.append(newCell)
-            addSubview(newCell)
-        }
-
-        visibledCells = cells.sorted { (a, b) -> Bool in
-            return a.frame.origin.x < b.frame.origin.x
-        }
+        visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
     }
 }
 

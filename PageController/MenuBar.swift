@@ -83,13 +83,10 @@ public extension MenuBar {
 
     func measureCells() -> [CGSize] {
 
-        var sizes = [CGSize]()
-        for index in 0 ..< items.count {
-            let cell = createMenuCell(AtIndex: index)
-            sizes.append(cell.frame.size)
+        return map(enumerate(items)) { index, _ -> CGSize in
+            let cell = self.createMenuCell(AtIndex: index)
+            return cell.frame.size
         }
-
-        return sizes
     }
 
     func createMenuCell(AtIndex index: Int) -> MenuCell {
