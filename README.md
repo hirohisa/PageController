@@ -61,8 +61,6 @@ class CustomViewController: PageController {
     }
 
     func createViewControllers() -> [UIViewController] {
-        var viewControllers = [UIViewController]()
-
         let names = [
             "favorites",
             "recents",
@@ -71,13 +69,11 @@ class CustomViewController: PageController {
             "more",
         ]
 
-        for name in names {
-            let viewController = UIViewController()
+        return names.map { name -> UIViewController in
+            let viewController = ContentViewController()
             viewController.title = name
-            viewControllers.append(viewController)
+            return viewController
         }
-
-        return viewControllers
     }
 }
 

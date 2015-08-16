@@ -17,17 +17,11 @@ class ViewController: PageController {
         viewControllers = createViewControllers()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
 }
 
 extension ViewController {
 
     func createViewControllers() -> [UIViewController] {
-        var viewControllers = [UIViewController]()
-
         let names = [
             "favorites",
             "recents",
@@ -36,12 +30,10 @@ extension ViewController {
             "more",
         ]
 
-        for name in names {
+        return names.map { name -> UIViewController in
             let viewController = ContentViewController()
             viewController.title = name
-            viewControllers.append(viewController)
+            return viewController
         }
-
-        return viewControllers
     }
 }

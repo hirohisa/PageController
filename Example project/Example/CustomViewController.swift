@@ -44,8 +44,6 @@ class CustomViewController: PageController {
 extension CustomViewController {
 
     func createViewControllers() -> [UIViewController] {
-        var viewControllers = [UIViewController]()
-
         let names = [
             "Home",
             "Innovation",
@@ -57,13 +55,11 @@ extension CustomViewController {
             "Market",
         ]
 
-        for name in names {
+        return names.map { name -> UIViewController in
             let viewController = ItemsCollectionViewController()
             viewController.title = name
-            viewControllers.append(viewController)
+            return viewController
         }
-
-        return viewControllers
     }
 }
 
