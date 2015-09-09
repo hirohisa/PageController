@@ -171,8 +171,7 @@ public extension Int {
 public extension UIViewController {
 
     func childViewControllerOrderedByX(asc asc: Bool) -> [UIViewController] {
-        let viewControllers = childViewControllers 
-        return viewControllers.sort {
+        return childViewControllers.sort {
             if asc {
                 return $0.view.frame.origin.x < $1.view.frame.origin.x
             }
@@ -186,7 +185,6 @@ public extension UIScrollView {
     func needsRecenter() -> Bool {
 
         let centerOffsetX = (contentSize.width - frame.width) / 2
-        let currentOffset = contentOffset
         let distanceFromCenter = fabs(contentOffset.x - centerOffsetX)
 
         return distanceFromCenter >= bounds.width
@@ -194,7 +192,7 @@ public extension UIScrollView {
 
     func viewForCurrentPage() -> UIView? {
         let center = centerForVisibleFrame()
-        return subviews.filter { $0.frame.contains(center) }.first as? UIView
+        return subviews.filter { $0.frame.contains(center) }.first
     }
 
     func centerForVisibleFrame() -> CGPoint {

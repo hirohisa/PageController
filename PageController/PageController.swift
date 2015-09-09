@@ -101,8 +101,6 @@ extension PageController {
     }
 
     public func reloadPages(AtIndex index: Int) {
-        let childViewControllers = self.childViewControllers 
-
         for viewController in childViewControllers {
             if viewController != viewControllers[index] {
                 hideViewController(viewController)
@@ -136,8 +134,6 @@ extension PageController {
     }
 
     func loadPages(AtCenter index: Int) {
-        let childViewControllers = self.childViewControllers 
-
         switchVisibleViewController(viewControllers[index])
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)

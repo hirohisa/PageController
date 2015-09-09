@@ -92,12 +92,12 @@ extension MenuCell {
     }
 
     func makeConstraints(direction: Direction) -> [NSLayoutConstraint] {
-        let views: [NSObject : AnyObject] = ["view": titleLabel]q
+        let views = ["view": titleLabel]
         switch direction {
         case .Horizontal:
-            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Horizontal), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) as! [NSLayoutConstraint]
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Horizontal), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         case .Vertical:
-            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Vertical), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) as! [NSLayoutConstraint]
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Vertical), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         }
     }
 

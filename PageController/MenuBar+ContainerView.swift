@@ -105,7 +105,7 @@ extension MenuBar.ContainerView {
 
     public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 
-        if let touch = touches.first as? UITouch {
+        if let touch = touches.first {
             let point = touch.locationInView(self)
             for subview in subviews {
                 if subview.frame.contains(point) {

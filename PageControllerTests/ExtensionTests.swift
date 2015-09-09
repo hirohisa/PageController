@@ -22,7 +22,7 @@ class ExtensionTests: XCTestCase {
 
     func testViewControllerForCurrentPage() {
 
-        let pageController = PageController
+        let pageController = PageController()
         pageController.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
 
         let viewControllers = [
@@ -71,8 +71,6 @@ class ExtensionTests: XCTestCase {
         menuBar.items = items
 
         var result: [MenuCell]!
-        var valid: Int!
-
         // asc
 
         result = menuBar.createMenuCells(from: 0, distance: 38, index: 0, asc: true)
@@ -199,8 +197,6 @@ class ExtensionTests: XCTestCase {
     }
 
     func testRemoveIfExcluded() {
-
-        let menuBar = MenuBar()
 
         var view: UIView!
         var frame: CGRect!

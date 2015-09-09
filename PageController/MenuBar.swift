@@ -82,8 +82,7 @@ public extension MenuBar {
     }
 
     func measureCells() -> [CGSize] {
-
-        return map(items.enumerate()) { index, _ -> CGSize in
+        return items.enumerate().map { index, _ -> CGSize in
             let cell = self.createMenuCell(AtIndex: index)
             return cell.frame.size
         }
