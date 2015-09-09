@@ -42,7 +42,7 @@ public extension NSArray {
         var b = [T]()
 
         var hit = false
-        for (i, obj) in enumerate(self) {
+        for (i, obj) in self.enumerate() {
             if i == index {
                 hit = true
             }
@@ -57,7 +57,7 @@ public extension NSArray {
         return a + b
     }
 
-    class func indexesBetween(#from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
+    class func indexesBetween(from from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
         var indexes = [Int]()
 
         var from = from
@@ -79,13 +79,13 @@ public extension NSArray {
             return indexes
         }
 
-        return indexes.reverse()
+        return Array(indexes.reverse())
     }
 }
 
 public extension MenuBar {
 
-    func createMenuCells(#from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
+    func createMenuCells(from from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
         if asc {
             return createMenuCellsByIncreasing(from: from, distance: distance, index: index)
         }
@@ -93,7 +93,7 @@ public extension MenuBar {
         return createMenuCellsByDecreasing(from: from, distance: distance, index: index)
     }
 
-    func distanceBetweenCells(#from: Int, to: Int, asc: Bool) -> CGFloat {
+    func distanceBetweenCells(from from: Int, to: Int, asc: Bool) -> CGFloat {
         var indexes = NSArray.indexesBetween(from: from, to: to, count: items.count, asc: asc)
 
         indexes.removeAtIndex(0)
@@ -104,7 +104,7 @@ public extension MenuBar {
 
 extension MenuBar {
 
-    func createMenuCellsByIncreasing(#from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByIncreasing(from from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var offsetX = from
@@ -121,7 +121,7 @@ extension MenuBar {
         return cells
     }
 
-    func createMenuCellsByDecreasing(#from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByDecreasing(from from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var maxX = from
@@ -141,11 +141,11 @@ extension MenuBar {
 
 public extension UIView {
 
-    func include(#frame: CGRect) -> Bool {
+    func include(frame frame: CGRect) -> Bool {
         return frame.contains(self.frame) || frame.intersects(self.frame)
     }
 
-    func removeIfExcluded(#frame: CGRect) -> Bool {
+    func removeIfExcluded(frame frame: CGRect) -> Bool {
         if !include(frame: frame) {
             removeFromSuperview()
             return true
@@ -170,9 +170,9 @@ public extension Int {
 
 public extension UIViewController {
 
-    func childViewControllerOrderedByX(#asc: Bool) -> [UIViewController] {
-        let viewControllers = childViewControllers as! [UIViewController]
-        return viewControllers.sorted {
+    func childViewControllerOrderedByX(asc asc: Bool) -> [UIViewController] {
+        let viewControllers = childViewControllers 
+        return viewControllers.sort {
             if asc {
                 return $0.view.frame.origin.x < $1.view.frame.origin.x
             }
@@ -210,7 +210,7 @@ public extension UIScrollView {
 
         contentOffset = CGPoint(x: centerOffsetX, y: currentOffset.y)
 
-        for subview in subviews as! [UIView] {
+        for subview in subviews {
             var center = convertPoint(subview.center, toView: view)
             center.x += centerOffsetX - currentOffset.x
             subview.center = view.convertPoint(center, toView: self)

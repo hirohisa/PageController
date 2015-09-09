@@ -182,6 +182,8 @@
 		65C4FF481B3AC8550010CA5B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Hirohisa Kawasaki";
 				TargetAttributes = {

@@ -51,7 +51,7 @@ public class MenuCell: UIView {
         _configure()
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _configure()
     }
@@ -84,20 +84,20 @@ extension MenuCell {
     }
 
     func updateContentInset() {
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        removeConstraints(constraints())
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        removeConstraints(constraints)
 
         let newConstraints = makeConstraints(.Horizontal) + makeConstraints(.Vertical)
         addConstraints(newConstraints)
     }
 
     func makeConstraints(direction: Direction) -> [NSLayoutConstraint] {
-        let views: [NSObject : AnyObject] = ["view": titleLabel]
+        let views: [NSObject : AnyObject] = ["view": titleLabel]q
         switch direction {
         case .Horizontal:
-            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Horizontal), options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Horizontal), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) as! [NSLayoutConstraint]
         case .Vertical:
-            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Vertical), options: NSLayoutFormatOptions(0), metrics: nil, views: views) as! [NSLayoutConstraint]
+            return NSLayoutConstraint.constraintsWithVisualFormat(constraintFormat(.Vertical), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) as! [NSLayoutConstraint]
         }
     }
 

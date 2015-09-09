@@ -20,7 +20,7 @@ extension MenuBar {
             configure()
         }
 
-        public required init(coder aDecoder: NSCoder) {
+        public required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
             configure()
         }
@@ -82,7 +82,7 @@ extension MenuBar.ContainerView {
 
         let frame = bar!.frame
 
-        var cells = visibledCells.filter { !$0.removeIfExcluded(frame: self.bar!.bounds) }
+        let cells = visibledCells.filter { !$0.removeIfExcluded(frame: self.bar!.bounds) }
 
         var newCells = [MenuCell]()
         if let first = cells.first, let last = cells.last {
@@ -95,7 +95,7 @@ extension MenuBar.ContainerView {
             }
         }
 
-        visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
+        visibledCells = (cells + newCells).sort { $0.frame.origin.x < $1.frame.origin.x }
     }
 }
 
@@ -103,7 +103,7 @@ extension MenuBar.ContainerView {
 
 extension MenuBar.ContainerView {
 
-    public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 
         if let touch = touches.first as? UITouch {
             let point = touch.locationInView(self)
