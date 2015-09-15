@@ -44,7 +44,7 @@ public class MenuBar: UIView {
         configure()
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
     }
@@ -82,15 +82,14 @@ public extension MenuBar {
     }
 
     func measureCells() -> [CGSize] {
-
-        return map(enumerate(items)) { index, _ -> CGSize in
+        return items.enumerate().map { index, _ -> CGSize in
             let cell = self.createMenuCell(AtIndex: index)
             return cell.frame.size
         }
     }
 
     func createMenuCell(AtIndex index: Int) -> MenuCell {
-        let cell = menuCellClass(frame: frame)
+        let cell = menuCellClass.init(frame: frame)
         cell.titleLabel.text = items[index]
         cell.index = index
         cell.updateData()
@@ -106,7 +105,7 @@ public extension MenuBar {
         return cell
     }
 
-    func move(#from: Int, until to: Int) {
+    func move(from from: Int, until to: Int) {
 
         if to - from == items.count - 1 {
             moveMinus(from: from, until: to)
@@ -127,7 +126,7 @@ public extension MenuBar {
         }
     }
 
-    private func moveMinus(#from: Int, until to: Int) {
+    private func moveMinus(from from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             if view.index == to {
@@ -151,7 +150,7 @@ public extension MenuBar {
         }
     }
 
-    private func movePlus(#from: Int, until to: Int) {
+    private func movePlus(from from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             if view.index == to {

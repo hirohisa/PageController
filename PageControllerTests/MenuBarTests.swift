@@ -59,7 +59,7 @@ class MenuBarTests: XCTestCase {
         }
 
         waitForExpectationsWithTimeout(10, handler: { error in
-            if let error = error {
+            if let _ = error {
                 XCTAssertTrue(false, "expectations are still finished")
             }
         })
@@ -89,7 +89,7 @@ class MenuBarTests: XCTestCase {
         }
 
         waitForExpectationsWithTimeout(10, handler: { error in
-            if let error = error {
+            if let _ = error {
                 XCTAssertTrue(false, "expectations are still finished")
             }
         })
