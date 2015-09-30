@@ -1,5 +1,9 @@
-PageController [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Build-Status](https://img.shields.io/travis/hirohisa/PageController/master.svg)](https://travis-ci.org/hirohisa/PageController)
+PageController
 ==================
+[![Build-Status](https://api.travis-ci.org/hirohisa/PageController.svg?branch=master)](https://travis-ci.org/hirohisa/PageController)
+[![GitHub-version](https://img.shields.io/github/tag/hirohisa/PageController.svg)](https://github.com/hirohisa/PageController/tags)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![license](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/hirohisa/ImageLoaderSwift/blob/master/LICENSE)
 
 PageController is infinite paging controller, scrolling through contents and title bar scrolls with a delay. Then it provide user interaction to smoothly and effortlessly moving. It is for iOS written in Swift.
 
