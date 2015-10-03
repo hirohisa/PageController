@@ -14,10 +14,10 @@ Requirements
 - iOS 8.0+
 - Xcode 7.0+
 
-PageController | Xcode | Swift | travis-ci
------------ | ----- | ----- | ---------
-0.2.0 | 6.4 | 1.2 | [![Build-Status](https://img.shields.io/travis/hirohisa/PageController/0.2.0.svg)](https://travis-ci.org/hirohisa/PageController)
-0.3.x | 7.0+ | 2.0 | [![Build-Status](https://img.shields.io/travis/hirohisa/PageController/master.svg)](https://travis-ci.org/hirohisa/PageController)
+PageController | Xcode | Swift
+----------- | ----- | -----
+0.2.0 | 6.4 | 1.2
+0.3+ | 7.0+ | 2.0
 
 Features
 ----------
