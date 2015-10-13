@@ -17,7 +17,7 @@ class CustomMenuCell: MenuCell {
         contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 1, right: 40)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -66,11 +66,11 @@ extension CustomViewController {
 extension CustomViewController: PageControllerDelegate {
 
     func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController) {
-        println("now title is \(pageController.visibleViewController.title!)")
-        println("did change from \(fromViewController.title!) to \(visibleViewController.title!)")
+        print("now title is \(pageController.visibleViewController.title!)")
+        print("did change from \(fromViewController.title!) to \(visibleViewController.title!)")
 
         if pageController.visibleViewController == visibleViewController {
-            println("visibleViewController is assigned pageController.visibleViewController")
+            print("visibleViewController is assigned pageController.visibleViewController")
         }
     }
 }
