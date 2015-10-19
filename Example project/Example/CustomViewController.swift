@@ -55,11 +55,15 @@ extension CustomViewController {
             "Market",
         ]
 
-        return names.map { name -> UIViewController in
+        let viewControllers = names.map { name -> ItemsCollectionViewController in
             let viewController = ItemsCollectionViewController()
             viewController.title = name
+            viewController.collectionView?.scrollsToTop = false
             return viewController
         }
+
+        viewControllers.first?.collectionView?.scrollsToTop = true
+        return viewControllers
     }
 }
 
@@ -69,8 +73,16 @@ extension CustomViewController: PageControllerDelegate {
         print("now title is \(pageController.visibleViewController.title!)")
         print("did change from \(fromViewController.title!) to \(visibleViewController.title!)")
 
+        for viewController in pageController.viewControllers {
+            if let viewController = viewController as? ItemsCollectionViewController where viewController != visibleViewController {
+                viewController.collectionView?.scrollsToTop = false
+            }
+        }
         if pageController.visibleViewController == visibleViewController {
             print("visibleViewController is assigned pageController.visibleViewController")
+            if let viewController = visibleViewController as? ItemsCollectionViewController  {
+                viewController.collectionView?.scrollsToTop = true
+            }
         }
     }
 }
