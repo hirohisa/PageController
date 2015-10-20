@@ -35,8 +35,8 @@ class CustomViewController: PageController {
 
         menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
         menuBar.registerClass(CustomMenuCell.self)
-        viewControllers = createViewControllers()
         delegate = self
+        viewControllers = createViewControllers()
     }
 
 }
@@ -69,20 +69,18 @@ extension CustomViewController {
 
 extension CustomViewController: PageControllerDelegate {
 
-    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController) {
-        print("now title is \(pageController.visibleViewController.title!)")
-        print("did change from \(fromViewController.title!) to \(visibleViewController.title!)")
-
-        for viewController in pageController.viewControllers {
-            if let viewController = viewController as? ItemsCollectionViewController where viewController != visibleViewController {
-                viewController.collectionView?.scrollsToTop = false
-            }
-        }
+    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?) {
+        print("now title is \(pageController.visibleViewController.title)")
+        print("did change from \(fromViewController?.title) to \(visibleViewController.title)")
         if pageController.visibleViewController == visibleViewController {
             print("visibleViewController is assigned pageController.visibleViewController")
-            if let viewController = visibleViewController as? ItemsCollectionViewController  {
-                viewController.collectionView?.scrollsToTop = true
-            }
+        }
+
+        if let viewController = fromViewController as? ItemsCollectionViewController  {
+            viewController.collectionView?.scrollsToTop = false
+        }
+        if let viewController = visibleViewController as? ItemsCollectionViewController  {
+            viewController.collectionView?.scrollsToTop = true
         }
     }
 }
