@@ -10,7 +10,7 @@ import UIKit
 
 public protocol PageControllerDelegate: class {
 
-    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController)
+    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
 }
 
 public class PageController: UIViewController {
