@@ -12,7 +12,6 @@
 		65C4FF811B3ACCDC0010CA5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C4FF7F1B3ACCDC0010CA5B /* Main.storyboard */; };
 		65C4FF831B3ACCDC0010CA5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C4FF821B3ACCDC0010CA5B /* Images.xcassets */; };
 		65C4FF861B3ACCDC0010CA5B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4FF841B3ACCDC0010CA5B /* LaunchScreen.xib */; };
-		65C4FF9E1B3ACF060010CA5B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FF9D1B3ACF060010CA5B /* MenuViewController.swift */; };
 		65C4FFAD1B3ADD460010CA5B /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */; };
 		65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E573A11B42A34D00F252C1 /* CustomViewController.swift */; };
 		A1BE23191B41B2BE003316CF /* PageController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE23181B41B2BE003316CF /* PageController.framework */; };
@@ -30,7 +29,6 @@
 		65C4FF801B3ACCDC0010CA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65C4FF821B3ACCDC0010CA5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		65C4FF851B3ACCDC0010CA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		65C4FF9D1B3ACF060010CA5B /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		65E573A11B42A34D00F252C1 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		A1BE23181B41B2BE003316CF /* PageController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PageController.framework; path = "build/Debug-iphoneos/PageController.framework"; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 				65C4FF7D1B3ACCDC0010CA5B /* ViewController.swift */,
 				65E573A11B42A34D00F252C1 /* CustomViewController.swift */,
 				65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */,
-				65C4FF9D1B3ACF060010CA5B /* MenuViewController.swift */,
 				A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */,
 				A1ED174B1B48401900CE20BB /* ItemCell.swift */,
 				A1ED174C1B48401900CE20BB /* ItemCell.xib */,
@@ -172,7 +169,6 @@
 			files = (
 				65C4FFAD1B3ADD460010CA5B /* ContentViewController.swift in Sources */,
 				65C4FF7E1B3ACCDC0010CA5B /* ViewController.swift in Sources */,
-				65C4FF9E1B3ACF060010CA5B /* MenuViewController.swift in Sources */,
 				65C4FF7C1B3ACCDC0010CA5B /* AppDelegate.swift in Sources */,
 				A1ED174D1B48401900CE20BB /* ItemCell.swift in Sources */,
 				65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */,
