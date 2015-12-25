@@ -27,6 +27,7 @@ Features
 - [x] Scrolling smoothly and effortlessly
 - [x] Support AutoLayout about MenuCell
 - [x] Handling to change current view controller with Delegate.
+- [ ] To smoothly scroll with contents
 
 Installation
 ----------
