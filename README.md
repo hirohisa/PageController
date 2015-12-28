@@ -1,7 +1,7 @@
 PageController
 ==================
 [![Build-Status](https://api.travis-ci.org/hirohisa/PageController.svg?branch=master)](https://travis-ci.org/hirohisa/PageController)
-[![GitHub-version](https://img.shields.io/github/tag/hirohisa/PageController.svg)](https://github.com/hirohisa/PageController/tags)
+[![CocoaPods](https://img.shields.io/cocoapods/v/PageController.svg)](https://cocoapods.org/pods/PageController)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![license](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/hirohisa/ImageLoaderSwift/blob/master/LICENSE)
 
