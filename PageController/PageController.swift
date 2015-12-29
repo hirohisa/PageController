@@ -9,7 +9,6 @@
 import UIKit
 
 public protocol PageControllerDelegate: class {
-
     func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
 }
 
@@ -35,9 +34,9 @@ public class PageController: UIViewController {
     let scrollView = ContainerView(frame: CGRectZero)
 }
 
-public extension PageController {
+extension PageController {
 
-    func frameForMenuBar() -> CGRect {
+    public var frameForMenuBar: CGRect {
         var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         if let frameForNavigationBar = navigationController?.navigationBar.frame {
             frame.origin.y = frameForNavigationBar.maxY
@@ -46,46 +45,39 @@ public extension PageController {
         return frame
     }
 
-    func frameForContentController() -> CGRect {
+    public var frameForContentController: CGRect {
         return view.bounds
     }
 
-}
-
-extension PageController {
-
-    func frameForLeftContentController() -> CGRect {
-        var frame = frameForContentController()
+    var frameForLeftContentController: CGRect {
+        var frame = frameForContentController
         frame.origin.x = 0
         return frame
     }
 
-    func frameForCenterContentController() -> CGRect {
-        var frame = frameForContentController()
+    var frameForCenterContentController: CGRect {
+        var frame = frameForContentController
         frame.origin.x = frame.width
         return frame
     }
 
-    func frameForRightContentController() -> CGRect {
-        var frame = frameForContentController()
+    var frameForRightContentController: CGRect {
+        var frame = frameForContentController
         frame.origin.x = frame.width * 2
         return frame
     }
-}
-
-extension PageController {
 
     func _configure() {
         automaticallyAdjustsScrollViewInsets = false
 
-        let frame = frameForContentController()
+        let frame = frameForContentController
         scrollView.frame = frame
         scrollView.controller = self
 
         scrollView.contentSize = CGSize(width: frame.width * 3, height: frame.height)
         view.addSubview(scrollView)
 
-        menuBar.frame = frameForMenuBar()
+        menuBar.frame = frameForMenuBar
         menuBar.controller = self
         view.addSubview(menuBar)
     }
@@ -107,7 +99,7 @@ extension PageController {
             }
         }
 
-        scrollView.contentOffset = frameForCenterContentController().origin
+        scrollView.contentOffset = frameForCenterContentController.origin
         loadPages(AtCenter: index)
     }
 
@@ -144,18 +136,18 @@ extension PageController {
         }
 
         // center
-        displayViewController(visibleViewController, frame: frameForCenterContentController())
+        displayViewController(visibleViewController, frame: frameForCenterContentController)
 
         // left
-        var exists = childViewControllers.filter { $0.view.include(frame: self.frameForLeftContentController()) }
+        var exists = childViewControllers.filter { $0.view.include(frame: self.frameForLeftContentController) }
         if exists.isEmpty {
-            displayViewController(viewControllers[(index - 1).relative(viewControllers.count)], frame: frameForLeftContentController())
+            displayViewController(viewControllers[(index - 1).relative(viewControllers.count)], frame: frameForLeftContentController)
         }
 
         // right
-        exists = childViewControllers.filter { $0.view.include(frame: self.frameForRightContentController()) }
+        exists = childViewControllers.filter { $0.view.include(frame: self.frameForRightContentController) }
         if exists.isEmpty {
-            displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController())
+            displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController)
         }
     }
 
