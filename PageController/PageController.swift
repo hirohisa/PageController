@@ -17,7 +17,7 @@ public class PageController: UIViewController {
     public weak var delegate: PageControllerDelegate?
 
     public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
-    public var visibleViewController: UIViewController!
+    public var visibleViewController: UIViewController?
     public var viewControllers: [UIViewController] = [] {
         didSet {
             _reloadData()
@@ -87,9 +87,7 @@ extension PageController {
             return
         }
 
-        menuBar.items = viewControllers.map { viewController -> String in
-            return viewController.title ?? ""
-        }
+        menuBar.items = viewControllers.map { $0.title ?? "" }
     }
 
     public func reloadPages(AtIndex index: Int) {
@@ -126,7 +124,10 @@ extension PageController {
     }
 
     func loadPages(AtCenter index: Int) {
-        switchVisibleViewController(viewControllers[index])
+        let visibleViewController = viewControllers[index]
+        if visibleViewController == self.visibleViewController { return }
+
+        switchVisibleViewController(visibleViewController)
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         for viewController in childViewControllers {
@@ -160,41 +161,93 @@ extension PageController {
     }
 }
 
+class AnimationLock {
+    private var from: Int?
+    private var to: Int?
+    private let lock = NSRecursiveLock()
+
+    func lock(from: Int, to: Int) {
+        lock.lock()
+        defer { lock.unlock() }
+        self.from = from
+        self.to = to
+    }
+
+    func unlock() {
+        lock.lock()
+        defer { lock.unlock() }
+        self.from = nil
+        self.to = nil
+    }
+
+    func isLock(from: Int, to: Int) -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+
+        if self.from == from && self.to == to {
+            return true
+        }
+
+        return false
+    }
+}
+
+let animationLock = AnimationLock()
+
 extension PageController: UIScrollViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
+        viewDidScroll()
+    }
+
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        viewDidScroll()
+    }
+
+}
+
+extension PageController {
+
+    func viewDidScroll() {
+        guard let visibleViewController = visibleViewController else { return }
+
         if let viewController = viewControllerForCurrentPage() {
+
             let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
             let to = NSArray(array: viewControllers).indexOfObject(viewController)
+
+            if animationLock.isLock(from, to: to) { return }
+
             if viewController != visibleViewController {
                 move(from: from, to: to)
-            } else {
-                if from == to {
-                    revert(to)
-                }
+                return
+            }
+
+            if !scrollView.tracking || !scrollView.dragging {
+                return
+            }
+            if from == to {
+                revert(to)
             }
         }
     }
 
     func move(from from: Int, to: Int) {
+
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {
+            animationLock.lock(from, to: to)
             menuBar.move(from: from, until: to)
         } else if scrollView.contentOffset.x < width * 0.5 {
+            animationLock.lock(from, to: to)
             menuBar.move(from: from, until: to)
         }
     }
 
     func revert(to: Int) {
-        if !scrollView.tracking || !scrollView.dragging {
-            return
-        }
-
+        animationLock.lock(to, to: to)
         menuBar.revert(to)
     }
-}
-
-extension PageController {
 
     func displayViewController(viewController: UIViewController, frame: CGRect) {
         addChildViewController(viewController)
