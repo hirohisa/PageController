@@ -62,16 +62,19 @@ extension MenuBar.ContainerView {
         }
     }
 
-    func reloadData() {
+    func reloadData(atIndex index: Int) {
+        guard let bar = bar, currentCell = bar.createMenuCell(AtIndex: index) else {
+            return
+        }
+
         for cell in visibledCells {
             cell.removeFromSuperview()
         }
 
-        let cell = bar!.createMenuCell(AtIndex: 0)
-        cell._selected = true
-        addSubview(cell)
-        cell.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        visibledCells = [cell]
+        currentCell._selected = true
+        addSubview(currentCell)
+        currentCell.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        visibledCells = [currentCell]
         render()
     }
 

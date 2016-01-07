@@ -17,7 +17,13 @@ public class PageController: UIViewController {
     public weak var delegate: PageControllerDelegate?
 
     public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
-    public var visibleViewController: UIViewController?
+    public var visibleViewController: UIViewController? {
+        didSet {
+            if let visibleViewController = visibleViewController {
+                delegate?.pageController(self, didChangeVisibleController: visibleViewController, fromViewController: oldValue)
+            }
+        }
+    }
     public var viewControllers: [UIViewController] = [] {
         didSet {
             _reloadData()
@@ -124,6 +130,7 @@ extension PageController {
     }
 
     func loadPages(AtCenter index: Int) {
+        if index >= viewControllers.count { return }
         let visibleViewController = viewControllers[index]
         if visibleViewController == self.visibleViewController { return }
 
@@ -154,9 +161,7 @@ extension PageController {
 
     func switchVisibleViewController(viewController: UIViewController) {
         if visibleViewController != viewController {
-            let _visibleViewController = visibleViewController
             visibleViewController = viewController
-            delegate?.pageController(self, didChangeVisibleController: viewController, fromViewController: _visibleViewController)
         }
     }
 }
