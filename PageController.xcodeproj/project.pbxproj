@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		656168D91C55F58D0044CD5E /* AnimationLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656168D81C55F58D0044CD5E /* AnimationLock.swift */; };
 		65C4FF571B3AC8550010CA5B /* PageController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C4FF561B3AC8550010CA5B /* PageController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65C4FF5D1B3AC8550010CA5B /* PageController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C4FF511B3AC8550010CA5B /* PageController.framework */; };
 		65C4FF641B3AC8550010CA5B /* PageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FF631B3AC8550010CA5B /* PageControllerTests.swift */; };
@@ -32,7 +31,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		656168D81C55F58D0044CD5E /* AnimationLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationLock.swift; sourceTree = "<group>"; };
 		65C4FF511B3AC8550010CA5B /* PageController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PageController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C4FF551B3AC8550010CA5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65C4FF561B3AC8550010CA5B /* PageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageController.h; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				65C4FF561B3AC8550010CA5B /* PageController.h */,
 				65C4FF9B1B3ACEB30010CA5B /* PageController.swift */,
 				65C4FFB91B3D7D430010CA5B /* PageController+ContainerView.swift */,
-				656168D81C55F58D0044CD5E /* AnimationLock.swift */,
 				65C4FFAF1B3BFE8A0010CA5B /* MenuBar.swift */,
 				65C4FFB71B3D2E7E0010CA5B /* MenuBar+ContainerView.swift */,
 				65E573A31B42B64700F252C1 /* MenuCell.swift */,
@@ -238,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				656168D91C55F58D0044CD5E /* AnimationLock.swift in Sources */,
 				65C4FFB21B3D01A50010CA5B /* PageControllerExtensions.swift in Sources */,
 				65C4FFBA1B3D7D430010CA5B /* PageController+ContainerView.swift in Sources */,
 				65E573A41B42B64700F252C1 /* MenuCell.swift in Sources */,

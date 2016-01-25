@@ -109,16 +109,16 @@ extension PageController {
 
     public func switchPage(AtIndex index: Int) {
 
-        if scrollView.tracking || scrollView.dragging {
+        if scrollView.dragging {
             return
         }
 
-        if let viewController = viewControllerForCurrentPage() {
-            let currentIndex = NSArray(array: viewControllers).indexOfObject(viewController)
+        guard let viewController = viewControllerForCurrentPage() else { return }
 
-            if currentIndex != index {
-                reloadPages(AtIndex: index)
-            }
+        let currentIndex = NSArray(array: viewControllers).indexOfObject(viewController)
+
+        if currentIndex != index {
+            reloadPages(AtIndex: index)
         }
     }
 
@@ -166,9 +166,6 @@ extension PageController {
     }
 }
 
-
-let animationLock = AnimationLock()
-
 extension PageController: UIScrollViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -191,8 +188,6 @@ extension PageController {
             let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
             let to = NSArray(array: viewControllers).indexOfObject(viewController)
 
-            if animationLock.isLock(from, to: to) { return }
-
             if viewController != visibleViewController {
                 move(from: from, to: to)
                 return
@@ -211,16 +206,13 @@ extension PageController {
 
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {
-            animationLock.lock(from, to: to)
             menuBar.move(from: from, until: to)
         } else if scrollView.contentOffset.x < width * 0.5 {
-            animationLock.lock(from, to: to)
             menuBar.move(from: from, until: to)
         }
     }
 
     func revert(to: Int) {
-        animationLock.lock(to, to: to)
         menuBar.revert(to)
     }
 
