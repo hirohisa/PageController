@@ -111,10 +111,11 @@ extension MenuBar {
         var index = index
         while offsetX <= from + distance {
             let size = sizes[index.relative(items.count)]
-            let cell = createMenuCell(AtIndex: index.relative(items.count))
-            cell.frame = CGRect(x: offsetX, y: 0, width: size.width, height: size.height)
-            cells.append(cell)
-            offsetX = cell.frame.maxX
+            if let cell = createMenuCell(AtIndex: index.relative(items.count)) {
+                cell.frame = CGRect(x: offsetX, y: 0, width: size.width, height: size.height)
+                cells.append(cell)
+                offsetX = cell.frame.maxX
+            }
             index++
         }
 
@@ -128,11 +129,12 @@ extension MenuBar {
         var index = index
         while maxX >= from - distance {
             let size = sizes[index.relative(items.count)]
-            let cell = createMenuCell(AtIndex: index.relative(items.count))
-            cell.frame = CGRect(x: maxX - size.width, y: 0, width: size.width, height: size.height)
-            cells.append(cell)
-            maxX = cell.frame.minX
-            index--
+            if let cell = createMenuCell(AtIndex: index.relative(items.count)) {
+                cell.frame = CGRect(x: maxX - size.width, y: 0, width: size.width, height: size.height)
+                cells.append(cell)
+                maxX = cell.frame.minX
+                index--
+            }
         }
 
         return cells

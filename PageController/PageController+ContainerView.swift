@@ -44,15 +44,9 @@ extension PageController {
             }
 
             if needsRecenter() {
-                cancelTouches()
                 recenter(relativeView: self)
                 controller?.loadPages()
             }
-        }
-
-        func cancelTouches() {
-            panGestureRecognizer.enabled = false
-            panGestureRecognizer.enabled = true
         }
     }
 }

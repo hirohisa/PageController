@@ -17,7 +17,13 @@ public class PageController: UIViewController {
     public weak var delegate: PageControllerDelegate?
 
     public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
-    public var visibleViewController: UIViewController!
+    public var visibleViewController: UIViewController? {
+        didSet {
+            if let visibleViewController = visibleViewController {
+                delegate?.pageController(self, didChangeVisibleController: visibleViewController, fromViewController: oldValue)
+            }
+        }
+    }
     public var viewControllers: [UIViewController] = [] {
         didSet {
             _reloadData()
@@ -87,9 +93,7 @@ extension PageController {
             return
         }
 
-        menuBar.items = viewControllers.map { viewController -> String in
-            return viewController.title ?? ""
-        }
+        menuBar.items = viewControllers.map { $0.title ?? "" }
     }
 
     public func reloadPages(AtIndex index: Int) {
@@ -105,16 +109,16 @@ extension PageController {
 
     public func switchPage(AtIndex index: Int) {
 
-        if scrollView.tracking || scrollView.dragging {
+        if scrollView.dragging {
             return
         }
 
-        if let viewController = viewControllerForCurrentPage() {
-            let currentIndex = NSArray(array: viewControllers).indexOfObject(viewController)
+        guard let viewController = viewControllerForCurrentPage() else { return }
 
-            if currentIndex != index {
-                reloadPages(AtIndex: index)
-            }
+        let currentIndex = NSArray(array: viewControllers).indexOfObject(viewController)
+
+        if currentIndex != index {
+            reloadPages(AtIndex: index)
         }
     }
 
@@ -126,7 +130,11 @@ extension PageController {
     }
 
     func loadPages(AtCenter index: Int) {
-        switchVisibleViewController(viewControllers[index])
+        if index >= viewControllers.count { return }
+        let visibleViewController = viewControllers[index]
+        if visibleViewController == self.visibleViewController { return }
+
+        switchVisibleViewController(visibleViewController)
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         for viewController in childViewControllers {
@@ -153,9 +161,7 @@ extension PageController {
 
     func switchVisibleViewController(viewController: UIViewController) {
         if visibleViewController != viewController {
-            let _visibleViewController = visibleViewController
             visibleViewController = viewController
-            delegate?.pageController(self, didChangeVisibleController: viewController, fromViewController: _visibleViewController)
         }
     }
 }
@@ -163,20 +169,41 @@ extension PageController {
 extension PageController: UIScrollViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
+        viewDidScroll()
+    }
+
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        viewDidScroll()
+    }
+
+}
+
+extension PageController {
+
+    func viewDidScroll() {
+        guard let visibleViewController = visibleViewController else { return }
+
         if let viewController = viewControllerForCurrentPage() {
+
             let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
             let to = NSArray(array: viewControllers).indexOfObject(viewController)
+
             if viewController != visibleViewController {
                 move(from: from, to: to)
-            } else {
-                if from == to {
-                    revert(to)
-                }
+                return
+            }
+
+            if !scrollView.tracking || !scrollView.dragging {
+                return
+            }
+            if from == to {
+                revert(to)
             }
         }
     }
 
     func move(from from: Int, to: Int) {
+
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {
             menuBar.move(from: from, until: to)
@@ -186,15 +213,8 @@ extension PageController: UIScrollViewDelegate {
     }
 
     func revert(to: Int) {
-        if !scrollView.tracking || !scrollView.dragging {
-            return
-        }
-
         menuBar.revert(to)
     }
-}
-
-extension PageController {
 
     func displayViewController(viewController: UIViewController, frame: CGRect) {
         addChildViewController(viewController)

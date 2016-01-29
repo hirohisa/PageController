@@ -15,7 +15,7 @@ public class MenuBar: UIView {
 
     public var items: [String] = [] {
         didSet {
-            reloadData()
+            reloadData(atIndex: 0)
         }
     }
     var sizes: [CGSize] = []
@@ -35,7 +35,7 @@ public class MenuBar: UIView {
 
     public override var frame: CGRect {
         didSet {
-            reloadData()
+            reloadData(atIndex: 0)
         }
     }
 
@@ -66,7 +66,14 @@ public extension MenuBar {
 
 public extension MenuBar {
 
-    func reloadData() {
+    func reloadData(atIndex index: Int) {
+        menubar_configure()
+
+        scrollView.reloadData(atIndex: index)
+        controller?.reloadPages(AtIndex: index)
+    }
+
+    func menubar_configure() {
         if items.count == 0 || frame == CGRectZero {
             return
         }
@@ -76,19 +83,17 @@ public extension MenuBar {
         scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
 
         sizes = measureCells()
-
-        scrollView.reloadData()
-        controller?.reloadPages(AtIndex: 0)
     }
 
     func measureCells() -> [CGSize] {
         return items.enumerate().map { index, _ -> CGSize in
-            let cell = self.createMenuCell(AtIndex: index)
-            return cell.frame.size
+            return self.createMenuCell(AtIndex: index)!.frame.size
         }
     }
 
-    func createMenuCell(AtIndex index: Int) -> MenuCell {
+    func createMenuCell(AtIndex index: Int) -> MenuCell? {
+        if index >= items.count { return nil }
+
         let cell = menuCellClass.init(frame: frame)
         cell.titleLabel.text = items[index]
         cell.index = index
