@@ -134,7 +134,6 @@ extension PageController {
         let visibleViewController = viewControllers[index]
         if visibleViewController == self.visibleViewController { return }
 
-        switchVisibleViewController(visibleViewController)
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         for viewController in childViewControllers {
@@ -157,6 +156,8 @@ extension PageController {
         if exists.isEmpty {
             displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController)
         }
+
+        switchVisibleViewController(visibleViewController)
     }
 
     func switchVisibleViewController(viewController: UIViewController) {
