@@ -14,6 +14,13 @@ public protocol PageControllerDelegate: class {
 
 public class PageController: UIViewController {
 
+    public enum ScrollType {
+        case Half
+        case Edge
+    }
+
+    public var scrollType: ScrollType = .Half
+
     public weak var delegate: PageControllerDelegate?
 
     public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
@@ -86,6 +93,8 @@ extension PageController {
         menuBar.frame = frameForMenuBar
         menuBar.controller = self
         view.addSubview(menuBar)
+
+        scrollType = .Half
     }
 
     func _reloadData() {
@@ -183,7 +192,7 @@ extension PageController {
     func viewDidScroll() {
         guard let visibleViewController = visibleViewController else { return }
 
-        if let viewController = viewControllerForCurrentPage() {
+        if let viewController = viewControllerForNextPage() {
 
             let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
             let to = NSArray(array: viewControllers).indexOfObject(viewController)

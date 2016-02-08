@@ -11,9 +11,33 @@ import UIKit
 
 public extension PageController {
 
-    func viewControllerForCurrentPage() -> UIViewController? {
+    func viewControllerForNextPage() -> UIViewController? {
+        switch scrollType {
+        case .Half:
+            return viewControllerForPoint(.Center)
+        case .Edge:
+            guard let visibleViewController = self.visibleViewController else {
+                return viewControllerForPoint(.Center)
+            }
+            if let leftController = viewControllerForPoint(.Left),
+            let centerController = viewControllerForPoint(.Center),
+            let rightController = viewControllerForPoint(.Right) {
+                if leftController == centerController && centerController == rightController {
 
-        if let view = scrollView.viewForCurrentPage() {
+                    return centerController
+                }
+            }
+
+            return visibleViewController
+        }
+    }
+
+    func viewControllerForCurrentPage() -> UIViewController? {
+        return viewControllerForPoint(.Center)
+    }
+
+    func viewControllerForPoint(pointType: UIScrollView.PointType) -> UIViewController? {
+        if let view = scrollView.viewForCurrentPage(pointType) {
             var responder: UIResponder? = view
             while responder != nil {
                 if let responder = responder where responder is UIViewController {
@@ -192,16 +216,31 @@ public extension UIScrollView {
         return distanceFromCenter >= bounds.width
     }
 
-    func viewForCurrentPage() -> UIView? {
-        let center = centerForVisibleFrame()
-        return subviews.filter { $0.frame.contains(center) }.first
+    enum PointType {
+        case Center, Left, Right
     }
 
-    func centerForVisibleFrame() -> CGPoint {
-        var center = contentOffset
-        center.x += frame.width / 2
-        center.y += frame.height / 2
-        return center
+    func viewForCurrentPage(pointType: PointType = .Center) -> UIView? {
+        let point = pointForVisibleFrame(pointType)
+        return subviews.filter {
+            $0.frame.contains(point)
+        }.first
+    }
+
+    func pointForVisibleFrame(pointType: PointType) -> CGPoint {
+        var point = contentOffset
+
+        point.y += frame.height / 2
+
+        switch pointType {
+        case .Center:
+            point.x += frame.width / 2
+        case .Left:
+            break
+        case .Right:
+            point.x += frame.width - 1
+        }
+        return point
     }
 
     func recenter(relativeView view: UIView) {
