@@ -32,7 +32,9 @@ class CustomViewController: PageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if self.restorationIdentifier == "CustomViewControllerForEdge" {
+            scrollType = .Edge
+        }
         menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
         menuBar.registerClass(CustomMenuCell.self)
         delegate = self
