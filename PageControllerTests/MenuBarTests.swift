@@ -28,7 +28,7 @@ class MenuBarTests: XCTestCase {
         menuBar = MenuBar(frame: CGRectZero)
         menuBar.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
         menuBar.items = ["1", "2", "3"]
-        menuBar.reloadData()
+        menuBar.reloadData(atIndex: 0)
 
         view = menuBar.scrollView.viewForCurrentPage() as! MenuCell
         XCTAssertEqual(view.index, 0, "is failed")
@@ -46,7 +46,7 @@ class MenuBarTests: XCTestCase {
         }
         menuBar.items = items
 
-        menuBar.reloadData()
+        menuBar.reloadData(atIndex: 0)
         menuBar.layoutIfNeeded()
         XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
         menuBar.move(from: 0, until: 3)
@@ -76,7 +76,7 @@ class MenuBarTests: XCTestCase {
         }
         menuBar.items = items
 
-        menuBar.reloadData()
+        menuBar.reloadData(atIndex: 0)
         menuBar.layoutIfNeeded()
         XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
         menuBar.move(from: 0, until: 3)
