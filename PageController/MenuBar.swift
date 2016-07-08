@@ -81,6 +81,7 @@ public extension MenuBar {
         scrollView.frame = CGRect(origin: CGPointZero, size: CGSize(width: frame.width / 3, height: frame.height))
         scrollView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
+        scrollView.contentOffset = CGPointZero
 
         sizes = measureCells()
     }
