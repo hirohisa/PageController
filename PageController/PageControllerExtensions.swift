@@ -116,7 +116,7 @@ extension MenuBar {
                 cells.append(cell)
                 offsetX = cell.frame.maxX
             }
-            index++
+            index += 1
         }
 
         return cells
@@ -133,7 +133,7 @@ extension MenuBar {
                 cell.frame = CGRect(x: maxX - size.width, y: 0, width: size.width, height: size.height)
                 cells.append(cell)
                 maxX = cell.frame.minX
-                index--
+                index -= 1
             }
         }
 
