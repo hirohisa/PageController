@@ -29,17 +29,17 @@ extension PageController {
         }
 
         func configure() {
-            directionalLockEnabled = true
+            isDirectionalLockEnabled = true
             showsHorizontalScrollIndicator = false
             showsVerticalScrollIndicator = false
             scrollsToTop = false
-            pagingEnabled = true
+            isPagingEnabled = true
         }
 
         override func layoutSubviews() {
             super.layoutSubviews()
 
-            if frame.size == CGSizeZero {
+            if frame.size == CGSize.zero {
                 return
             }
 

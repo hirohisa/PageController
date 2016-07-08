@@ -26,7 +26,7 @@ extension MenuBar {
         }
 
         func configure() {
-            directionalLockEnabled = true
+            isDirectionalLockEnabled = true
             clipsToBounds = false
             showsHorizontalScrollIndicator = false
             showsVerticalScrollIndicator = false
@@ -37,7 +37,7 @@ extension MenuBar {
         public override func layoutSubviews() {
             super.layoutSubviews()
 
-            if frame.size == CGSizeZero {
+            if frame.size == CGSize.zero {
                 return
             }
 
@@ -98,7 +98,7 @@ extension MenuBar.ContainerView {
             }
         }
 
-        visibledCells = (cells + newCells).sort { $0.frame.origin.x < $1.frame.origin.x }
+        visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
     }
 }
 
@@ -106,10 +106,10 @@ extension MenuBar.ContainerView {
 
 extension MenuBar.ContainerView {
 
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         if let touch = touches.first {
-            let point = touch.locationInView(self)
+            let point = touch.location(in: self)
             for subview in subviews {
                 if subview.frame.contains(point) {
                     let offset = CGPoint(x: subview.frame.minX - (frame.width - subview.frame.width) / 2, y: 0)
@@ -129,7 +129,7 @@ extension MenuBar.ContainerView {
         adjustCurrentPageToCenter()
     }
 
-    func adjustCurrentPageToCenter(animated: Bool = true) {
+    func adjustCurrentPageToCenter(_ animated: Bool = true) {
         if let view = viewForCurrentPage() as? MenuCell {
 
             let offset = CGPoint(x: view.frame.minX - (frame.width - view.frame.width) / 2, y: 0)
@@ -137,9 +137,9 @@ extension MenuBar.ContainerView {
         }
     }
 
-    func scrollOffsetTo(offset: CGPoint, animated: Bool) {
+    func scrollOffsetTo(_ offset: CGPoint, animated: Bool) {
         let duration = animated ? bar!.durationForAnimation : 0
-        UIView.animateWithDuration(duration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             self.contentOffset = offset
             }, completion: { _ in
                 self.updateSubviews()
@@ -161,11 +161,11 @@ extension MenuBar.ContainerView {
 
 extension MenuBar.ContainerView : UIScrollViewDelegate {
 
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         userInteractionDidEnd()
     }
 
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             userInteractionDidEnd()
         }

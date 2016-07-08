@@ -9,14 +9,14 @@
 import UIKit
 
 public protocol PageControllerDelegate: class {
-    func pageController(pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
+    func pageController(_ pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
 }
 
 public class PageController: UIViewController {
 
     public weak var delegate: PageControllerDelegate?
 
-    public var menuBar: MenuBar = MenuBar(frame: CGRectZero)
+    public var menuBar: MenuBar = MenuBar(frame: CGRect.zero)
     public var visibleViewController: UIViewController? {
         didSet {
             if let visibleViewController = visibleViewController {
@@ -37,7 +37,7 @@ public class PageController: UIViewController {
         _reloadData()
     }
 
-    let scrollView = ContainerView(frame: CGRectZero)
+    let scrollView = ContainerView(frame: CGRect.zero)
 }
 
 extension PageController {
@@ -109,13 +109,13 @@ extension PageController {
 
     public func switchPage(AtIndex index: Int) {
 
-        if scrollView.dragging {
+        if scrollView.isDragging {
             return
         }
 
         guard let viewController = viewControllerForCurrentPage() else { return }
 
-        let currentIndex = NSArray(array: viewControllers).indexOfObject(viewController)
+        let currentIndex = NSArray(array: viewControllers).index(of: viewController)
 
         if currentIndex != index {
             reloadPages(AtIndex: index)
@@ -124,7 +124,7 @@ extension PageController {
 
     func loadPages() {
         if let viewController = viewControllerForCurrentPage() {
-            let index = NSArray(array: viewControllers).indexOfObject(viewController)
+            let index = NSArray(array: viewControllers).index(of: viewController)
             loadPages(AtCenter: index)
         }
     }
@@ -159,7 +159,7 @@ extension PageController {
         }
     }
 
-    func switchVisibleViewController(viewController: UIViewController) {
+    func switchVisibleViewController(_ viewController: UIViewController) {
         if visibleViewController != viewController {
             visibleViewController = viewController
         }
@@ -168,11 +168,11 @@ extension PageController {
 
 extension PageController: UIScrollViewDelegate {
 
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewDidScroll()
     }
 
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         viewDidScroll()
     }
 
@@ -185,15 +185,15 @@ extension PageController {
 
         if let viewController = viewControllerForCurrentPage() {
 
-            let from = NSArray(array: viewControllers).indexOfObject(visibleViewController)
-            let to = NSArray(array: viewControllers).indexOfObject(viewController)
+            let from = NSArray(array: viewControllers).index(of: visibleViewController)
+            let to = NSArray(array: viewControllers).index(of: viewController)
 
             if viewController != visibleViewController {
                 move(from: from, to: to)
                 return
             }
 
-            if !scrollView.tracking || !scrollView.dragging {
+            if !scrollView.isTracking || !scrollView.isDragging {
                 return
             }
             if from == to {
@@ -202,7 +202,7 @@ extension PageController {
         }
     }
 
-    func move(from from: Int, to: Int) {
+    func move(from: Int, to: Int) {
 
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {
@@ -212,19 +212,19 @@ extension PageController {
         }
     }
 
-    func revert(to: Int) {
+    func revert(_ to: Int) {
         menuBar.revert(to)
     }
 
-    func displayViewController(viewController: UIViewController, frame: CGRect) {
+    func displayViewController(_ viewController: UIViewController, frame: CGRect) {
         addChildViewController(viewController)
         viewController.view.frame = frame
         scrollView.addSubview(viewController.view)
-        viewController.didMoveToParentViewController(self)
+        viewController.didMove(toParentViewController: self)
     }
 
-    func hideViewController(viewController: UIViewController) {
-        viewController.willMoveToParentViewController(self)
+    func hideViewController(_ viewController: UIViewController) {
+        viewController.willMove(toParentViewController: self)
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
     }

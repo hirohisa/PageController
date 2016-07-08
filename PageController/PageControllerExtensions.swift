@@ -20,7 +20,7 @@ public extension PageController {
                     return responder as? UIViewController
                 }
 
-                responder = responder?.nextResponder()
+                responder = responder?.next()
             }
         }
 
@@ -33,7 +33,7 @@ public extension PageController {
 
 public extension NSArray {
 
-    func swapByIndex<T>(index: Int) -> [T] {
+    func swapByIndex<T>(_ index: Int) -> [T] {
         if index >= self.count {
             return []
         }
@@ -42,7 +42,7 @@ public extension NSArray {
         var b = [T]()
 
         var hit = false
-        for (i, obj) in self.enumerate() {
+        for (i, obj) in self.enumerated() {
             if i == index {
                 hit = true
             }
@@ -57,7 +57,7 @@ public extension NSArray {
         return a + b
     }
 
-    class func indexesBetween(from from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
+    class func indexesBetween(from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
         var indexes = [Int]()
 
         var from = from
@@ -79,13 +79,13 @@ public extension NSArray {
             return indexes
         }
 
-        return Array(indexes.reverse())
+        return Array(indexes.reversed())
     }
 }
 
 public extension MenuBar {
 
-    func createMenuCells(from from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
+    func createMenuCells(from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
         if asc {
             return createMenuCellsByIncreasing(from: from, distance: distance, index: index)
         }
@@ -93,10 +93,10 @@ public extension MenuBar {
         return createMenuCellsByDecreasing(from: from, distance: distance, index: index)
     }
 
-    func distanceBetweenCells(from from: Int, to: Int, asc: Bool) -> CGFloat {
+    func distanceBetweenCells(from: Int, to: Int, asc: Bool) -> CGFloat {
         var indexes = NSArray.indexesBetween(from: from, to: to, count: items.count, asc: asc)
 
-        indexes.removeAtIndex(0)
+        indexes.remove(at: 0)
 
         return indexes.reduce(0) { (a: CGFloat, b: Int) -> CGFloat in a + self.sizes[b.relative(self.items.count)].width }
     }
@@ -104,7 +104,7 @@ public extension MenuBar {
 
 extension MenuBar {
 
-    func createMenuCellsByIncreasing(from from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByIncreasing(from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var offsetX = from
@@ -122,7 +122,7 @@ extension MenuBar {
         return cells
     }
 
-    func createMenuCellsByDecreasing(from from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByDecreasing(from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var maxX = from
@@ -143,11 +143,11 @@ extension MenuBar {
 
 public extension UIView {
 
-    func include(frame frame: CGRect) -> Bool {
+    func include(frame: CGRect) -> Bool {
         return frame.contains(self.frame) || frame.intersects(self.frame)
     }
 
-    func removeIfExcluded(frame frame: CGRect) -> Bool {
+    func removeIfExcluded(frame: CGRect) -> Bool {
         if !include(frame: frame) {
             removeFromSuperview()
             return true
@@ -159,7 +159,7 @@ public extension UIView {
 
 public extension Int {
 
-    func relative(max: Int) -> Int {
+    func relative(_ max: Int) -> Int {
         let denominator: Int = max != 0 ? max : 1
         var index = self % denominator
         if index < 0 {
@@ -172,8 +172,8 @@ public extension Int {
 
 public extension UIViewController {
 
-    func childViewControllerOrderedByX(asc asc: Bool) -> [UIViewController] {
-        return childViewControllers.sort {
+    func childViewControllerOrderedByX(asc: Bool) -> [UIViewController] {
+        return childViewControllers.sorted {
             if asc {
                 return $0.view.frame.origin.x < $1.view.frame.origin.x
             }
@@ -211,9 +211,9 @@ public extension UIScrollView {
         contentOffset = CGPoint(x: centerOffsetX, y: currentOffset.y)
 
         for subview in subviews {
-            var center = convertPoint(subview.center, toView: view)
+            var center = convert(subview.center, to: view)
             center.x += centerOffsetX - currentOffset.x
-            subview.center = view.convertPoint(center, toView: self)
+            subview.center = view.convert(center, to: self)
         }
     }
 }

@@ -360,7 +360,7 @@ class ExtensionTests: XCTestCase {
 
 extension ExtensionTests {
 
-    func refreshViewNearByCenter(scrollView: UIScrollView, views: [UIView]) {
+    func refreshViewNearByCenter(_ scrollView: UIScrollView, views: [UIView]) {
         for view in scrollView.subviews {
             view.removeFromSuperview()
         }
