@@ -37,7 +37,7 @@ class MenuBarTests: XCTestCase {
 
     func testMoveMinus() {
 
-        let expectation = self.expectation(withDescription: "try move left to index")
+        let expectation = self.expectation(description: "try move left to index")
 
         let menuBar = MenuBar(frame: CGRect(x: 0, y: 0, width: 300, height: 44))
         var items = [String]()
@@ -52,13 +52,14 @@ class MenuBarTests: XCTestCase {
         menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)) {
+        let dispatchTime = DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
             menuBar.layoutIfNeeded()
             XCTAssertEqual(menuBar.selectedIndex, 3, "is failed.")
             expectation.fulfill()
-        }
+        })
 
-        waitForExpectations(withTimeout: 10, handler: { error in
+        waitForExpectations(timeout: 10, handler: { error in
             if let _ = error {
                 XCTAssertTrue(false, "expectations are still finished")
             }
@@ -67,7 +68,7 @@ class MenuBarTests: XCTestCase {
 
     func testMovePlus() {
 
-        let expectation = self.expectation(withDescription: "try move right to index")
+        let expectation = self.expectation(description: "try move right to index")
 
         let menuBar = MenuBar(frame: CGRect(x: 0, y: 0, width: 300, height: 44))
         var items = [String]()
@@ -82,13 +83,15 @@ class MenuBarTests: XCTestCase {
         menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)) {
+        let dispatchTime = DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
             menuBar.layoutIfNeeded()
             XCTAssertEqual(menuBar.selectedIndex, 3, "is failed.")
             expectation.fulfill()
-        }
+        })
 
-        waitForExpectations(withTimeout: 10, handler: { error in
+
+        waitForExpectations(timeout: 10, handler: { error in
             if let _ = error {
                 XCTAssertTrue(false, "expectations are still finished")
             }

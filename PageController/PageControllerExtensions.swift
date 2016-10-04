@@ -16,11 +16,11 @@ public extension PageController {
         if let view = scrollView.viewForCurrentPage() {
             var responder: UIResponder? = view
             while responder != nil {
-                if let responder = responder where responder is UIViewController {
+                if let responder = responder, responder is UIViewController {
                     return responder as? UIViewController
                 }
 
-                responder = responder?.next()
+                responder = responder?.next
             }
         }
 

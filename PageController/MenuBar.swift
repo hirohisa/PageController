@@ -20,7 +20,7 @@ public class MenuBar: UIView {
     }
     var sizes: [CGSize] = []
 
-    private var menuCellClass: MenuCell.Type = MenuCell.self
+    fileprivate var menuCellClass: MenuCell.Type = MenuCell.self
     public func registerClass(_ cellClass: MenuCell.Type) {
         menuCellClass = cellClass
     }
@@ -50,7 +50,7 @@ public class MenuBar: UIView {
     }
 
     public let scrollView = ContainerView(frame: CGRect.zero)
-    private var animating = false
+    fileprivate var animating = false
 }
 
 public extension MenuBar {

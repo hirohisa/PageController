@@ -89,7 +89,7 @@ extension PageController {
     }
 
     func _reloadData() {
-        if !isViewLoaded() {
+        if !isViewLoaded {
             return
         }
 
