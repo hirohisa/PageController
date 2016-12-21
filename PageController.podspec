@@ -17,7 +17,4 @@ PageController is infinite paging controller, scrolling through contents and tit
   s.source_files = "PageController/*.swift"
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
-  s.xcconfig = {
-    'SWIFT_VERSION' => '2.3'
-  }
 end
