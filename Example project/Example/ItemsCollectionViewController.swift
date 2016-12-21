@@ -22,7 +22,7 @@ class ItemsCollectionViewController: UICollectionViewController {
 
     class func collectionViewLayout() -> UICollectionViewLayout {
         let collectionViewLayout = UICollectionViewFlowLayout()
-        let width = (UIScreen.mainScreen().bounds.width - 1 - 1)
+        let width = (UIScreen.main.bounds.width - 1 - 1)
         collectionViewLayout.itemSize = CGSize(width: width, height: 200)
         collectionViewLayout.minimumInteritemSpacing = 1
         collectionViewLayout.minimumLineSpacing = 1
@@ -36,21 +36,21 @@ class ItemsCollectionViewController: UICollectionViewController {
         collectionView!.backgroundColor = UIColor(hex: 0xeeeeee)
 
         collectionView!.contentInset = UIEdgeInsets(top: 104, left: 0, bottom: 0, right: 0)
-        collectionView!.registerNib(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: identifier)
+        collectionView!.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: identifier)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ItemCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! ItemCell
 
-        cell.backgroundColor = UIColor.whiteColor()
+        cell.backgroundColor = UIColor.white
 
         return cell
     }

@@ -11,7 +11,7 @@ import UIKit
 public class MenuBar: UIView {
 
     weak var controller: PageController?
-    public var durationForAnimation: NSTimeInterval = 0.2
+    public var durationForAnimation: TimeInterval = 0.2
 
     public var items: [String] = [] {
         didSet {
@@ -20,8 +20,8 @@ public class MenuBar: UIView {
     }
     var sizes: [CGSize] = []
 
-    private var menuCellClass: MenuCell.Type = MenuCell.self
-    public func registerClass(cellClass: MenuCell.Type) {
+    fileprivate var menuCellClass: MenuCell.Type = MenuCell.self
+    public func registerClass(_ cellClass: MenuCell.Type) {
         menuCellClass = cellClass
     }
 
@@ -49,18 +49,18 @@ public class MenuBar: UIView {
         configure()
     }
 
-    public let scrollView = ContainerView(frame: CGRectZero)
-    private var animating = false
+    public let scrollView = ContainerView(frame: CGRect.zero)
+    fileprivate var animating = false
 }
 
 public extension MenuBar {
 
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        if pointInside(point, withEvent: event) {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if self.point(inside: point, with: event) {
             return scrollView
         }
 
-        return super.hitTest(point, withEvent: event)
+        return super.hitTest(point, with: event)
     }
 }
 
@@ -74,20 +74,20 @@ public extension MenuBar {
     }
 
     func menubar_configure() {
-        if items.count == 0 || frame == CGRectZero {
+        if items.count == 0 || frame == CGRect.zero {
             return
         }
 
-        scrollView.frame = CGRect(origin: CGPointZero, size: CGSize(width: frame.width / 3, height: frame.height))
+        scrollView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: frame.width / 3, height: frame.height))
         scrollView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
-        scrollView.contentOffset = CGPointZero
+        scrollView.contentOffset = CGPoint.zero
 
         sizes = measureCells()
     }
 
     func measureCells() -> [CGSize] {
-        return items.enumerate().map { index, _ -> CGSize in
+        return items.enumerated().map { index, _ -> CGSize in
             return self.createMenuCell(AtIndex: index)!.frame.size
         }
     }
@@ -104,14 +104,14 @@ public extension MenuBar {
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
 
-        let size = cell.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: 50, verticalFittingPriority: 50)
+        let size = cell.systemLayoutSizeFitting(UILayoutFittingCompressedSize, withHorizontalFittingPriority: 50, verticalFittingPriority: 50)
         // => systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         cell.frame = CGRect(x: 0, y: 0, width: size.width, height: frame.height)
 
         return cell
     }
 
-    func move(from from: Int, until to: Int) {
+    func move(from: Int, until to: Int) {
 
         if to - from == items.count - 1 {
             moveMinus(from: from, until: to)
@@ -124,7 +124,7 @@ public extension MenuBar {
         }
     }
 
-    func revert(to: Int) {
+    func revert(_ to: Int) {
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             if view.index != to {
                 move(from: view.index, until: to)
@@ -132,7 +132,7 @@ public extension MenuBar {
         }
     }
 
-    private func moveMinus(from from: Int, until to: Int) {
+    private func moveMinus(from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             if view.index == to {
@@ -143,12 +143,12 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from: from, to: to, asc: false)
+            let distance = distanceBetweenCells(from, to: to, asc: false)
             let diff = (sizes[from].width - sizes[to].width) / 2
             let x = scrollView.contentOffset.x - distance - diff
 
             let contentOffset = CGPoint(x: x, y: 0)
-            UIView.animateWithDuration(durationForAnimation, animations: {
+            UIView.animate(withDuration: durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
                     self.completion()
@@ -156,7 +156,7 @@ public extension MenuBar {
         }
     }
 
-    private func movePlus(from from: Int, until to: Int) {
+    private func movePlus(from: Int, until to: Int) {
 
         if let view = scrollView.viewForCurrentPage() as? MenuCell {
             if view.index == to {
@@ -167,12 +167,12 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from: from, to: to, asc: true)
+            let distance = distanceBetweenCells(from, to: to, asc: true)
             let diff = (sizes[from].width - sizes[to].width) / 2
             let x = scrollView.contentOffset.x + distance + diff
 
             let contentOffset = CGPoint(x: x, y: 0)
-            UIView.animateWithDuration(durationForAnimation, animations: {
+            UIView.animate(withDuration: durationForAnimation, animations: {
                 self.scrollView.contentOffset = contentOffset
                 }, completion: { _ in
                     self.completion()
