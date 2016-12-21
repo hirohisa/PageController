@@ -57,7 +57,7 @@ public extension NSArray {
         return a + b
     }
 
-    class func indexesBetween(from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
+    class func indexesBetween(_ from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
         var indexes = [Int]()
 
         var from = from
@@ -85,16 +85,16 @@ public extension NSArray {
 
 public extension MenuBar {
 
-    func createMenuCells(from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
+    func createMenuCells(_ from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
         if asc {
-            return createMenuCellsByIncreasing(from: from, distance: distance, index: index)
+            return createMenuCellsByIncreasing(from, distance: distance, index: index)
         }
 
-        return createMenuCellsByDecreasing(from: from, distance: distance, index: index)
+        return createMenuCellsByDecreasing(from, distance: distance, index: index)
     }
 
-    func distanceBetweenCells(from: Int, to: Int, asc: Bool) -> CGFloat {
-        var indexes = NSArray.indexesBetween(from: from, to: to, count: items.count, asc: asc)
+    func distanceBetweenCells(_ from: Int, to: Int, asc: Bool) -> CGFloat {
+        var indexes = NSArray.indexesBetween(from, to: to, count: items.count, asc: asc)
 
         indexes.remove(at: 0)
 
@@ -104,7 +104,7 @@ public extension MenuBar {
 
 extension MenuBar {
 
-    func createMenuCellsByIncreasing(from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByIncreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var offsetX = from
@@ -122,7 +122,7 @@ extension MenuBar {
         return cells
     }
 
-    func createMenuCellsByDecreasing(from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
+    func createMenuCellsByDecreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
         var cells = [MenuCell]()
 
         var maxX = from
@@ -143,12 +143,12 @@ extension MenuBar {
 
 public extension UIView {
 
-    func include(frame: CGRect) -> Bool {
+    func include(_ frame: CGRect) -> Bool {
         return frame.contains(self.frame) || frame.intersects(self.frame)
     }
 
-    func removeIfExcluded(frame: CGRect) -> Bool {
-        if !include(frame: frame) {
+    func removeIfExcluded(_ frame: CGRect) -> Bool {
+        if !include(frame) {
             removeFromSuperview()
             return true
         }
@@ -172,7 +172,7 @@ public extension Int {
 
 public extension UIViewController {
 
-    func childViewControllerOrderedByX(asc: Bool) -> [UIViewController] {
+    func childViewControllerOrderedByX(_ asc: Bool) -> [UIViewController] {
         return childViewControllers.sorted {
             if asc {
                 return $0.view.frame.origin.x < $1.view.frame.origin.x

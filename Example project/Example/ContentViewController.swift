@@ -13,10 +13,10 @@ class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
 
         let label = UILabel(frame: view.bounds)
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.text = title
         view.addSubview(label)
     }

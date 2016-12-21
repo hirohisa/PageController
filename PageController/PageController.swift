@@ -12,25 +12,25 @@ public protocol PageControllerDelegate: class {
     func pageController(_ pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
 }
 
-public class PageController: UIViewController {
+open class PageController: UIViewController {
 
-    public weak var delegate: PageControllerDelegate?
+    open weak var delegate: PageControllerDelegate?
 
-    public var menuBar: MenuBar = MenuBar(frame: CGRect.zero)
-    public var visibleViewController: UIViewController? {
+    open var menuBar: MenuBar = MenuBar(frame: CGRect.zero)
+    open var visibleViewController: UIViewController? {
         didSet {
             if let visibleViewController = visibleViewController {
                 delegate?.pageController(self, didChangeVisibleController: visibleViewController, fromViewController: oldValue)
             }
         }
     }
-    public var viewControllers: [UIViewController] = [] {
+    open var viewControllers: [UIViewController] = [] {
         didSet {
             _reloadData()
         }
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         _configure()
@@ -138,7 +138,7 @@ extension PageController {
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         for viewController in childViewControllers {
-            if viewController != visibleViewController && !viewController.view.include(frame: frameOfContentSize) {
+            if viewController != visibleViewController && !viewController.view.include(frameOfContentSize) {
                 hideViewController(viewController)
             }
         }
@@ -147,13 +147,13 @@ extension PageController {
         displayViewController(visibleViewController, frame: frameForCenterContentController)
 
         // left
-        var exists = childViewControllers.filter { $0.view.include(frame: self.frameForLeftContentController) }
+        var exists = childViewControllers.filter { $0.view.include(frameForLeftContentController) }
         if exists.isEmpty {
             displayViewController(viewControllers[(index - 1).relative(viewControllers.count)], frame: frameForLeftContentController)
         }
 
         // right
-        exists = childViewControllers.filter { $0.view.include(frame: self.frameForRightContentController) }
+        exists = childViewControllers.filter { $0.view.include(frameForRightContentController) }
         if exists.isEmpty {
             displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController)
         }
@@ -189,7 +189,7 @@ extension PageController {
             let to = NSArray(array: viewControllers).index(of: viewController)
 
             if viewController != visibleViewController {
-                move(from: from, to: to)
+                move(from, to: to)
                 return
             }
 
@@ -202,7 +202,7 @@ extension PageController {
         }
     }
 
-    func move(from: Int, to: Int) {
+    func move(_ from: Int, to: Int) {
 
         let width = scrollView.frame.width
         if scrollView.contentOffset.x > width * 1.5 {

@@ -76,29 +76,29 @@ class ExtensionTests: XCTestCase {
         var result: [MenuCell]!
         // asc
 
-        result = menuBar.createMenuCells(from: 0, distance: 38, index: 0, asc: true)
+        result = menuBar.createMenuCells(0, distance: 38, index: 0, asc: true)
         XCTAssertEqual(result.count, 1, "is failed")
         XCTAssertEqual(result[0].index, 0, "is failed")
 
 
-        result = menuBar.createMenuCells(from: 0, distance: 39, index: 0, asc: true)
+        result = menuBar.createMenuCells(0, distance: 39, index: 0, asc: true)
         XCTAssertEqual(result.count, 2, "is failed")
         XCTAssertEqual(result[0].index, 0, "is failed")
         XCTAssertEqual(result[1].index, 1, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 3, asc: true)
+        result = menuBar.createMenuCells(5, distance: 100, index: 3, asc: true)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 3, "is failed")
         XCTAssertEqual(result[1].index, 4, "is failed")
         XCTAssertEqual(result[2].index, 5, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 9, asc: true)
+        result = menuBar.createMenuCells(5, distance: 100, index: 9, asc: true)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 9, "is failed")
         XCTAssertEqual(result[1].index, 0, "is failed")
         XCTAssertEqual(result[2].index, 1, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 10, asc: true)
+        result = menuBar.createMenuCells(5, distance: 100, index: 10, asc: true)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 0, "is failed")
         XCTAssertEqual(result[1].index, 1, "is failed")
@@ -106,33 +106,33 @@ class ExtensionTests: XCTestCase {
 
         // desc
 
-        result = menuBar.createMenuCells(from: 100, distance: 38, index: 9, asc: false)
+        result = menuBar.createMenuCells(100, distance: 38, index: 9, asc: false)
         XCTAssertEqual(result.count, 1, "is failed")
         XCTAssertEqual(result[0].index, 9, "is failed")
 
-        result = menuBar.createMenuCells(from: 100, distance: 39, index: 9, asc: false)
+        result = menuBar.createMenuCells(100, distance: 39, index: 9, asc: false)
         XCTAssertEqual(result.count, 2, "is failed")
         XCTAssertEqual(result[0].index, 9, "is failed")
         XCTAssertEqual(result[1].index, 8, "is failed")
 
-        result = menuBar.createMenuCells(from: 10, distance: 39, index: 9, asc: false)
+        result = menuBar.createMenuCells(10, distance: 39, index: 9, asc: false)
         XCTAssertEqual(result.count, 2, "is failed")
         XCTAssertEqual(result[0].index, 9, "is failed")
         XCTAssertEqual(result[1].index, 8, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 5, asc: false)
+        result = menuBar.createMenuCells(5, distance: 100, index: 5, asc: false)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 5, "is failed")
         XCTAssertEqual(result[1].index, 4, "is failed")
         XCTAssertEqual(result[2].index, 3, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 1, asc: false)
+        result = menuBar.createMenuCells(5, distance: 100, index: 1, asc: false)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 1, "is failed")
         XCTAssertEqual(result[1].index, 0, "is failed")
         XCTAssertEqual(result[2].index, 9, "is failed")
 
-        result = menuBar.createMenuCells(from: 5, distance: 100, index: 10, asc: false)
+        result = menuBar.createMenuCells(5, distance: 100, index: 10, asc: false)
         XCTAssertEqual(result.count, 3, "is failed")
         XCTAssertEqual(result[0].index, 0, "is failed")
         XCTAssertEqual(result[1].index, 9, "is failed")
@@ -145,27 +145,27 @@ class ExtensionTests: XCTestCase {
         var result: [Int]!
         var valid: [Int]!
 
-        result = NSArray.indexesBetween(from: 0, to: 1, count:5, asc: true)
+        result = NSArray.indexesBetween(0, to: 1, count:5, asc: true)
         valid = [0, 1]
         XCTAssertEqual(result, valid, "is failed")
 
-        result = NSArray.indexesBetween(from: 1, to: 4, count:5, asc: true)
+        result = NSArray.indexesBetween(1, to: 4, count:5, asc: true)
         valid = [1, 2, 3, 4]
         XCTAssertEqual(result, valid, "is failed")
 
-        result = NSArray.indexesBetween(from: 1, to: 8, count:5, asc: true)
+        result = NSArray.indexesBetween(1, to: 8, count:5, asc: true)
         valid = [1, 2, 3, 4, 0, 1, 2, 3]
         XCTAssertEqual(result, valid, "is failed")
 
-        result = NSArray.indexesBetween(from: 3, to: 1, count:5, asc: true)
+        result = NSArray.indexesBetween(3, to: 1, count:5, asc: true)
         valid = [3, 4, 0, 1]
         XCTAssertEqual(result, valid, "is failed")
 
-        result = NSArray.indexesBetween(from: 1, to: 0, count:5, asc: false)
+        result = NSArray.indexesBetween(1, to: 0, count:5, asc: false)
         valid = [1, 0]
         XCTAssertEqual(result, valid, "is failed")
 
-        result = NSArray.indexesBetween(from: 4, to: 0, count:5, asc: false)
+        result = NSArray.indexesBetween(4, to: 0, count:5, asc: false)
         valid = [4, 3, 2, 1, 0]
         XCTAssertEqual(result, valid, "is failed")
     }
@@ -185,19 +185,19 @@ class ExtensionTests: XCTestCase {
         var result: CGFloat!
         var valid: CGFloat!
 
-        result = menuBar.distanceBetweenCells(from: 0, to: 1, asc: true)
+        result = menuBar.distanceBetweenCells(0, to: 1, asc: true)
         valid = 39
         XCTAssertEqual(result, valid, "is failed")
 
-        result = menuBar.distanceBetweenCells(from: 2, to: 5, asc: true)
+        result = menuBar.distanceBetweenCells(2, to: 5, asc: true)
         valid = 39 * 3
         XCTAssertEqual(result, valid, "is failed")
 
-        result = menuBar.distanceBetweenCells(from: 5, to: 2, asc: false)
+        result = menuBar.distanceBetweenCells(5, to: 2, asc: false)
         valid = 39 * 3
         XCTAssertEqual(result, valid, "is failed")
 
-        result = menuBar.distanceBetweenCells(from: 1, to: -2, asc: false)
+        result = menuBar.distanceBetweenCells(1, to: -2, asc: false)
         valid = 39 * 3
         XCTAssertEqual(result, valid, "is failed")
 
@@ -214,7 +214,7 @@ class ExtensionTests: XCTestCase {
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = false
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
 
@@ -222,7 +222,7 @@ class ExtensionTests: XCTestCase {
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = false
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
 
@@ -230,14 +230,14 @@ class ExtensionTests: XCTestCase {
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = false
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
         view = UIView(frame: CGRect(x: -20, y: 0, width: 50, height: 44))
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = false
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
 
@@ -245,7 +245,7 @@ class ExtensionTests: XCTestCase {
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = true
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
 
@@ -253,14 +253,14 @@ class ExtensionTests: XCTestCase {
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = true
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
 
         view = UIView(frame: CGRect(x: -200, y: 0, width: 100, height: 44))
         frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         valid = true
 
-        result = view.removeIfExcluded(frame: frame)
+        result = view.removeIfExcluded(frame)
         XCTAssertEqual(result, valid, "is failed")
     }
 

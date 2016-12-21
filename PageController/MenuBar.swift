@@ -143,7 +143,7 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from: from, to: to, asc: false)
+            let distance = distanceBetweenCells(from, to: to, asc: false)
             let diff = (sizes[from].width - sizes[to].width) / 2
             let x = scrollView.contentOffset.x - distance - diff
 
@@ -167,7 +167,7 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from: from, to: to, asc: true)
+            let distance = distanceBetweenCells(from, to: to, asc: true)
             let diff = (sizes[from].width - sizes[to].width) / 2
             let x = scrollView.contentOffset.x + distance + diff
 

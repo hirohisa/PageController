@@ -10,7 +10,7 @@ import UIKit
 
 extension MenuBar {
 
-    public class ContainerView: UIScrollView {
+    open class ContainerView: UIScrollView {
 
         weak var bar: MenuBar?
         var visibledCells = [MenuCell]()
@@ -34,7 +34,7 @@ extension MenuBar {
             delegate = self
         }
 
-        public override func layoutSubviews() {
+        open override func layoutSubviews() {
             super.layoutSubviews()
 
             if frame.size == CGSize.zero {
@@ -85,14 +85,14 @@ extension MenuBar.ContainerView {
 
         let frame = bar!.frame
 
-        let cells = visibledCells.filter { !$0.removeIfExcluded(frame: self.bar!.bounds) }
+        let cells = visibledCells.filter { !$0.removeIfExcluded(self.bar!.bounds) }
 
         var newCells = [MenuCell]()
         if let first = cells.first, let last = cells.last {
             var distance = abs(first.frame.minX - frame.minX)
-            newCells += bar!.createMenuCells(from: first.frame.minX, distance: distance + bar!.frame.width, index: first.index - 1, asc: false)
+            newCells += bar!.createMenuCells(first.frame.minX, distance: distance + bar!.frame.width, index: first.index - 1, asc: false)
             distance = abs(last.frame.maxX - frame.maxX)
-            newCells += bar!.createMenuCells(from: last.frame.maxX, distance: distance + bar!.frame.width, index: last.index + 1, asc: true)
+            newCells += bar!.createMenuCells(last.frame.maxX, distance: distance + bar!.frame.width, index: last.index + 1, asc: true)
             for newCell in newCells {
                 addSubview(newCell)
             }
@@ -106,7 +106,7 @@ extension MenuBar.ContainerView {
 
 extension MenuBar.ContainerView {
 
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         if let touch = touches.first {
             let point = touch.location(in: self)

@@ -8,21 +8,21 @@
 
 import UIKit
 
-public class MenuCell: UIView {
+open class MenuCell: UIView {
 
-    public let titleLabel = UILabel(frame: CGRect.zero)
+    open let titleLabel = UILabel(frame: CGRect.zero)
     /**
 
     Margins between cells are zero, because it is difficult that calculating distance of scrolling. If you change margins between cell's labels, use constentInset.
 
     */
-    public var contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) {
+    open var contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) {
         didSet {
             updateContentInset()
         }
     }
 
-    public var selected: Bool {
+    open var selected: Bool {
         return _selected
     }
 
@@ -31,14 +31,14 @@ public class MenuCell: UIView {
             updateData()
         }
     }
-    public var backgroundView: UIView? {
+    open var backgroundView: UIView? {
         didSet {
             if let view = backgroundView {
                 insertSubview(view, belowSubview: titleLabel)
             }
         }
     }
-    public var selectedBackgroundView: UIView? {
+    open var selectedBackgroundView: UIView? {
         didSet {
             if let view = selectedBackgroundView {
                 insertSubview(view, belowSubview: titleLabel)
@@ -61,20 +61,20 @@ public class MenuCell: UIView {
     If property cell's selected is changed, `updateData()` is called. You customize animations of activate to dis-activate, or dis-activate to activate, implement as override `updateData()`.
 
     */
-    public func updateData() {
+    open func updateData() {
         backgroundView?.isHidden = selected
         backgroundView?.frame = bounds
         selectedBackgroundView?.isHidden = !selected
         selectedBackgroundView?.frame = bounds
     }
 
-    public override var frame: CGRect {
+    open override var frame: CGRect {
         didSet {
             updateData()
         }
     }
 
-    public var index = 0
+    open var index = 0
 }
 
 extension MenuCell {

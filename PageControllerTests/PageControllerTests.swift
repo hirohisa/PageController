@@ -35,7 +35,7 @@ class PageControllerTests: XCTestCase {
         pageController.viewControllers = viewControllers
         pageController.viewDidLoad()
 
-        result = pageController.childViewControllerOrderedByX(asc: true)
+        result = pageController.childViewControllerOrderedByX(true)
         valid = [
             viewControllers[3],
             viewControllers[0],
@@ -49,7 +49,7 @@ class PageControllerTests: XCTestCase {
 
         pageController.reloadPages(AtIndex: 0)
 
-        result = pageController.childViewControllerOrderedByX(asc: true)
+        result = pageController.childViewControllerOrderedByX(true)
         valid = [
             viewControllers[3],
             viewControllers[0],
@@ -63,7 +63,7 @@ class PageControllerTests: XCTestCase {
 
         pageController.reloadPages(AtIndex: 1)
 
-        result = pageController.childViewControllerOrderedByX(asc: true)
+        result = pageController.childViewControllerOrderedByX(true)
         valid = [
             viewControllers[0],
             viewControllers[1],
@@ -77,7 +77,7 @@ class PageControllerTests: XCTestCase {
 
         pageController.reloadPages(AtIndex: 3)
 
-        result = pageController.childViewControllerOrderedByX(asc: true)
+        result = pageController.childViewControllerOrderedByX(true)
         valid = [
             viewControllers[2],
             viewControllers[3],
