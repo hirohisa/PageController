@@ -7,7 +7,7 @@ PageController
 
 PageController is infinite paging controller, scrolling through contents and title bar scrolls with a delay. Then it provide user interaction to smoothly and effortlessly moving. It is for iOS written in Swift.
 
-![sample](Example project/example.gif)
+![sample](Example%20project/example.gif)
 
 Requirements
 ----------
