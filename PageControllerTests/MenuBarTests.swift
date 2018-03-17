@@ -31,7 +31,7 @@ class MenuBarTests: XCTestCase {
         menuBar.reloadData(atIndex: 0)
 
         view = menuBar.scrollView.viewForCurrentPage() as! MenuCell
-        XCTAssertEqual(view.index, 0, "is failed")
+        XCTAssertEqual(view.index, 0)
 
     }
 
@@ -48,14 +48,14 @@ class MenuBarTests: XCTestCase {
 
         menuBar.reloadData(atIndex: 0)
         menuBar.layoutIfNeeded()
-        XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
+        XCTAssertEqual(menuBar.selectedIndex, 0)
         menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
         let dispatchTime = DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
             menuBar.layoutIfNeeded()
-            XCTAssertEqual(menuBar.selectedIndex, 3, "is failed.")
+            XCTAssertEqual(menuBar.selectedIndex, 3)
             expectation.fulfill()
         })
 
@@ -79,14 +79,14 @@ class MenuBarTests: XCTestCase {
 
         menuBar.reloadData(atIndex: 0)
         menuBar.layoutIfNeeded()
-        XCTAssertEqual(menuBar.selectedIndex, 0, "is failed.")
+        XCTAssertEqual(menuBar.selectedIndex, 0)
         menuBar.move(from: 0, until: 3)
 
         let after = 0.3 * Double(NSEC_PER_SEC)
         let dispatchTime = DispatchTime.now() + Double(Int64(after)) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
             menuBar.layoutIfNeeded()
-            XCTAssertEqual(menuBar.selectedIndex, 3, "is failed.")
+            XCTAssertEqual(menuBar.selectedIndex, 3)
             expectation.fulfill()
         })
 

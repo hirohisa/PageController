@@ -24,7 +24,7 @@ class CustomMenuCell: MenuCell {
     override func updateData() {
         super.updateData()
 
-        titleLabel.textColor = selected ? UIColor.blackColor() : UIColor.grayColor()
+        titleLabel.textColor = selected ? UIColor.black : UIColor.gray
     }
 }
 
@@ -33,7 +33,7 @@ class CustomViewController: PageController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+        menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         menuBar.registerClass(CustomMenuCell.self)
         delegate = self
         viewControllers = createViewControllers()
@@ -70,8 +70,8 @@ extension CustomViewController {
 extension CustomViewController: PageControllerDelegate {
 
     func pageController(_ pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?) {
-        print("now title is \(pageController.visibleViewController?.title)")
-        print("did change from \(fromViewController?.title) to \(visibleViewController.title)")
+        print("now title is \(String(describing: pageController.visibleViewController?.title))")
+        print("did change from \(String(describing: fromViewController?.title)) to \(String(describing: visibleViewController.title))")
         if pageController.visibleViewController == visibleViewController {
             print("visibleViewController is assigned pageController.visibleViewController")
         }

@@ -42,10 +42,10 @@ class PageControllerTests: XCTestCase {
             viewControllers[1],
         ]
 
-        XCTAssertEqual(result, valid, "is falied")
-        XCTAssertEqual(result[0].view.frame.origin.x, 0, "is failed")
-        XCTAssertEqual(result[1].view.frame.origin.x, 320, "is failed")
-        XCTAssertEqual(result[2].view.frame.origin.x, 640, "is failed")
+        XCTAssertEqual(result, valid)
+        XCTAssertEqual(result[0].view.frame.origin.x, 0)
+        XCTAssertEqual(result[1].view.frame.origin.x, 320)
+        XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
         pageController.reloadPages(AtIndex: 0)
 
@@ -56,10 +56,10 @@ class PageControllerTests: XCTestCase {
             viewControllers[1],
         ]
 
-        XCTAssertEqual(result, valid, "is falied")
-        XCTAssertEqual(result[0].view.frame.origin.x, 0, "is failed")
-        XCTAssertEqual(result[1].view.frame.origin.x, 320, "is failed")
-        XCTAssertEqual(result[2].view.frame.origin.x, 640, "is failed")
+        XCTAssertEqual(result, valid)
+        XCTAssertEqual(result[0].view.frame.origin.x, 0)
+        XCTAssertEqual(result[1].view.frame.origin.x, 320)
+        XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
         pageController.reloadPages(AtIndex: 1)
 
@@ -70,10 +70,10 @@ class PageControllerTests: XCTestCase {
             viewControllers[2],
         ]
 
-        XCTAssertEqual(result, valid, "is falied")
-        XCTAssertEqual(result[0].view.frame.origin.x, 0, "is failed")
-        XCTAssertEqual(result[1].view.frame.origin.x, 320, "is failed")
-        XCTAssertEqual(result[2].view.frame.origin.x, 640, "is failed")
+        XCTAssertEqual(result, valid)
+        XCTAssertEqual(result[0].view.frame.origin.x, 0)
+        XCTAssertEqual(result[1].view.frame.origin.x, 320)
+        XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
         pageController.reloadPages(AtIndex: 3)
 
@@ -84,10 +84,10 @@ class PageControllerTests: XCTestCase {
             viewControllers[0],
         ]
 
-        XCTAssertEqual(result, valid, "is falied")
-        XCTAssertEqual(result[0].view.frame.origin.x, 0, "is failed")
-        XCTAssertEqual(result[1].view.frame.origin.x, 320, "is failed")
-        XCTAssertEqual(result[2].view.frame.origin.x, 640, "is failed")
+        XCTAssertEqual(result, valid)
+        XCTAssertEqual(result[0].view.frame.origin.x, 0)
+        XCTAssertEqual(result[1].view.frame.origin.x, 320)
+        XCTAssertEqual(result[2].view.frame.origin.x, 640)
     }
 
 }
