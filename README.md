@@ -40,6 +40,14 @@ Installation
 pod 'PageController'
 ```
 
+### Carthage
+
+To integrate PageController into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "hirohisa/PageController" ~> 0.6.0
+```
+
 Usage
 ----------
 
