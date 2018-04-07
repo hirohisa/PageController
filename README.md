@@ -36,22 +36,16 @@ Installation
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
-
-To integrate PageController into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
 pod 'PageController'
 ```
 
-Then, run the following command:
+### Carthage
 
-```bash
-$ pod install
+To integrate PageController into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "hirohisa/PageController" ~> 0.6.0
 ```
 
 Usage
