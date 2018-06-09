@@ -10,7 +10,7 @@ import UIKit
 
 extension PageController {
 
-    class ContainerView: UIScrollView {
+    class ContainerView: ScrollView {
 
         weak var controller: PageController? {
             didSet {

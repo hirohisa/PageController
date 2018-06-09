@@ -13,7 +13,7 @@ public protocol MenuBarCellable {
     func setTitle(_ title: String)
     func setHighlighted(_ highlighted: Bool)
     // func setHighlighted(_ highlighted: Bool, animated: Bool)
-    func prepareForReuse()
+    func prepareForUse()
 }
 
 class MenuBarCell: UIView, MenuBarCellable {
@@ -39,12 +39,12 @@ class MenuBarCell: UIView, MenuBarCellable {
     public func setHighlighted(_ highlighted: Bool) {
     }
 
-    public func prepareForReuse() {
+    public func prepareForUse() {
     }
 
     open override var frame: CGRect {
         didSet {
-            prepareForReuse()
+            prepareForUse()
         }
     }
 

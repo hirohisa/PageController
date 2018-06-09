@@ -33,7 +33,7 @@ public class MenuBar: UIView {
     }
 
     public var selectedIndex: Int {
-        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
+        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
             return view.index
         }
 
@@ -56,15 +56,18 @@ public class MenuBar: UIView {
         configure()
     }
 
-    public let scrollView = ContainerView(frame: CGRect.zero)
-    fileprivate var animating = false
+    let containerView = ContainerView(frame: CGRect.zero)
+    public var scrollView: UIScrollView {
+        return containerView
+    }
+    private var animating = false
 }
 
 public extension MenuBar {
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if self.point(inside: point, with: event) {
-            return scrollView
+            return containerView
         }
 
         return super.hitTest(point, with: event)
@@ -74,38 +77,38 @@ public extension MenuBar {
 public extension MenuBar {
 
     func reloadData(atIndex index: Int) {
-        menubar_configure()
+        prepareForReloadData()
 
-        scrollView.reloadData(at: index)
+        containerView.reloadData(at: index)
         controller?.reloadPages(at: index)
     }
 
-    func menubar_configure() {
+    func prepareForReloadData() {
         if items.count == 0 || frame == CGRect.zero {
             return
         }
 
-        scrollView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: frame.width / 3, height: frame.height))
-        scrollView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
-        scrollView.contentOffset = CGPoint.zero
+        containerView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: frame.width / 3, height: frame.height))
+        containerView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        containerView.contentSize = CGSize(width: frame.width, height: frame.height)
+        containerView.contentOffset = CGPoint.zero
 
-        sizes = measureCells()
+        sizes = measureMenuBarCells()
     }
 
-    func measureCells() -> [CGSize] {
+    func measureMenuBarCells() -> [CGSize] {
         return items.enumerated().map { index, _ -> CGSize in
-            return self.dequeueCell(at: index)!.frame.size
+            return self.createMenuBarCell(at: index)!.frame.size
         }
     }
 
-    func dequeueCell(at index: Int) -> UIView? {
-        guard let cell = createCell(at: index) else { return nil }
+    func createMenuBarCell(at index: Int) -> UIView? {
+        guard let cell = createMenuBarCellFromNibOrClass(at: index) else { return nil }
 
         if var cell = cell as? MenuBarCellable {
             cell.setTitle(items[index])
             cell.index = index
-            cell.prepareForReuse()
+            cell.prepareForUse()
         }
 
         cell.updateConstraints()
@@ -119,7 +122,7 @@ public extension MenuBar {
         return cell
     }
 
-    func createCell(at index: Int) -> UIView? {
+    func createMenuBarCellFromNibOrClass(at index: Int) -> UIView? {
         if index >= items.count { return nil }
 
         if let nib = nib, let cell = nib.instantiate(withOwner: nil, options: nil).last as? UIView, let _ = cell as? MenuBarCellable {
@@ -146,7 +149,7 @@ public extension MenuBar {
     }
 
     func revert(_ to: Int) {
-        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
+        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
             if view.index != to {
                 move(from: view.index, until: to)
             }
@@ -155,7 +158,7 @@ public extension MenuBar {
 
     private func moveMinus(from: Int, until to: Int) {
 
-        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
+        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
             if view.index == to {
                 return
             }
@@ -164,13 +167,13 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from, to: to, asc: false)
+            let distance = distanceBetweenMenuBarCells(from, to: to, asc: false)
             let diff = (sizes[from].width - sizes[to].width) / 2
-            let x = scrollView.contentOffset.x - distance - diff
+            let x = containerView.contentOffset.x - distance - diff
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animate(withDuration: durationForAnimation, animations: {
-                self.scrollView.contentOffset = contentOffset
+                self.containerView.contentOffset = contentOffset
                 }, completion: { _ in
                     self.completion()
             })
@@ -179,7 +182,7 @@ public extension MenuBar {
 
     private func movePlus(from: Int, until to: Int) {
 
-        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
+        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
             if view.index == to {
                 return
             }
@@ -188,13 +191,13 @@ public extension MenuBar {
             }
             animating = true
 
-            let distance = distanceBetweenCells(from, to: to, asc: true)
+            let distance = distanceBetweenMenuBarCells(from, to: to, asc: true)
             let diff = (sizes[from].width - sizes[to].width) / 2
-            let x = scrollView.contentOffset.x + distance + diff
+            let x = containerView.contentOffset.x + distance + diff
 
             let contentOffset = CGPoint(x: x, y: 0)
             UIView.animate(withDuration: durationForAnimation, animations: {
-                self.scrollView.contentOffset = contentOffset
+                self.containerView.contentOffset = contentOffset
                 }, completion: { _ in
                     self.completion()
             })
@@ -203,7 +206,7 @@ public extension MenuBar {
 
     private func completion() {
         animating = false
-        scrollView.updateSubviews()
+        containerView.updateSubviews()
     }
 
     func contentDidChangePage(AtIndex index: Int) {
@@ -217,7 +220,7 @@ extension MenuBar {
     func configure() {
         clipsToBounds = true
 
-        scrollView.bar = self
-        addSubview(scrollView)
+        containerView.bar = self
+        addSubview(containerView)
     }
 }

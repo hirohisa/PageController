@@ -29,33 +29,7 @@ public extension PageController {
 
 }
 
-// TODO: swift 2.0 allows extensions to generic types, use Array
-
 public extension NSArray {
-
-    func swapByIndex<T>(_ index: Int) -> [T] {
-        if index >= self.count {
-            return []
-        }
-
-        var a = [T]()
-        var b = [T]()
-
-        var hit = false
-        for (i, obj) in self.enumerated() {
-            if i == index {
-                hit = true
-            }
-
-            if hit {
-                a.append(obj as! T)
-            } else {
-                b.append(obj as! T)
-            }
-        }
-
-        return a + b
-    }
 
     class func indexesBetween(_ from: Int, to: Int, count: Int, asc: Bool) -> [Int] {
         var indexes = [Int]()
@@ -93,7 +67,7 @@ public extension MenuBar {
         return createMenuBarCellsByDecreasing(from, distance: distance, index: index)
     }
 
-    func distanceBetweenCells(_ from: Int, to: Int, asc: Bool) -> CGFloat {
+    func distanceBetweenMenuBarCells(_ from: Int, to: Int, asc: Bool) -> CGFloat {
         var indexes = NSArray.indexesBetween(from, to: to, count: items.count, asc: asc)
 
         indexes.remove(at: 0)
@@ -111,7 +85,7 @@ extension MenuBar {
         var index = index
         while offsetX <= from + distance {
             let size = sizes[index.relative(items.count)]
-            if let cell = dequeueCell(at: index.relative(items.count)) {
+            if let cell = createMenuBarCell(at: index.relative(items.count)) {
                 cell.frame = CGRect(x: offsetX, y: 0, width: size.width, height: size.height)
                 cells.append(cell)
                 offsetX = cell.frame.maxX
@@ -129,7 +103,7 @@ extension MenuBar {
         var index = index
         while maxX >= from - distance {
             let size = sizes[index.relative(items.count)]
-            if let cell = dequeueCell(at: index.relative(items.count)) {
+            if let cell = createMenuBarCell(at: index.relative(items.count)) {
                 cell.frame = CGRect(x: maxX - size.width, y: 0, width: size.width, height: size.height)
                 cells.append(cell)
                 maxX = cell.frame.minX
@@ -182,7 +156,7 @@ public extension UIViewController {
     }
 }
 
-public extension UIScrollView {
+class ScrollView: UIScrollView {
 
     func needsRecenter() -> Bool {
 
