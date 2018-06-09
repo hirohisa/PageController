@@ -1,5 +1,5 @@
 //
-//  MenuCell.swift
+//  MenuBarCell.swift
 //  PageController
 //
 //  Created by Hirohisa Kawasaki on 6/30/15.
@@ -16,7 +16,7 @@ public protocol MenuBarCellable {
     func prepareForReuse()
 }
 
-class MenuCell: UIView, MenuBarCellable {
+class MenuBarCell: UIView, MenuBarCellable {
 
     public var index = 0
     let titleLabel = UILabel(frame: CGRect.zero)
