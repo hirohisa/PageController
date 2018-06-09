@@ -20,10 +20,11 @@ public class MenuBar: UIView {
     }
     var sizes: [CGSize] = []
 
-    private var cellClass: MenuCell.Type?
+    private var cellClass: UIView.Type?
     private var nib: UINib?
 
-    public func register(_ cellClass: MenuCell.Type) {
+    public func register(_ cellClass: MenuBarCellable) {
+        guard let cellClass = cellClass as? UIView.Type else { fatalError() }
         self.cellClass = cellClass
     }
 
@@ -32,7 +33,7 @@ public class MenuBar: UIView {
     }
 
     public var selectedIndex: Int {
-        if let view = scrollView.viewForCurrentPage() as? MenuCell {
+        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
             return view.index
         }
 
@@ -98,14 +99,16 @@ public extension MenuBar {
         }
     }
 
-    func dequeueCell(at index: Int) -> MenuCell? {
+    func dequeueCell(at index: Int) -> UIView? {
         guard let cell = createCell(at: index) else { return nil }
 
-        cell.titleLabel.text = items[index]
-        cell.index = index
-        cell.updateData()
-        cell.updateConstraints()
+        if var cell = cell as? MenuBarCellable {
+            cell.setTitle(items[index])
+            cell.index = index
+            cell.prepareForReuse()
+        }
 
+        cell.updateConstraints()
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
 
@@ -116,10 +119,10 @@ public extension MenuBar {
         return cell
     }
 
-    func createCell(at index: Int) -> MenuCell? {
+    func createCell(at index: Int) -> UIView? {
         if index >= items.count { return nil }
 
-        if let nib = nib, let cell = nib.instantiate(withOwner: nil, options: nil).last as? MenuCell {
+        if let nib = nib, let cell = nib.instantiate(withOwner: nil, options: nil).last as? UIView, let _ = cell as? MenuBarCellable {
             return cell
         }
         if let cellClass = cellClass {
@@ -143,7 +146,7 @@ public extension MenuBar {
     }
 
     func revert(_ to: Int) {
-        if let view = scrollView.viewForCurrentPage() as? MenuCell {
+        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
             if view.index != to {
                 move(from: view.index, until: to)
             }
@@ -152,7 +155,7 @@ public extension MenuBar {
 
     private func moveMinus(from: Int, until to: Int) {
 
-        if let view = scrollView.viewForCurrentPage() as? MenuCell {
+        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
             if view.index == to {
                 return
             }
@@ -176,7 +179,7 @@ public extension MenuBar {
 
     private func movePlus(from: Int, until to: Int) {
 
-        if let view = scrollView.viewForCurrentPage() as? MenuCell {
+        if let view = scrollView.viewForCurrentPage() as? MenuBarCellable {
             if view.index == to {
                 return
             }

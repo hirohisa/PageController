@@ -13,7 +13,7 @@ extension MenuBar {
     open class ContainerView: UIScrollView {
 
         weak var bar: MenuBar?
-        var visibledCells = [MenuCell]()
+        var visibledCells = [UIView]()
 
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -71,7 +71,10 @@ extension MenuBar.ContainerView {
             cell.removeFromSuperview()
         }
 
-        currentCell._selected = true
+        if let cell = currentCell as? MenuBarCellable {
+            cell.setHighlighted(true)
+        }
+
         addSubview(currentCell)
         currentCell.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         visibledCells = [currentCell]
@@ -87,12 +90,12 @@ extension MenuBar.ContainerView {
 
         let cells = visibledCells.filter { !$0.removeIfExcluded(self.bar!.bounds) }
 
-        var newCells = [MenuCell]()
-        if let first = cells.first, let last = cells.last {
+        var newCells = [UIView]()
+        if let first = cells.first, let last = cells.last, let castedFirst = first as? MenuBarCellable, let castedLast = last as? MenuBarCellable {
             var distance = abs(first.frame.minX - frame.minX)
-            newCells += bar!.createMenuCells(first.frame.minX, distance: distance + bar!.frame.width, index: first.index - 1, asc: false)
+            newCells += bar!.createMenuBarCells(first.frame.minX, distance: distance + bar!.frame.width, index: castedFirst.index - 1, asc: false)
             distance = abs(last.frame.maxX - frame.maxX)
-            newCells += bar!.createMenuCells(last.frame.maxX, distance: distance + bar!.frame.width, index: last.index + 1, asc: true)
+            newCells += bar!.createMenuBarCells(last.frame.maxX, distance: distance + bar!.frame.width, index: castedLast.index + 1, asc: true)
             for newCell in newCells {
                 addSubview(newCell)
             }
@@ -130,8 +133,7 @@ extension MenuBar.ContainerView {
     }
 
     func adjustCurrentPageToCenter(_ animated: Bool = true) {
-        if let view = viewForCurrentPage() as? MenuCell {
-
+        if let view = viewForCurrentPage(), let _ = view as? MenuBarCellable {
             let offset = CGPoint(x: view.frame.minX - (frame.width - view.frame.width) / 2, y: 0)
             scrollOffsetTo(offset, animated: animated)
         }
@@ -147,13 +149,13 @@ extension MenuBar.ContainerView {
     }
 
     func updateSubviews() {
-        if let view = viewForCurrentPage() as? MenuCell {
+        if let view = viewForCurrentPage(), let current = view as? MenuBarCellable {
             for subview in subviews {
-                if let subview = subview as? MenuCell {
-                    subview._selected = (subview == view)
+                if let cell = subview as? MenuBarCellable {
+                    cell.setHighlighted((subview == view))
                 }
             }
-            bar?.contentDidChangePage(AtIndex: view.index)
+            bar?.contentDidChangePage(AtIndex: current.index)
         }
         render()
     }

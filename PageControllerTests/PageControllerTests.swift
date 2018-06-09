@@ -47,7 +47,7 @@ class PageControllerTests: XCTestCase {
         XCTAssertEqual(result[1].view.frame.origin.x, 320)
         XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
-        pageController.reloadPages(AtIndex: 0)
+        pageController.reloadPages(at: 0)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -61,7 +61,7 @@ class PageControllerTests: XCTestCase {
         XCTAssertEqual(result[1].view.frame.origin.x, 320)
         XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
-        pageController.reloadPages(AtIndex: 1)
+        pageController.reloadPages(at: 1)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -75,7 +75,7 @@ class PageControllerTests: XCTestCase {
         XCTAssertEqual(result[1].view.frame.origin.x, 320)
         XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
-        pageController.reloadPages(AtIndex: 3)
+        pageController.reloadPages(at: 3)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [

@@ -9,32 +9,13 @@
 import UIKit
 import PageController
 
-class CustomMenuCell: MenuCell {
-
-    required init(frame: CGRect) {
-        super.init(frame: frame)
-
-        contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 1, right: 40)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func updateData() {
-        super.updateData()
-
-        titleLabel.textColor = selected ? UIColor.black : UIColor.gray
-    }
-}
-
 class CustomViewController: PageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
-        menuBar.register(CustomMenuCell.self)
+        menuBar.register(UINib(nibName: "CustomMenuBarCell", bundle: nil))
         delegate = self
         viewControllers = createViewControllers()
     }

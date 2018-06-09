@@ -23,14 +23,13 @@ class MenuBarTests: XCTestCase {
     func testReload() {
 
         var menuBar: MenuBar!
-        var view: MenuCell!
 
         menuBar = MenuBar(frame: CGRect.zero)
         menuBar.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
         menuBar.items = ["1", "2", "3"]
         menuBar.reloadData(atIndex: 0)
 
-        view = menuBar.scrollView.viewForCurrentPage() as! MenuCell
+        let view = menuBar.scrollView.viewForCurrentPage() as! MenuBarCellable
         XCTAssertEqual(view.index, 0)
 
     }

@@ -85,12 +85,12 @@ public extension NSArray {
 
 public extension MenuBar {
 
-    func createMenuCells(_ from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [MenuCell] {
+    func createMenuBarCells(_ from: CGFloat, distance: CGFloat, index: Int, asc: Bool) -> [UIView] {
         if asc {
-            return createMenuCellsByIncreasing(from, distance: distance, index: index)
+            return createMenuBarCellsByIncreasing(from, distance: distance, index: index)
         }
 
-        return createMenuCellsByDecreasing(from, distance: distance, index: index)
+        return createMenuBarCellsByDecreasing(from, distance: distance, index: index)
     }
 
     func distanceBetweenCells(_ from: Int, to: Int, asc: Bool) -> CGFloat {
@@ -104,8 +104,8 @@ public extension MenuBar {
 
 extension MenuBar {
 
-    func createMenuCellsByIncreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
-        var cells = [MenuCell]()
+    func createMenuBarCellsByIncreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [UIView] {
+        var cells: [UIView] = []
 
         var offsetX = from
         var index = index
@@ -122,8 +122,8 @@ extension MenuBar {
         return cells
     }
 
-    func createMenuCellsByDecreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [MenuCell] {
-        var cells = [MenuCell]()
+    func createMenuBarCellsByDecreasing(_ from: CGFloat, distance: CGFloat, index: Int) -> [UIView] {
+        var cells: [UIView] = []
 
         var maxX = from
         var index = index

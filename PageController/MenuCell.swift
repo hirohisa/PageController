@@ -8,43 +8,18 @@
 
 import UIKit
 
-open class MenuCell: UIView {
+public protocol MenuBarCellable {
+    var index: Int { get set }
+    func setTitle(_ title: String)
+    func setHighlighted(_ highlighted: Bool)
+    // func setHighlighted(_ highlighted: Bool, animated: Bool)
+    func prepareForReuse()
+}
 
-    open let titleLabel = UILabel(frame: CGRect.zero)
-    /**
+class MenuCell: UIView, MenuBarCellable {
 
-    Margins between cells are zero, because it is difficult that calculating distance of scrolling. If you change margins between cell's labels, use constentInset.
-
-    */
-    open var contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) {
-        didSet {
-            updateContentInset()
-        }
-    }
-
-    open var selected: Bool {
-        return _selected
-    }
-
-    var _selected = false {
-        didSet {
-            updateData()
-        }
-    }
-    open var backgroundView: UIView? {
-        didSet {
-            if let view = backgroundView {
-                insertSubview(view, belowSubview: titleLabel)
-            }
-        }
-    }
-    open var selectedBackgroundView: UIView? {
-        didSet {
-            if let view = selectedBackgroundView {
-                insertSubview(view, belowSubview: titleLabel)
-            }
-        }
-    }
+    public var index = 0
+    let titleLabel = UILabel(frame: CGRect.zero)
 
     public required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,64 +31,35 @@ open class MenuCell: UIView {
         _configure()
     }
 
-    /**
+    public func setTitle(_ title: String) {
+        titleLabel.text = title
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
 
-    If property cell's selected is changed, `updateData()` is called. You customize animations of activate to dis-activate, or dis-activate to activate, implement as override `updateData()`.
+    public func setHighlighted(_ highlighted: Bool) {
+    }
 
-    */
-    open func updateData() {
-        backgroundView?.isHidden = selected
-        backgroundView?.frame = bounds
-        selectedBackgroundView?.isHidden = !selected
-        selectedBackgroundView?.frame = bounds
+    public func prepareForReuse() {
     }
 
     open override var frame: CGRect {
         didSet {
-            updateData()
+            prepareForReuse()
         }
     }
 
-    open var index = 0
-}
+    func makeConstraints() -> [NSLayoutConstraint] {
+        let views = ["view": titleLabel]
 
-extension MenuCell {
-
-    enum Direction {
-        case horizontal, vertical
+        return NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[view]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) +
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
     }
 
     func updateContentInset() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         removeConstraints(constraints)
 
-        let newConstraints = makeConstraints(.horizontal) + makeConstraints(.vertical)
-        addConstraints(newConstraints)
-    }
-
-    func makeConstraints(_ direction: Direction) -> [NSLayoutConstraint] {
-        let views = ["view": titleLabel]
-        switch direction {
-        case .horizontal:
-            return NSLayoutConstraint.constraints(withVisualFormat: constraintFormat(.horizontal), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-        case .vertical:
-            return NSLayoutConstraint.constraints(withVisualFormat: constraintFormat(.vertical), options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-        }
-    }
-
-    func constraintFormat(_ direction: Direction) -> String {
-        switch direction {
-        case .horizontal:
-            return "H:|-\(contentInset.left)-[view]-\(contentInset.right)-|"
-        case .vertical:
-            if contentInset.top == 0 && contentInset.bottom == 0 {
-                return "V:|-[view]-|"
-            } else if contentInset.top > 0 {
-                return "V:|-\(contentInset.top)-[view]-|"
-            }
-
-            return "V:|-[view]-\(contentInset.bottom)-|"
-        }
+        addConstraints(makeConstraints())
     }
 
     func _configure() {
