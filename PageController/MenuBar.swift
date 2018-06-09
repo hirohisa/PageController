@@ -69,8 +69,8 @@ public extension MenuBar {
     func reloadData(atIndex index: Int) {
         menubar_configure()
 
-        scrollView.reloadData(atIndex: index)
-        controller?.reloadPages(AtIndex: index)
+        scrollView.reloadData(at: index)
+        controller?.reloadPages(at: index)
     }
 
     func menubar_configure() {

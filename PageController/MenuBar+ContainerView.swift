@@ -62,7 +62,7 @@ extension MenuBar.ContainerView {
         }
     }
 
-    func reloadData(atIndex index: Int) {
+    func reloadData(at index: Int) {
         guard let bar = bar, let currentCell = bar.createMenuCell(AtIndex: index) else {
             return
         }
