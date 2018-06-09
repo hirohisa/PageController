@@ -16,6 +16,7 @@ Requirements
 
 PageController | Xcode | Swift
 -------------- | ----- | -----
+0.7.x          | 9.4   | 4.1
 0.6.x          | 9.2   | 4.0
 0.5.x          | 8.2   | 3.0
 0.4.x          | 8.0   | 2.2
@@ -90,24 +91,60 @@ class CustomViewController: PageController {
 
 **MenuBar**
 
-Enable to change backgroundColor, frame and MenuCell.
-
+Enable to change backgroundColor, frame.
+If you change MenuBarCell.height, then override `frameForMenuBar` and set height.
 ```swift
+// backgroudColor
 menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
-menuBar.registerClass(CustomMenuCell.self)
+
+// frame, override this function
+override var frameForMenuBar: CGRect {
+    let frame = super.frameForMenuBar
+
+    return CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: 60)
+}
 ```
 
-**MenuCell**
+**MenuBarCell**
 
-- constentInset
+Enable to use Custom Cell supported `MenuBarCellable` protocol:
+```swift
+public protocol MenuBarCellable {
+    var index: Int { get set }
+    func setTitle(_ title: String)
+    func setHighlighted(_ highlighted: Bool)
+    func prepareForReuse()
+}
 
-Margins between cells are zero, because it is difficult that calculating distance of scrolling.
-If you change margins between cell's labels or vertical position, use constentInset.
+public func register(_ cellClass: MenuBarCellable) {
+    guard let cellClass = cellClass as? UIView.Type else { fatalError() }
+    self.cellClass = cellClass
+}
 
-- updateData()
+public func register(_ nib: UINib) {
+    self.nib = nib
+}
+```
 
-If property cell's selected is changed, `updateData()` is called. You customize animations of activate to dis-activate, or dis-activate to activate, implement as override `updateData()`.
+**MenuBarCellable**
 
+```
+public protocol MenuBarCellable {
+    
+    // it's used by PageController
+    var index: Int { get set }
+    
+    // it is used to set to Label.text, caused by deprecating MenuCell over 0.7
+    func setTitle(_ title: String)
+    
+    // it's instead of `updateData` over 0.7, 
+    func setHighlighted(_ highlighted: Bool)
+    
+    // Called by the menu bar on creating the instance.
+    func prepareForUse()
+
+}
+```
 
 ## License
 
