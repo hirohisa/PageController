@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PageController"
-  s.version      = "0.6.1"
+  s.version      = "0.7.0"
   s.summary      = "Infinite paging controller, scrolling through contents and title bar scrolls with a delay for iOS written in Swift."
   s.description  = <<-DESC
 PageController is infinite paging controller, scrolling through contents and title bar scrolls with a delay. Then it provide user interaction to smoothly and effortlessly moving. It is for iOS written in Swift.
@@ -16,5 +16,5 @@ PageController is infinite paging controller, scrolling through contents and tit
 
   s.source_files = "PageController/*.swift"
   s.requires_arc = true
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 end
