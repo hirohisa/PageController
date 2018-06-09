@@ -135,9 +135,8 @@ open class PageController: UIViewController {
 //        print("Function: \(#function), line: \(#line)")
         if index >= viewControllers.count { return }
         let visibleViewController = viewControllers[index]
-        if visibleViewController == self.visibleViewController { return }
-
         switchVisibleViewController(visibleViewController)
+
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: containerView.contentSize.width, height: containerView.contentSize.height)
         for viewController in childViewControllers {

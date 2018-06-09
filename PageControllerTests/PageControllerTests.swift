@@ -33,7 +33,9 @@ class PageControllerTests: XCTestCase {
             UIViewController(),
         ]
         pageController.viewControllers = viewControllers
-        pageController.viewDidLoad()
+        pageController.loadView()
+
+        XCTAssertNotEqual(pageController.view.frame, CGRect.zero)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -43,9 +45,6 @@ class PageControllerTests: XCTestCase {
         ]
 
         XCTAssertEqual(result, valid)
-        XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
 
         pageController.reloadPages(at: 0)
 
@@ -58,8 +57,8 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
 
         pageController.reloadPages(at: 1)
 
@@ -72,8 +71,8 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
 
         pageController.reloadPages(at: 3)
 
@@ -86,8 +85,8 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
     }
 
 }

@@ -31,7 +31,7 @@ class ExtensionTests: XCTestCase {
             UIViewController(),
         ]
         pageController.viewControllers = viewControllers
-        pageController.viewDidLoad()
+        pageController.loadView()
         pageController.reloadPages(at: 0)
 
         let result = pageController.viewControllerForCurrentPage()
@@ -62,16 +62,14 @@ class ExtensionTests: XCTestCase {
     }
 
     func testFindMenuCells() {
-        // TODO: Xcode6 -> sizes has same data, Xcode7GM -> sizes doesnt have same data
-        return
-
         let menuBar = MenuBar()
         menuBar.frame = CGRect(x: 0, y: 0, width: 320, height: 44)
         var items = [String]()
-        for i in 0 ..< 10 {
-            items.append("-\(i)-")
+        for _ in 0 ..< 10 {
+            items.append("-a-")
         }
         menuBar.items = items
+        menuBar.reloadData(atIndex: 0)
 
         var result: [MenuBarCellable]!
         // asc
@@ -81,18 +79,18 @@ class ExtensionTests: XCTestCase {
         XCTAssertEqual(result[0].index, 0)
 
 
-        result = menuBar.createMenuBarCells(0, distance: 39, index: 0, asc: true)as! [MenuBarCellable]
+        result = menuBar.createMenuBarCells(0, distance: 50, index: 0, asc: true) as! [MenuBarCellable]
         XCTAssertEqual(result.count, 2)
         XCTAssertEqual(result[0].index, 0)
         XCTAssertEqual(result[1].index, 1)
 
-        result = menuBar.createMenuBarCells(5, distance: 100, index: 3, asc: true)as! [MenuBarCellable]
+        result = menuBar.createMenuBarCells(5, distance: 100, index: 3, asc: true) as! [MenuBarCellable]
         XCTAssertEqual(result.count, 3)
         XCTAssertEqual(result[0].index, 3)
         XCTAssertEqual(result[1].index, 4)
         XCTAssertEqual(result[2].index, 5)
 
-        result = menuBar.createMenuBarCells(5, distance: 100, index: 9, asc: true)as! [MenuBarCellable]
+        result = menuBar.createMenuBarCells(5, distance: 100, index: 9, asc: true) as! [MenuBarCellable]
         XCTAssertEqual(result.count, 3)
         XCTAssertEqual(result[0].index, 9)
         XCTAssertEqual(result[1].index, 0)
@@ -110,12 +108,12 @@ class ExtensionTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
         XCTAssertEqual(result[0].index, 9)
 
-        result = menuBar.createMenuBarCells(100, distance: 39, index: 9, asc: false) as! [MenuBarCellable]
+        result = menuBar.createMenuBarCells(100, distance: 50, index: 9, asc: false) as! [MenuBarCellable]
         XCTAssertEqual(result.count, 2)
         XCTAssertEqual(result[0].index, 9)
         XCTAssertEqual(result[1].index, 8)
 
-        result = menuBar.createMenuBarCells(10, distance: 39, index: 9, asc: false) as! [MenuBarCellable]
+        result = menuBar.createMenuBarCells(10, distance: 50, index: 9, asc: false) as! [MenuBarCellable]
         XCTAssertEqual(result.count, 2)
         XCTAssertEqual(result[0].index, 9)
         XCTAssertEqual(result[1].index, 8)
@@ -171,34 +169,30 @@ class ExtensionTests: XCTestCase {
     }
 
     func testDistanceBetweenCells() {
-        // TODO: Xcode6 -> sizes has same data, Xcode7GM -> sizes doesnt have same data
-        return
-
         let menuBar = MenuBar()
         menuBar.frame = CGRect(x: 0, y: 0, width: 320, height: 44)
         var items = [String]()
-        for i in 0 ..< 10 {
-            items.append("-\(i)-") // frame = (0 0; 39 44)
+        for _ in 0 ..< 10 {
+            items.append("-a-")
         }
         menuBar.items = items
 
         var result: CGFloat!
         var valid: CGFloat!
 
-        result = menuBar.distanceBetweenCells(0, to: 1, asc: true)
-        valid = 39
-        XCTAssertEqual(result, valid)
+        let actual = menuBar.distanceBetweenCells(0, to: 1, asc: true)
+        XCTAssertNotEqual(actual, 0)
 
         result = menuBar.distanceBetweenCells(2, to: 5, asc: true)
-        valid = 39 * 3
+        valid = actual * 3
         XCTAssertEqual(result, valid)
 
         result = menuBar.distanceBetweenCells(5, to: 2, asc: false)
-        valid = 39 * 3
+        valid = actual * 3
         XCTAssertEqual(result, valid)
 
         result = menuBar.distanceBetweenCells(1, to: -2, asc: false)
-        valid = 39 * 3
+        valid = actual * 3
         XCTAssertEqual(result, valid)
 
     }
