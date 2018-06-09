@@ -13,7 +13,7 @@ public extension PageController {
 
     func viewControllerForCurrentPage() -> UIViewController? {
 
-        if let view = scrollView.viewForCurrentPage() {
+        if let view = containerView.viewForCurrentPage() {
             var responder: UIResponder? = view
             while responder != nil {
                 if let responder = responder, responder is UIViewController {

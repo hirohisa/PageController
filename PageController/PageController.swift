@@ -26,22 +26,24 @@ open class PageController: UIViewController {
     }
     open var viewControllers: [UIViewController] = [] {
         didSet {
-            _reloadData()
+            reload()
         }
     }
+    open var scrollView: UIScrollView {
+        return containerView
+    }
+
+    let containerView = ContainerView(frame: CGRect.zero)
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        automaticallyAdjustsScrollViewInsets = false
 
-        _configure()
-        _reloadData()
+        configure()
+        reload()
     }
 
-    let scrollView = ContainerView(frame: CGRect.zero)
-}
-
-extension PageController {
-
+    // set frame to MenuBar.frame on viewDidLoad
     public var frameForMenuBar: CGRect {
         var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         if let frameForNavigationBar = navigationController?.navigationBar.frame {
@@ -51,44 +53,43 @@ extension PageController {
         return frame
     }
 
-    public var frameForContentController: CGRect {
+    // set frame to containerView.frame on viewDidLoad
+    public var frameForScrollView: CGRect {
         return view.bounds
     }
 
     var frameForLeftContentController: CGRect {
-        var frame = frameForContentController
+        var frame = frameForScrollView
         frame.origin.x = 0
         return frame
     }
 
     var frameForCenterContentController: CGRect {
-        var frame = frameForContentController
+        var frame = frameForScrollView
         frame.origin.x = frame.width
         return frame
     }
 
     var frameForRightContentController: CGRect {
-        var frame = frameForContentController
+        var frame = frameForScrollView
         frame.origin.x = frame.width * 2
         return frame
     }
 
-    func _configure() {
-        automaticallyAdjustsScrollViewInsets = false
+    func configure() {
+        let frame = frameForScrollView
+        containerView.frame = frame
+        containerView.controller = self
 
-        let frame = frameForContentController
-        scrollView.frame = frame
-        scrollView.controller = self
-
-        scrollView.contentSize = CGSize(width: frame.width * 3, height: frame.height)
-        view.addSubview(scrollView)
+        containerView.contentSize = CGSize(width: frame.width * 3, height: frame.height)
+        view.addSubview(containerView)
 
         menuBar.frame = frameForMenuBar
         menuBar.controller = self
         view.addSubview(menuBar)
     }
 
-    func _reloadData() {
+    func reload() {
         if !isViewLoaded {
             return
         }
@@ -103,13 +104,13 @@ extension PageController {
             }
         }
 
-        scrollView.contentOffset = frameForCenterContentController.origin
+        containerView.contentOffset = frameForCenterContentController.origin
         loadPages(AtCenter: index)
     }
 
     public func switchPage(AtIndex index: Int) {
 
-        if scrollView.isDragging {
+        if containerView.isDragging {
             return
         }
 
@@ -136,7 +137,7 @@ extension PageController {
 
         switchVisibleViewController(visibleViewController)
         // offsetX < 0 or offsetX > contentSize.width
-        let frameOfContentSize = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        let frameOfContentSize = CGRect(x: 0, y: 0, width: containerView.contentSize.width, height: containerView.contentSize.height)
         for viewController in childViewControllers {
             if viewController != visibleViewController && !viewController.view.include(frameOfContentSize) {
                 hideViewController(viewController)
@@ -193,7 +194,7 @@ extension PageController {
                 return
             }
 
-            if !scrollView.isTracking || !scrollView.isDragging {
+            if !containerView.isTracking || !containerView.isDragging {
                 return
             }
             if from == to {
@@ -204,10 +205,10 @@ extension PageController {
 
     func move(_ from: Int, to: Int) {
 
-        let width = scrollView.frame.width
-        if scrollView.contentOffset.x > width * 1.5 {
+        let width = containerView.frame.width
+        if containerView.contentOffset.x > width * 1.5 {
             menuBar.move(from: from, until: to)
-        } else if scrollView.contentOffset.x < width * 0.5 {
+        } else if containerView.contentOffset.x < width * 0.5 {
             menuBar.move(from: from, until: to)
         }
     }
@@ -219,7 +220,7 @@ extension PageController {
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
         addChildViewController(viewController)
         viewController.view.frame = frame
-        scrollView.addSubview(viewController.view)
+        containerView.addSubview(viewController.view)
         viewController.didMove(toParentViewController: self)
     }
 
