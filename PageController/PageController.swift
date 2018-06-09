@@ -40,7 +40,6 @@ open class PageController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
 
         configure()
-        reload()
     }
 
     // set frame to MenuBar.frame on viewDidLoad
@@ -94,10 +93,12 @@ open class PageController: UIViewController {
             return
         }
 
+//        print("Function: \(#function), line: \(#line)")
         menuBar.items = viewControllers.map { $0.title ?? "" }
     }
 
-    public func reloadPages(AtIndex index: Int) {
+    public func reloadPages(at index: Int) {
+//        print("Function: \(#function), line: \(#line), index: \(index) ")
         for viewController in childViewControllers {
             if viewController != viewControllers[index] {
                 hideViewController(viewController)
@@ -105,7 +106,7 @@ open class PageController: UIViewController {
         }
 
         containerView.contentOffset = frameForCenterContentController.origin
-        loadPages(AtCenter: index)
+        loadPages(at: index)
     }
 
     public func switchPage(AtIndex index: Int) {
@@ -119,18 +120,19 @@ open class PageController: UIViewController {
         let currentIndex = NSArray(array: viewControllers).index(of: viewController)
 
         if currentIndex != index {
-            reloadPages(AtIndex: index)
+            reloadPages(at: index)
         }
     }
 
     func loadPages() {
         if let viewController = viewControllerForCurrentPage() {
             let index = NSArray(array: viewControllers).index(of: viewController)
-            loadPages(AtCenter: index)
+            loadPages(at: index)
         }
     }
 
-    func loadPages(AtCenter index: Int) {
+    func loadPages(at index: Int) {
+//        print("Function: \(#function), line: \(#line)")
         if index >= viewControllers.count { return }
         let visibleViewController = viewControllers[index]
         if visibleViewController == self.visibleViewController { return }
