@@ -129,7 +129,7 @@ public extension MenuBar {
             return cellClass.init(frame: frame)
         }
 
-        return MenuCell(frame: frame)
+        return MenuBarCell(frame: frame)
     }
 
     func move(from: Int, until to: Int) {

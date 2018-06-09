@@ -17,7 +17,7 @@
 		65C4FFB81B3D2E7E0010CA5B /* MenuBar+ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FFB71B3D2E7E0010CA5B /* MenuBar+ContainerView.swift */; };
 		65C4FFBA1B3D7D430010CA5B /* PageController+ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FFB91B3D7D430010CA5B /* PageController+ContainerView.swift */; };
 		65C4FFBC1B4116E50010CA5B /* MenuBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FFBB1B4116E50010CA5B /* MenuBarTests.swift */; };
-		65E573A41B42B64700F252C1 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E573A31B42B64700F252C1 /* MenuCell.swift */; };
+		65E573A41B42B64700F252C1 /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E573A31B42B64700F252C1 /* MenuBarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		65C4FFB71B3D2E7E0010CA5B /* MenuBar+ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuBar+ContainerView.swift"; sourceTree = "<group>"; };
 		65C4FFB91B3D7D430010CA5B /* PageController+ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PageController+ContainerView.swift"; sourceTree = "<group>"; };
 		65C4FFBB1B4116E50010CA5B /* MenuBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarTests.swift; sourceTree = "<group>"; };
-		65E573A31B42B64700F252C1 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		65E573A31B42B64700F252C1 /* MenuBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 				65C4FFB91B3D7D430010CA5B /* PageController+ContainerView.swift */,
 				65C4FFAF1B3BFE8A0010CA5B /* MenuBar.swift */,
 				65C4FFB71B3D2E7E0010CA5B /* MenuBar+ContainerView.swift */,
-				65E573A31B42B64700F252C1 /* MenuCell.swift */,
+				65E573A31B42B64700F252C1 /* MenuBarCell.swift */,
 				65C4FFB11B3D01A50010CA5B /* PageControllerExtensions.swift */,
 				65C4FF541B3AC8550010CA5B /* Supporting Files */,
 			);
@@ -239,7 +239,7 @@
 			files = (
 				65C4FFB21B3D01A50010CA5B /* PageControllerExtensions.swift in Sources */,
 				65C4FFBA1B3D7D430010CA5B /* PageController+ContainerView.swift in Sources */,
-				65E573A41B42B64700F252C1 /* MenuCell.swift in Sources */,
+				65E573A41B42B64700F252C1 /* MenuBarCell.swift in Sources */,
 				65C4FFB81B3D2E7E0010CA5B /* MenuBar+ContainerView.swift in Sources */,
 				65C4FFB01B3BFE8A0010CA5B /* MenuBar.swift in Sources */,
 				65C4FF9C1B3ACEB30010CA5B /* PageController.swift in Sources */,

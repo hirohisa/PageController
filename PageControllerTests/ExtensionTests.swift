@@ -61,7 +61,7 @@ class ExtensionTests: XCTestCase {
         XCTAssertEqual(result, valid)
     }
 
-    func testFindMenuCells() {
+    func testFindMenuBarCells() {
         let menuBar = MenuBar()
         menuBar.frame = CGRect(x: 0, y: 0, width: 320, height: 44)
         var items = [String]()
