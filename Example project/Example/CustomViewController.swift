@@ -9,34 +9,21 @@
 import UIKit
 import PageController
 
-class CustomMenuCell: MenuCell {
-
-    required init(frame: CGRect) {
-        super.init(frame: frame)
-
-        contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 1, right: 40)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func updateData() {
-        super.updateData()
-
-        titleLabel.textColor = selected ? UIColor.black : UIColor.gray
-    }
-}
-
 class CustomViewController: PageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
-        menuBar.registerClass(CustomMenuCell.self)
+        menuBar.register(UINib(nibName: "CustomMenuBarCell", bundle: nil))
         delegate = self
         viewControllers = createViewControllers()
+    }
+
+    override var frameForMenuBar: CGRect {
+        let frame = super.frameForMenuBar
+
+        return CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: 60)
     }
 
 }
@@ -55,10 +42,15 @@ extension CustomViewController {
             "Market",
         ]
 
+        let top = menuBar.frame.maxY - 44 - 20 // navigationBar.height + statusBar.height
         let viewControllers = names.map { name -> ItemsCollectionViewController in
             let viewController = ItemsCollectionViewController()
             viewController.title = name
             viewController.collectionView?.scrollsToTop = false
+            if var contentInset = viewController.collectionView?.contentInset {
+                contentInset.top = top
+                viewController.collectionView?.contentInset = contentInset
+            }
             return viewController
         }
 

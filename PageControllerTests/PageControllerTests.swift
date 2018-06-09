@@ -33,7 +33,20 @@ class PageControllerTests: XCTestCase {
             UIViewController(),
         ]
         pageController.viewControllers = viewControllers
-        pageController.viewDidLoad()
+        pageController.loadView()
+
+        XCTAssertNotEqual(pageController.view.frame, CGRect.zero)
+
+        result = pageController.childViewControllerOrderedByX(true)
+        valid = [
+            viewControllers[3],
+            viewControllers[0],
+            viewControllers[1],
+        ]
+
+        XCTAssertEqual(result, valid)
+
+        pageController.reloadPages(at: 0)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -44,24 +57,10 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
 
-        pageController.reloadPages(AtIndex: 0)
-
-        result = pageController.childViewControllerOrderedByX(true)
-        valid = [
-            viewControllers[3],
-            viewControllers[0],
-            viewControllers[1],
-        ]
-
-        XCTAssertEqual(result, valid)
-        XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
-
-        pageController.reloadPages(AtIndex: 1)
+        pageController.reloadPages(at: 1)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -72,10 +71,10 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
 
-        pageController.reloadPages(AtIndex: 3)
+        pageController.reloadPages(at: 3)
 
         result = pageController.childViewControllerOrderedByX(true)
         valid = [
@@ -86,8 +85,8 @@ class PageControllerTests: XCTestCase {
 
         XCTAssertEqual(result, valid)
         XCTAssertEqual(result[0].view.frame.origin.x, 0)
-        XCTAssertEqual(result[1].view.frame.origin.x, 320)
-        XCTAssertEqual(result[2].view.frame.origin.x, 640)
+        XCTAssertEqual(result[1].view.frame.origin.x, pageController.view.frame.width)
+        XCTAssertEqual(result[2].view.frame.origin.x, pageController.view.frame.width * 2)
     }
 
 }

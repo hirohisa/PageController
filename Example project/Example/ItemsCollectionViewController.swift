@@ -34,8 +34,6 @@ class ItemsCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
 
         collectionView!.backgroundColor = UIColor(hex: 0xeeeeee)
-
-        collectionView!.contentInset = UIEdgeInsets(top: 104, left: 0, bottom: 0, right: 0)
         collectionView!.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: identifier)
     }
 

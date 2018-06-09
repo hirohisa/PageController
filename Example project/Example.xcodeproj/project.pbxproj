@@ -14,6 +14,8 @@
 		65C4FF861B3ACCDC0010CA5B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4FF841B3ACCDC0010CA5B /* LaunchScreen.xib */; };
 		65C4FFAD1B3ADD460010CA5B /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */; };
 		65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E573A11B42A34D00F252C1 /* CustomViewController.swift */; };
+		A1629B0C20CBAF7B0005B972 /* CustomMenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1629B0B20CBAF7B0005B972 /* CustomMenuBarCell.swift */; };
+		A1629B0E20CBAF870005B972 /* CustomMenuBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1629B0D20CBAF870005B972 /* CustomMenuBarCell.xib */; };
 		A1BE23191B41B2BE003316CF /* PageController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE23181B41B2BE003316CF /* PageController.framework */; };
 		A1ED17481B47062600CE20BB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A1ED17471B47062600CE20BB /* icon.png */; };
 		A1ED174A1B483A1C00CE20BB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */; };
@@ -31,6 +33,8 @@
 		65C4FF851B3ACCDC0010CA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		65E573A11B42A34D00F252C1 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		A1629B0B20CBAF7B0005B972 /* CustomMenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuBarCell.swift; sourceTree = "<group>"; };
+		A1629B0D20CBAF870005B972 /* CustomMenuBarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMenuBarCell.xib; sourceTree = "<group>"; };
 		A1BE23181B41B2BE003316CF /* PageController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PageController.framework; path = "build/Debug-iphoneos/PageController.framework"; sourceTree = "<group>"; };
 		A1ED17471B47062600CE20BB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				A1ED174B1B48401900CE20BB /* ItemCell.swift */,
 				A1ED174C1B48401900CE20BB /* ItemCell.xib */,
 				65C4FF7F1B3ACCDC0010CA5B /* Main.storyboard */,
+				A1629B0B20CBAF7B0005B972 /* CustomMenuBarCell.swift */,
+				A1629B0D20CBAF870005B972 /* CustomMenuBarCell.xib */,
 				A1ED17471B47062600CE20BB /* icon.png */,
 				65C4FF821B3ACCDC0010CA5B /* Images.xcassets */,
 				65C4FF841B3ACCDC0010CA5B /* LaunchScreen.xib */,
@@ -158,6 +164,7 @@
 				A1ED174E1B48401900CE20BB /* ItemCell.xib in Resources */,
 				65C4FF861B3ACCDC0010CA5B /* LaunchScreen.xib in Resources */,
 				65C4FF831B3ACCDC0010CA5B /* Images.xcassets in Resources */,
+				A1629B0E20CBAF870005B972 /* CustomMenuBarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +179,7 @@
 				65C4FF7E1B3ACCDC0010CA5B /* ViewController.swift in Sources */,
 				65C4FF7C1B3ACCDC0010CA5B /* AppDelegate.swift in Sources */,
 				A1ED174D1B48401900CE20BB /* ItemCell.swift in Sources */,
+				A1629B0C20CBAF7B0005B972 /* CustomMenuBarCell.swift in Sources */,
 				65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */,
 				A1ED174A1B483A1C00CE20BB /* ItemsCollectionViewController.swift in Sources */,
 			);
@@ -246,7 +254,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -296,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
