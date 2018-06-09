@@ -20,9 +20,15 @@ public class MenuBar: UIView {
     }
     var sizes: [CGSize] = []
 
-    fileprivate var menuCellClass: MenuCell.Type = MenuCell.self
-    public func registerClass(_ cellClass: MenuCell.Type) {
-        menuCellClass = cellClass
+    private var cellClass: MenuCell.Type?
+    private var nib: UINib?
+
+    public func register(_ cellClass: MenuCell.Type) {
+        self.cellClass = cellClass
+    }
+
+    public func register(_ nib: UINib) {
+        self.nib = nib
     }
 
     public var selectedIndex: Int {
@@ -88,14 +94,13 @@ public extension MenuBar {
 
     func measureCells() -> [CGSize] {
         return items.enumerated().map { index, _ -> CGSize in
-            return self.createMenuCell(AtIndex: index)!.frame.size
+            return self.dequeueCell(at: index)!.frame.size
         }
     }
 
-    func createMenuCell(AtIndex index: Int) -> MenuCell? {
-        if index >= items.count { return nil }
+    func dequeueCell(at index: Int) -> MenuCell? {
+        guard let cell = createCell(at: index) else { return nil }
 
-        let cell = menuCellClass.init(frame: frame)
         cell.titleLabel.text = items[index]
         cell.index = index
         cell.updateData()
@@ -109,6 +114,19 @@ public extension MenuBar {
         cell.frame = CGRect(x: 0, y: 0, width: size.width, height: frame.height)
 
         return cell
+    }
+
+    func createCell(at index: Int) -> MenuCell? {
+        if index >= items.count { return nil }
+
+        if let nib = nib, let cell = nib.instantiate(withOwner: nil, options: nil).last as? MenuCell {
+            return cell
+        }
+        if let cellClass = cellClass {
+            return cellClass.init(frame: frame)
+        }
+
+        return MenuCell(frame: frame)
     }
 
     func move(from: Int, until to: Int) {

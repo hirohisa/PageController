@@ -34,7 +34,7 @@ class CustomViewController: PageController {
         super.viewDidLoad()
 
         menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
-        menuBar.registerClass(CustomMenuCell.self)
+        menuBar.register(CustomMenuCell.self)
         delegate = self
         viewControllers = createViewControllers()
     }
