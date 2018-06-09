@@ -10,7 +10,7 @@ import UIKit
 
 extension MenuBar {
 
-    open class ContainerView: UIScrollView {
+    class ContainerView: ScrollView {
 
         weak var bar: MenuBar?
         var visibledCells = [UIView]()
@@ -63,7 +63,7 @@ extension MenuBar.ContainerView {
     }
 
     func reloadData(at index: Int) {
-        guard let bar = bar, let currentCell = bar.dequeueCell(at: index) else {
+        guard let bar = bar, let current = bar.createMenuBarCell(at: index) else {
             return
         }
 
@@ -71,13 +71,13 @@ extension MenuBar.ContainerView {
             cell.removeFromSuperview()
         }
 
-        if let cell = currentCell as? MenuBarCellable {
+        if let cell = current as? MenuBarCellable {
             cell.setHighlighted(true)
         }
 
-        addSubview(currentCell)
-        currentCell.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        visibledCells = [currentCell]
+        addSubview(current)
+        current.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        visibledCells = [current]
         render()
     }
 

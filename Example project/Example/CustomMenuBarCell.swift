@@ -49,7 +49,7 @@ class CustomMenuBarCell: UIView, MenuBarCellable {
         titleLabel.isHighlighted = highlighted
     }
 
-    func prepareForReuse() {
+    func prepareForUse() {
         currentMarkView.isHidden = true
         titleLabel.isHighlighted = false
     }

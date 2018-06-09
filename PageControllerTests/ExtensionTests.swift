@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import PageController
+@testable import PageController
 
 class ExtensionTests: XCTestCase {
 
@@ -36,29 +36,6 @@ class ExtensionTests: XCTestCase {
 
         let result = pageController.viewControllerForCurrentPage()
         XCTAssertEqual(result!, viewControllers[0])
-    }
-
-    func testSwapByIndex() {
-
-        let array = NSArray(array: [0,1,2,3,4,5,6])
-        var result: [Int] = []
-        var valid: [Int] = []
-
-        result = array.swapByIndex(0)
-        valid  = [0,1,2,3,4,5,6]
-        XCTAssertEqual(result, valid)
-
-        result = array.swapByIndex(1)
-        valid  = [1,2,3,4,5,6,0]
-        XCTAssertEqual(result, valid)
-
-        result = array.swapByIndex(5)
-        valid  = [5,6,0,1,2,3,4]
-        XCTAssertEqual(result, valid)
-
-        result = array.swapByIndex(10)
-        valid  = []
-        XCTAssertEqual(result, valid)
     }
 
     func testFindMenuBarCells() {
@@ -138,36 +115,6 @@ class ExtensionTests: XCTestCase {
 
     }
 
-    func testIndexesBetween() {
-
-        var result: [Int]!
-        var valid: [Int]!
-
-        result = NSArray.indexesBetween(0, to: 1, count:5, asc: true)
-        valid = [0, 1]
-        XCTAssertEqual(result, valid)
-
-        result = NSArray.indexesBetween(1, to: 4, count:5, asc: true)
-        valid = [1, 2, 3, 4]
-        XCTAssertEqual(result, valid)
-
-        result = NSArray.indexesBetween(1, to: 8, count:5, asc: true)
-        valid = [1, 2, 3, 4, 0, 1, 2, 3]
-        XCTAssertEqual(result, valid)
-
-        result = NSArray.indexesBetween(3, to: 1, count:5, asc: true)
-        valid = [3, 4, 0, 1]
-        XCTAssertEqual(result, valid)
-
-        result = NSArray.indexesBetween(1, to: 0, count:5, asc: false)
-        valid = [1, 0]
-        XCTAssertEqual(result, valid)
-
-        result = NSArray.indexesBetween(4, to: 0, count:5, asc: false)
-        valid = [4, 3, 2, 1, 0]
-        XCTAssertEqual(result, valid)
-    }
-
     func testDistanceBetweenCells() {
         let menuBar = MenuBar()
         menuBar.frame = CGRect(x: 0, y: 0, width: 320, height: 44)
@@ -180,18 +127,18 @@ class ExtensionTests: XCTestCase {
         var result: CGFloat!
         var valid: CGFloat!
 
-        let actual = menuBar.distanceBetweenCells(0, to: 1, asc: true)
+        let actual = menuBar.distanceBetweenMenuBarCells(0, to: 1, asc: true)
         XCTAssertNotEqual(actual, 0)
 
-        result = menuBar.distanceBetweenCells(2, to: 5, asc: true)
+        result = menuBar.distanceBetweenMenuBarCells(2, to: 5, asc: true)
         valid = actual * 3
         XCTAssertEqual(result, valid)
 
-        result = menuBar.distanceBetweenCells(5, to: 2, asc: false)
+        result = menuBar.distanceBetweenMenuBarCells(5, to: 2, asc: false)
         valid = actual * 3
         XCTAssertEqual(result, valid)
 
-        result = menuBar.distanceBetweenCells(1, to: -2, asc: false)
+        result = menuBar.distanceBetweenMenuBarCells(1, to: -2, asc: false)
         valid = actual * 3
         XCTAssertEqual(result, valid)
 
@@ -299,7 +246,7 @@ class ExtensionTests: XCTestCase {
     }
 
     func testViewForCurrentPage() {
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
+        let scrollView = ScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
         var views = [UIView]()
         var result: UIView?
         var valid: UIView?

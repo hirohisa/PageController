@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import PageController
+@testable import PageController
 
 class MenuBarTests: XCTestCase {
 
@@ -29,7 +29,7 @@ class MenuBarTests: XCTestCase {
         menuBar.items = ["1", "2", "3"]
         menuBar.reloadData(atIndex: 0)
 
-        let view = menuBar.scrollView.viewForCurrentPage() as! MenuBarCellable
+        let view = menuBar.containerView.viewForCurrentPage() as! MenuBarCellable
         XCTAssertEqual(view.index, 0)
 
     }
