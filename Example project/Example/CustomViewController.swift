@@ -20,6 +20,12 @@ class CustomViewController: PageController {
         viewControllers = createViewControllers()
     }
 
+    override var frameForMenuBar: CGRect {
+        let frame = super.frameForMenuBar
+
+        return CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: 60)
+    }
+
 }
 
 extension CustomViewController {
@@ -36,10 +42,15 @@ extension CustomViewController {
             "Market",
         ]
 
+        let top = menuBar.frame.maxY - 44 - 20 // navigationBar.height + statusBar.height
         let viewControllers = names.map { name -> ItemsCollectionViewController in
             let viewController = ItemsCollectionViewController()
             viewController.title = name
             viewController.collectionView?.scrollsToTop = false
+            if var contentInset = viewController.collectionView?.contentInset {
+                contentInset.top = top
+                viewController.collectionView?.contentInset = contentInset
+            }
             return viewController
         }
 

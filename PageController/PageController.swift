@@ -43,7 +43,7 @@ open class PageController: UIViewController {
     }
 
     // set frame to MenuBar.frame on viewDidLoad
-    public var frameForMenuBar: CGRect {
+    open var frameForMenuBar: CGRect {
         var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         if let frameForNavigationBar = navigationController?.navigationBar.frame {
             frame.origin.y = frameForNavigationBar.maxY
@@ -53,7 +53,7 @@ open class PageController: UIViewController {
     }
 
     // set frame to containerView.frame on viewDidLoad
-    public var frameForScrollView: CGRect {
+    open var frameForScrollView: CGRect {
         return view.bounds
     }
 
