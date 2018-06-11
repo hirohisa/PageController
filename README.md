@@ -48,7 +48,7 @@ pod 'PageController'
 To integrate PageController into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```
-github "hirohisa/PageController" ~> 0.6.0
+github "hirohisa/PageController" ~> 0.7.1
 ```
 
 Usage
@@ -130,16 +130,16 @@ public func register(_ nib: UINib) {
 
 ```
 public protocol MenuBarCellable {
-    
+
     // it's used by PageController
     var index: Int { get set }
-    
+
     // it is used to set to Label.text, caused by deprecating MenuCell over 0.7
     func setTitle(_ title: String)
-    
-    // it's instead of `updateData` over 0.7, 
+
+    // it's instead of `updateData` over 0.7,
     func setHighlighted(_ highlighted: Bool)
-    
+
     // Called by the menu bar on creating the instance.
     func prepareForUse()
 
