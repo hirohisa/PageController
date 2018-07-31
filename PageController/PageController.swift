@@ -20,6 +20,7 @@ open class PageController: UIViewController {
     public var visibleViewController: UIViewController? {
         didSet {
             if let visibleViewController = visibleViewController {
+                viewDidScroll()
                 delegate?.pageController(self, didChangeVisibleController: visibleViewController, fromViewController: oldValue)
             }
         }
@@ -165,24 +166,45 @@ open class PageController: UIViewController {
         }
     }
 
-    func viewDidScroll() {
-        guard let visibleViewController = visibleViewController, let viewController = viewControllerForCurrentPage() else { return }
-
+    typealias Page = (from: Int, to: Int)
+    func getPage() -> Page? {
+        guard let visibleViewController = visibleViewController, let viewController = viewControllerForCurrentPage() else { return nil }
         let from = NSArray(array: viewControllers).index(of: visibleViewController)
         let to = NSArray(array: viewControllers).index(of: viewController)
 
-        if viewController != visibleViewController {
-            move(from, to: to)
+        return Page(from: from, to: to)
+    }
+
+    func viewDidScroll() {
+        guard let page = getPage() else { return }
+
+        if page.from != page.to {
+            move(page: page)
+            return
+        }
+        if !containerView.isTracking || !containerView.isDragging {
+            return
+        }
+        if page.from == page.to {
+            revert(page: page)
         }
     }
 
-    func move(_ from: Int, to: Int) {
+    func viewDidEndDecelerating() {
+        guard let page = getPage(), !containerView.isDragging else { return }
+        revert(page: page)
+    }
 
+    func revert(page: Page) {
+        menuBar.revert(to: page.to)
+    }
+
+    func move(page: Page) {
         let width = containerView.frame.width
         if containerView.contentOffset.x > width * 1.5 {
-            menuBar.move(from: from, until: to)
+            menuBar.move(from: page.from, until: page.to)
         } else if containerView.contentOffset.x < width * 0.5 {
-            menuBar.move(from: from, until: to)
+            menuBar.move(from: page.from, until: page.to)
         }
     }
 
@@ -208,7 +230,7 @@ extension PageController: UIScrollViewDelegate {
     }
 
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        viewDidScroll()
+        viewDidEndDecelerating()
     }
 
 }

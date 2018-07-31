@@ -52,6 +52,11 @@ class ItemsCollectionViewController: UICollectionViewController {
 
         return cell
     }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = ItemsCollectionViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension UIColor {
