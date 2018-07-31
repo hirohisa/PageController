@@ -16,6 +16,7 @@ class CustomViewController: PageController {
 
         menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         menuBar.register(UINib(nibName: "CustomMenuBarCell", bundle: nil))
+        menuBar.isAutoSelectDidEndUserInteractionEnabled = false
         delegate = self
         viewControllers = createViewControllers()
     }

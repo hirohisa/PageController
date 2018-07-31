@@ -94,10 +94,12 @@ class CustomViewController: PageController {
 Enable to change backgroundColor, frame.
 If you change MenuBarCell.height, then override `frameForMenuBar` and set height.
 ```swift
-// backgroudColor
+/// backgroudColor
 menuBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+/// skip to auto-select after scrolling
+menuBar.isAutoSelectDidEndUserInteractionEnabled = false
 
-// frame, override this function
+/// frame, override this function
 override var frameForMenuBar: CGRect {
     let frame = super.frameForMenuBar
 

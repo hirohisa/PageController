@@ -130,6 +130,7 @@ extension MenuBar.ContainerView {
 extension MenuBar.ContainerView {
 
     func userInteractionDidEnd() {
+        guard let bar = bar, bar.isAutoSelectDidEndUserInteractionEnabled else { return }
         adjustCurrentPageToCenter()
     }
 
