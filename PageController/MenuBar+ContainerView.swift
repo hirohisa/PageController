@@ -151,9 +151,8 @@ extension MenuBar.ContainerView {
     }
 
     func updateSubviews() {
-        if let view = viewForCurrentPage(), let current = view as? MenuBarCellable {
-            bar?.contentDidChangePage(AtIndex: current.index)
-        }
+        guard let view = viewForCurrentPage(), let current = view as? MenuBarCellable, let bar = bar else { return }
+        bar.contentDidChangePage(AtIndex: current.index)
         render()
     }
 }

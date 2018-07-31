@@ -56,8 +56,11 @@ public class MenuBar: UIView {
     public var scrollView: UIScrollView {
         return containerView
     }
-    private var animating = false
 
+    func revert(to: Int) {
+        guard let view = containerView.viewForCurrentPage() as? MenuBarCellable, view.index != to else { return }
+        move(from: view.index, until: to)
+    }
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if self.point(inside: point, with: event) {
             return containerView
@@ -143,9 +146,6 @@ public class MenuBar: UIView {
             if view.index == to {
                 return
             }
-            if animating {
-                return
-            }
             selectedIndex = to
             beginAnimation()
 
@@ -167,9 +167,6 @@ public class MenuBar: UIView {
             if view.index == to {
                 return
             }
-            if animating {
-                return
-            }
             selectedIndex = to
             beginAnimation()
 
@@ -187,15 +184,11 @@ public class MenuBar: UIView {
     }
 
     private func beginAnimation() {
-        animating = true
-        UIApplication.shared.beginIgnoringInteractionEvents()
     }
 
     private func endAnimation() {
-        animating = false
         containerView.updateSubviews()
         containerView.adjustCurrentPageToCenter(false)
-        UIApplication.shared.endIgnoringInteractionEvents()
     }
 
     func contentDidChangePage(AtIndex index: Int) {

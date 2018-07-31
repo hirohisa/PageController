@@ -30,7 +30,7 @@ Features
 - [x] Support AutoLayout about MenuCell
 - [x] Handling to change current view controller with Delegate.
 - [x] Scrolling smoothly and effortlessly
-- [ ] Keep to smoothly in scrolling contents too much
+- [x] Keep to smoothly in scrolling contents
 
 Installation
 ----------
