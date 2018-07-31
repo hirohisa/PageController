@@ -136,7 +136,6 @@ public extension MenuBar {
     }
 
     func move(from: Int, until to: Int) {
-
         if to - from == items.count - 1 {
             moveMinus(from: from, until: to)
         } else if from - to == items.count - 1 {
@@ -165,7 +164,7 @@ public extension MenuBar {
             if animating {
                 return
             }
-            animating = true
+            beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: false)
             let diff = (sizes[from].width - sizes[to].width) / 2
@@ -175,8 +174,7 @@ public extension MenuBar {
             UIView.animate(withDuration: durationForAnimation, animations: {
                 self.containerView.contentOffset = contentOffset
                 }, completion: { _ in
-                    self.containerView.adjustCurrentPageToCenter(false)
-                    self.completion()
+                    self.endAnimation()
             })
         }
     }
@@ -190,7 +188,7 @@ public extension MenuBar {
             if animating {
                 return
             }
-            animating = true
+            beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: true)
             let diff = (sizes[from].width - sizes[to].width) / 2
@@ -200,14 +198,21 @@ public extension MenuBar {
             UIView.animate(withDuration: durationForAnimation, animations: {
                 self.containerView.contentOffset = contentOffset
                 }, completion: { _ in
-                    self.completion()
+                    self.endAnimation()
             })
         }
     }
 
-    private func completion() {
+    private func beginAnimation() {
+        animating = true
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+
+    private func endAnimation() {
         animating = false
         containerView.updateSubviews()
+        containerView.adjustCurrentPageToCenter(false)
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
 
     func contentDidChangePage(AtIndex index: Int) {

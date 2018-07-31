@@ -110,7 +110,6 @@ open class PageController: UIViewController {
     }
 
     public func switchPage(AtIndex index: Int) {
-
         if containerView.isDragging {
             return
         }
