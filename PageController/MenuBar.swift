@@ -175,6 +175,7 @@ public extension MenuBar {
             UIView.animate(withDuration: durationForAnimation, animations: {
                 self.containerView.contentOffset = contentOffset
                 }, completion: { _ in
+                    self.containerView.adjustCurrentPageToCenter(false)
                     self.completion()
             })
         }
