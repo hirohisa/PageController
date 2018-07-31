@@ -12,6 +12,8 @@ public class MenuBar: UIView {
 
     weak var controller: PageController?
     public var durationForAnimation: TimeInterval = 0.2
+    /// auto select on end of user interaction
+    public var isAutoSelectDidEndUserInteractionEnabled = true
 
     public var items: [String] = [] {
         didSet {
