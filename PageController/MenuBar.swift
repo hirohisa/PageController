@@ -32,13 +32,7 @@ public class MenuBar: UIView {
         self.nib = nib
     }
 
-    public var selectedIndex: Int {
-        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
-            return view.index
-        }
-
-        return -1
-    }
+    public var selectedIndex: Int = 0
 
     public override var frame: CGRect {
         didSet {
@@ -61,20 +55,14 @@ public class MenuBar: UIView {
         return containerView
     }
     private var animating = false
-}
 
-public extension MenuBar {
-
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if self.point(inside: point, with: event) {
             return containerView
         }
 
         return super.hitTest(point, with: event)
     }
-}
-
-public extension MenuBar {
 
     func reloadData(atIndex index: Int) {
         prepareForReloadData()
@@ -147,14 +135,6 @@ public extension MenuBar {
         }
     }
 
-    func revert(_ to: Int) {
-        if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
-            if view.index != to {
-                move(from: view.index, until: to)
-            }
-        }
-    }
-
     private func moveMinus(from: Int, until to: Int) {
 
         if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
@@ -164,6 +144,7 @@ public extension MenuBar {
             if animating {
                 return
             }
+            selectedIndex = to
             beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: false)
@@ -180,7 +161,6 @@ public extension MenuBar {
     }
 
     private func movePlus(from: Int, until to: Int) {
-
         if let view = containerView.viewForCurrentPage() as? MenuBarCellable {
             if view.index == to {
                 return
@@ -188,6 +168,7 @@ public extension MenuBar {
             if animating {
                 return
             }
+            selectedIndex = to
             beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: true)
@@ -216,12 +197,9 @@ public extension MenuBar {
     }
 
     func contentDidChangePage(AtIndex index: Int) {
+        selectedIndex = index
         controller?.switchPage(AtIndex: index)
     }
-
-}
-
-extension MenuBar {
 
     func configure() {
         clipsToBounds = true

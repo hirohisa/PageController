@@ -16,23 +16,22 @@ open class PageController: UIViewController {
 
     open weak var delegate: PageControllerDelegate?
 
-    open var menuBar: MenuBar = MenuBar(frame: CGRect.zero)
-    open var visibleViewController: UIViewController? {
+    public var menuBar: MenuBar = MenuBar(frame: CGRect.zero)
+    public var visibleViewController: UIViewController? {
         didSet {
             if let visibleViewController = visibleViewController {
                 delegate?.pageController(self, didChangeVisibleController: visibleViewController, fromViewController: oldValue)
             }
         }
     }
-    open var viewControllers: [UIViewController] = [] {
+    public var viewControllers: [UIViewController] = [] {
         didSet {
             reload()
         }
     }
-    open var scrollView: UIScrollView {
+    public var scrollView: UIScrollView {
         return containerView
     }
-
     let containerView = ContainerView(frame: CGRect.zero)
 
     open override func viewDidLoad() {
@@ -42,7 +41,7 @@ open class PageController: UIViewController {
         configure()
     }
 
-    // set frame to MenuBar.frame on viewDidLoad
+    /// set frame to MenuBar.frame on viewDidLoad
     open var frameForMenuBar: CGRect {
         var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
         if let frameForNavigationBar = navigationController?.navigationBar.frame {
@@ -52,7 +51,7 @@ open class PageController: UIViewController {
         return frame
     }
 
-    // set frame to containerView.frame on viewDidLoad
+    /// set frame to containerView.frame on viewDidLoad
     open var frameForScrollView: CGRect {
         return view.bounds
     }
@@ -165,41 +164,15 @@ open class PageController: UIViewController {
             visibleViewController = viewController
         }
     }
-}
-
-extension PageController: UIScrollViewDelegate {
-
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        viewDidScroll()
-    }
-
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        viewDidScroll()
-    }
-
-}
-
-extension PageController {
 
     func viewDidScroll() {
-        guard let visibleViewController = visibleViewController else { return }
+        guard let visibleViewController = visibleViewController, let viewController = viewControllerForCurrentPage() else { return }
 
-        if let viewController = viewControllerForCurrentPage() {
+        let from = NSArray(array: viewControllers).index(of: visibleViewController)
+        let to = NSArray(array: viewControllers).index(of: viewController)
 
-            let from = NSArray(array: viewControllers).index(of: visibleViewController)
-            let to = NSArray(array: viewControllers).index(of: viewController)
-
-            if viewController != visibleViewController {
-                move(from, to: to)
-                return
-            }
-
-            if !containerView.isTracking || !containerView.isDragging {
-                return
-            }
-            if from == to {
-                revert(to)
-            }
+        if viewController != visibleViewController {
+            move(from, to: to)
         }
     }
 
@@ -213,10 +186,6 @@ extension PageController {
         }
     }
 
-    func revert(_ to: Int) {
-        menuBar.revert(to)
-    }
-
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
         addChildViewController(viewController)
         viewController.view.frame = frame
@@ -228,6 +197,18 @@ extension PageController {
         viewController.willMove(toParentViewController: self)
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
+    }
+
+}
+
+extension PageController: UIScrollViewDelegate {
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewDidScroll()
+    }
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        viewDidScroll()
     }
 
 }

@@ -98,6 +98,11 @@ extension MenuBar.ContainerView {
         }
 
         visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
+        for subview in visibledCells {
+            if let cell = subview as? MenuBarCellable {
+                cell.setHighlighted(cell.index == bar.selectedIndex)
+            }
+        }
     }
 }
 
@@ -146,11 +151,6 @@ extension MenuBar.ContainerView {
 
     func updateSubviews() {
         if let view = viewForCurrentPage(), let current = view as? MenuBarCellable {
-            for subview in subviews {
-                if let cell = subview as? MenuBarCellable {
-                    cell.setHighlighted((subview == view))
-                }
-            }
             bar?.contentDidChangePage(AtIndex: current.index)
         }
         render()

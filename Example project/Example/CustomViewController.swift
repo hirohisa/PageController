@@ -32,14 +32,14 @@ extension CustomViewController {
 
     func createViewControllers() -> [UIViewController] {
         let names = [
-            "Home",
-            "Innovation",
-            "Technology",
-            "Life",
-            "Bussiness",
-            "Economics",
-            "Financial",
-            "Market",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
         ]
 
         let top = menuBar.frame.maxY - 44 - 20 // navigationBar.height + statusBar.height
