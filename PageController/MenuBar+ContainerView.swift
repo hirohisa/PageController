@@ -52,12 +52,10 @@ extension MenuBar {
 extension MenuBar.ContainerView {
 
     func recenterIfNecessary() {
-        if bar == nil {
-            return
-        }
+        guard let bar = bar else { return }
 
         if needsRecenter() {
-            recenter(relativeView: bar!)
+            recenter(relativeView: bar)
             render()
         }
     }
@@ -82,26 +80,29 @@ extension MenuBar.ContainerView {
     }
 
     func render() {
-        if bar == nil {
-            return
-        }
+        guard let bar = bar else { return }
 
-        let frame = bar!.frame
+        let frame = bar.frame
 
-        let cells = visibledCells.filter { !$0.removeIfExcluded(self.bar!.bounds) }
+        let cells = visibledCells.filter { !$0.removeIfExcluded(bar.bounds) }
 
         var newCells = [UIView]()
         if let first = cells.first, let last = cells.last, let castedFirst = first as? MenuBarCellable, let castedLast = last as? MenuBarCellable {
             var distance = abs(first.frame.minX - frame.minX)
-            newCells += bar!.createMenuBarCells(first.frame.minX, distance: distance + bar!.frame.width, index: castedFirst.index - 1, asc: false)
+            newCells += bar.createMenuBarCells(first.frame.minX, distance: distance + bar.frame.width, index: castedFirst.index - 1, asc: false)
             distance = abs(last.frame.maxX - frame.maxX)
-            newCells += bar!.createMenuBarCells(last.frame.maxX, distance: distance + bar!.frame.width, index: castedLast.index + 1, asc: true)
+            newCells += bar.createMenuBarCells(last.frame.maxX, distance: distance + bar.frame.width, index: castedLast.index + 1, asc: true)
             for newCell in newCells {
                 addSubview(newCell)
             }
         }
 
         visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
+        for subview in visibledCells {
+            if let cell = subview as? MenuBarCellable {
+                cell.setHighlighted(cell.index == bar.selectedIndex)
+            }
+        }
     }
 }
 
@@ -150,11 +151,6 @@ extension MenuBar.ContainerView {
 
     func updateSubviews() {
         if let view = viewForCurrentPage(), let current = view as? MenuBarCellable {
-            for subview in subviews {
-                if let cell = subview as? MenuBarCellable {
-                    cell.setHighlighted((subview == view))
-                }
-            }
             bar?.contentDidChangePage(AtIndex: current.index)
         }
         render()
