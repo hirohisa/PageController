@@ -11,12 +11,10 @@ PageController is infinite paging controller, scrolling through contents and tit
 
 Requirements
 ----------
-- iOS 8.0+
-- Xcode 7.0+
 
 PageController | Xcode | Swift
 -------------- | ----- | -----
-0.7.x          | 9.4   | 4.1
+0.7.x +        | 9.4   | 4.1
 0.6.x          | 9.2   | 4.0
 0.5.x          | 8.2   | 3.0
 0.4.x          | 8.0   | 2.2
