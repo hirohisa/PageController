@@ -27,7 +27,7 @@ open class PageController: UIViewController {
     }
     public var viewControllers: [UIViewController] = [] {
         didSet {
-            reload()
+            menuBar.items = viewControllers.map { $0.title ?? "" }
         }
     }
     public var scrollView: UIScrollView {
@@ -37,12 +37,12 @@ open class PageController: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 11.0, *) {
-            scrollView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
         configure()
+    }
+
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureDidLayout()
     }
 
     /// set frame to MenuBar.frame on viewDidLoad
@@ -57,7 +57,7 @@ open class PageController: UIViewController {
 
     /// set frame to containerView.frame on viewDidLoad
     open var frameForScrollView: CGRect {
-        return view.bounds
+        return CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: view.bounds.height)
     }
 
     var frameForLeftContentController: CGRect {
@@ -79,25 +79,31 @@ open class PageController: UIViewController {
     }
 
     func configure() {
-        let frame = frameForScrollView
-        containerView.frame = frame
-        containerView.controller = self
-
-        containerView.contentSize = CGSize(width: frame.width * 3, height: frame.height)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
-
+        if #available(iOS 11.0, *) {
+            containerView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        let topConstant = (navigationController?.navigationBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
+        view.addConstraints([
+            makeConstraint(item: containerView, .top, to: view, .top, constant: topConstant),
+            makeConstraint(item: containerView, .bottom, to: view, .bottom),
+            makeConstraint(item: containerView, .left, to: view, .left),
+            makeConstraint(item: containerView, .right, to: view, .right)
+            ])
         menuBar.frame = frameForMenuBar
-        menuBar.controller = self
         view.addSubview(menuBar)
     }
 
-    func reload() {
-        if !isViewLoaded {
-            return
-        }
-
-//        print("Function: \(#function), line: \(#line)")
-        menuBar.items = viewControllers.map { $0.title ?? "" }
+    func configureDidLayout() {
+        guard containerView.contentSize == .zero else { return }
+        containerView.contentSize = CGSize(width: containerView.frame.width * 3, height: containerView.frame.height)
+        containerView.controller = self
+        menuBar.controller = self
+        reloadPages(at: 0)
+        containerView.contentOffset = frameForCenterContentController.origin
     }
 
     public func reloadPages(at index: Int) {
@@ -108,7 +114,6 @@ open class PageController: UIViewController {
             }
         }
 
-        containerView.contentOffset = frameForCenterContentController.origin
         loadPages(at: index)
     }
 
