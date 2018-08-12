@@ -27,7 +27,7 @@ open class PageController: UIViewController {
     }
     public var viewControllers: [UIViewController] = [] {
         didSet {
-            reload()
+            menuBar.items = viewControllers.map { $0.title ?? "" }
         }
     }
     public var scrollView: UIScrollView {
@@ -104,15 +104,6 @@ open class PageController: UIViewController {
         menuBar.controller = self
         reloadPages(at: 0)
         containerView.contentOffset = frameForCenterContentController.origin
-    }
-
-    func reload() {
-        if !isViewLoaded {
-            return
-        }
-
-//        print("Function: \(#function), line: \(#line)")
-        menuBar.items = viewControllers.map { $0.title ?? "" }
     }
 
     public func reloadPages(at index: Int) {

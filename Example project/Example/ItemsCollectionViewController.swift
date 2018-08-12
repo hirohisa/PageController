@@ -37,8 +37,14 @@ class ItemsCollectionViewController: UICollectionViewController {
         collectionView!.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: identifier)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("title: \(title), \(#function)")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("title: \(title), \(#function)")
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
