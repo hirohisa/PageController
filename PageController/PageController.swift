@@ -30,9 +30,6 @@ open class PageController: UIViewController {
             menuBar.items = viewControllers.map { $0.title ?? "" }
         }
     }
-    public var scrollView: UIScrollView {
-        return containerView
-    }
     let containerView = ContainerView(frame: CGRect.zero)
 
     open override func viewDidLoad() {
@@ -43,6 +40,14 @@ open class PageController: UIViewController {
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureDidLayout()
+    }
+
+    /// the top from adjusted content inset with menu bar frame
+    public var adjustedContentInsetTop: CGFloat {
+        if #available(iOS 11.0, *) {
+            return menuBar.frame.height
+        }
+        return menuBar.frame.height + (navigationController?.navigationBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
     }
 
     /// set frame to MenuBar.frame on viewDidLoad
@@ -57,7 +62,7 @@ open class PageController: UIViewController {
 
     /// set frame to containerView.frame on viewDidLoad
     open var frameForScrollView: CGRect {
-        return CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: view.bounds.height)
+        return CGRect(x: 0, y: 0, width: containerView.bounds.width, height: containerView.bounds.height)
     }
 
     var frameForLeftContentController: CGRect {
@@ -86,9 +91,8 @@ open class PageController: UIViewController {
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
-        let topConstant = (navigationController?.navigationBar.frame.height ?? 0) + UIApplication.shared.statusBarFrame.height
         view.addConstraints([
-            makeConstraint(item: containerView, .top, to: view, .top, constant: topConstant),
+            makeConstraint(item: containerView, .top, to: view, .top),
             makeConstraint(item: containerView, .bottom, to: view, .bottom),
             makeConstraint(item: containerView, .left, to: view, .left),
             makeConstraint(item: containerView, .right, to: view, .right)
@@ -217,6 +221,8 @@ open class PageController: UIViewController {
     }
 
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
+        guard !childViewControllers.contains(viewController), !viewController.view.isDescendant(of: containerView) else { return }
+        viewController.willMove(toParentViewController: self)
         addChildViewController(viewController)
         viewController.view.frame = frame
         containerView.addSubview(viewController.view)
@@ -224,9 +230,11 @@ open class PageController: UIViewController {
     }
 
     func hideViewController(_ viewController: UIViewController) {
-        viewController.willMove(toParentViewController: self)
+        guard childViewControllers.contains(viewController), viewController.view.isDescendant(of: containerView) else { return }
+        viewController.willMove(toParentViewController: nil)
         viewController.view.removeFromSuperview()
         viewController.removeFromParentViewController()
+        viewController.didMove(toParentViewController: nil)
     }
 
 }

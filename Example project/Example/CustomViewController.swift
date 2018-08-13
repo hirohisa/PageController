@@ -43,7 +43,7 @@ extension CustomViewController {
             "7",
         ]
 
-        let top = menuBar.frame.maxY - (navigationController?.navigationBar.frame.height ?? 0) - UIApplication.shared.statusBarFrame.height
+        let top = adjustedContentInsetTop
         let viewControllers = names.map { name -> ItemsCollectionViewController in
             let viewController = ItemsCollectionViewController()
             viewController.title = name
