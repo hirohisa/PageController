@@ -143,7 +143,7 @@ open class PageController: UIViewController {
     }
 
     func loadPages(at index: Int) {
-//        print("Function: \(#function), line: \(#line)")
+//        print("Function: \(#function), index: \(index)")
         if index >= viewControllers.count { return }
         let visibleViewController = viewControllers[index]
         switchVisibleViewController(visibleViewController)
@@ -221,7 +221,11 @@ open class PageController: UIViewController {
     }
 
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
-        guard !childViewControllers.contains(viewController), !viewController.view.isDescendant(of: containerView) else { return }
+        guard !childViewControllers.contains(viewController), !viewController.view.isDescendant(of: containerView) else {
+            // already added
+            viewController.view.frame = frame
+            return
+        }
         viewController.willMove(toParentViewController: self)
         addChildViewController(viewController)
         viewController.view.frame = frame
