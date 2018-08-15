@@ -104,11 +104,6 @@ extension MenuBar.ContainerView {
             }
         }
     }
-}
-
-// touch
-
-extension MenuBar.ContainerView {
 
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
@@ -122,12 +117,6 @@ extension MenuBar.ContainerView {
             }
         }
     }
-
-}
-
-// action
-
-extension MenuBar.ContainerView {
 
     func userInteractionDidEnd() {
         guard let bar = bar, bar.isAutoSelectDidEndUserInteractionEnabled else { return }

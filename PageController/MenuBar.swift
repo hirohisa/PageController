@@ -147,18 +147,12 @@ public class MenuBar: UIView {
                 return
             }
             selectedIndex = to
-            beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: false)
             let diff = (sizes[from].width - sizes[to].width) / 2
-            let x = containerView.contentOffset.x - distance - diff
 
-            let contentOffset = CGPoint(x: x, y: 0)
-            UIView.animate(withDuration: durationForAnimation, animations: {
-                self.containerView.contentOffset = contentOffset
-                }, completion: { _ in
-                    self.endAnimation()
-            })
+            let x = containerView.contentOffset.x - distance - diff
+            containerView.scrollOffsetTo(CGPoint(x: x, y: 0), animated: true)
         }
     }
 
@@ -168,27 +162,13 @@ public class MenuBar: UIView {
                 return
             }
             selectedIndex = to
-            beginAnimation()
 
             let distance = distanceBetweenMenuBarCells(from, to: to, asc: true)
             let diff = (sizes[from].width - sizes[to].width) / 2
+
             let x = containerView.contentOffset.x + distance + diff
-
-            let contentOffset = CGPoint(x: x, y: 0)
-            UIView.animate(withDuration: durationForAnimation, animations: {
-                self.containerView.contentOffset = contentOffset
-                }, completion: { _ in
-                    self.endAnimation()
-            })
+            containerView.scrollOffsetTo(CGPoint(x: x, y: 0), animated: true)
         }
-    }
-
-    private func beginAnimation() {
-    }
-
-    private func endAnimation() {
-        containerView.updateSubviews()
-        containerView.adjustCurrentPageToCenter(false)
     }
 
     func contentDidChangePage(AtIndex index: Int) {
