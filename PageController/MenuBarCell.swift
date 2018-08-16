@@ -11,8 +11,7 @@ import UIKit
 public protocol MenuBarCellable {
     var index: Int { get set }
     func setTitle(_ title: String)
-    func setHighlighted(_ highlighted: Bool)
-    // func setHighlighted(_ highlighted: Bool, animated: Bool)
+    func setHighlighted(_ highlighted: Bool, animated: Bool)
     func prepareForUse()
 }
 
@@ -36,7 +35,7 @@ class MenuBarCell: UIView, MenuBarCellable {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    public func setHighlighted(_ highlighted: Bool) {
+    public func setHighlighted(_ highlighted: Bool, animated: Bool) {
     }
 
     public func prepareForUse() {

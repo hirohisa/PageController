@@ -70,7 +70,7 @@ extension MenuBar.ContainerView {
         }
 
         if let cell = current as? MenuBarCellable {
-            cell.setHighlighted(true)
+            cell.setHighlighted(true, animated: false)
         }
 
         addSubview(current)
@@ -100,7 +100,7 @@ extension MenuBar.ContainerView {
         visibledCells = (cells + newCells).sorted { $0.frame.origin.x < $1.frame.origin.x }
         for subview in visibledCells {
             if let cell = subview as? MenuBarCellable {
-                cell.setHighlighted(cell.index == bar.selectedIndex)
+                cell.setHighlighted(cell.index == bar.selectedIndex, animated: false)
             }
         }
     }

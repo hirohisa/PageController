@@ -42,11 +42,19 @@ class CustomMenuBarCell: UIView, MenuBarCellable {
         titleLabel.text = title + "!!!"
     }
 
-    func setHighlighted(_ highlighted: Bool) {
+    func setHighlighted(_ highlighted: Bool, animated: Bool) {
         if titleLabel.isHighlighted == highlighted { return }
-
-        highlighted ? currentMarkView.fadeIn() : currentMarkView.fadeOut()
-        titleLabel.isHighlighted = highlighted
+//
+//        if animated {
+//            self.currentMarkView.alpha = 0
+//            UIView.animate(withDuration: 1, animations: {
+//                self.currentMarkView.alpha = 1
+//            }, completion: { _ in
+//            })
+//        }
+//
+//        currentMarkView.isHidden = !highlighted
+//        titleLabel.isHighlighted = highlighted
     }
 
     func prepareForUse() {

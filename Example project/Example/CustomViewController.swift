@@ -16,6 +16,7 @@ class CustomViewController: PageController {
 
         menuBar.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         menuBar.register(UINib(nibName: "CustomMenuBarCell", bundle: nil))
+        menuBar.delegate = self
         menuBar.isAutoSelectDidEndUserInteractionEnabled = false
         delegate = self
         viewControllers = createViewControllers()
@@ -60,7 +61,7 @@ extension CustomViewController {
     }
 }
 
-extension CustomViewController: PageControllerDelegate {
+extension CustomViewController: PageControllerDelegate, PageControllerMenuBarDelegate {
 
     func pageController(_ pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?) {
         print("now title is \(String(describing: pageController.visibleViewController?.title))")
@@ -74,6 +75,20 @@ extension CustomViewController: PageControllerDelegate {
         }
         if let viewController = visibleViewController as? ItemsCollectionViewController  {
             viewController.collectionView?.scrollsToTop = true
+        }
+    }
+
+    func menuBar(_ menuBar: MenuBar, didChange index: Int, from previous: Int) {
+        print("\(#function), select index: \(previous) -> \(index)")
+        print(menuBar.visibledCells)
+
+        let selectedCell = menuBar.visibledCells.filter({ $0.index == index }).first
+        let unselectedCell = menuBar.visibledCells.filter({ $0.index == previous }).first
+        if let cell = selectedCell as? CustomMenuBarCell {
+            cell.titleLabel.textColor = .black
+        }
+        if let cell = unselectedCell as? CustomMenuBarCell {
+            cell.backgroundColor = .white
         }
     }
 }

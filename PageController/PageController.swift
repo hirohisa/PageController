@@ -12,6 +12,10 @@ public protocol PageControllerDelegate: class {
     func pageController(_ pageController: PageController, didChangeVisibleController visibleViewController: UIViewController, fromViewController: UIViewController?)
 }
 
+public protocol PageControllerMenuBarDelegate: class {
+    func menuBar(_ menuBar: MenuBar, didChange index: Int, from previous: Int)
+}
+
 open class PageController: UIViewController {
 
     open weak var delegate: PageControllerDelegate?

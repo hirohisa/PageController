@@ -10,6 +10,7 @@ import UIKit
 
 public class MenuBar: UIView {
 
+    public weak var delegate: PageControllerMenuBarDelegate?
     weak var controller: PageController?
     public var durationForAnimation: TimeInterval = 0.2
     /// auto select on end of user interaction
@@ -34,7 +35,20 @@ public class MenuBar: UIView {
         self.nib = nib
     }
 
-    public var selectedIndex: Int = 0
+    public var selectedIndex: Int = 0 {
+        didSet {
+            if selectedIndex != oldValue {
+                print("select \(selectedIndex), \(oldValue)")
+                delegate?.menuBar(self, didChange: selectedIndex, from: oldValue)
+            }
+        }
+    }
+
+    public var visibledCells: [MenuBarCellable] {
+        return containerView.visibledCells
+            .filter({ $0.include(bounds) })
+            .compactMap({ $0 as? MenuBarCellable })
+    }
 
     public override var frame: CGRect {
         didSet {
@@ -53,9 +67,6 @@ public class MenuBar: UIView {
     }
 
     let containerView = ContainerView(frame: CGRect.zero)
-    public var scrollView: UIScrollView {
-        return containerView
-    }
 
     func revert(to: Int) {
         guard let view = containerView.viewForCurrentPage() as? MenuBarCellable, view.index != to else { return }
@@ -152,7 +163,7 @@ public class MenuBar: UIView {
             let diff = (sizes[from].width - sizes[to].width) / 2
 
             let x = containerView.contentOffset.x - distance - diff
-            containerView.scrollOffsetTo(CGPoint(x: x, y: 0), animated: true)
+            scrollOffsetTo(CGPoint(x: x, y: 0))
         }
     }
 
@@ -167,8 +178,19 @@ public class MenuBar: UIView {
             let diff = (sizes[from].width - sizes[to].width) / 2
 
             let x = containerView.contentOffset.x + distance + diff
-            containerView.scrollOffsetTo(CGPoint(x: x, y: 0), animated: true)
+            scrollOffsetTo(CGPoint(x: x, y: 0))
         }
+    }
+
+    private func scrollOffsetTo(_ offset: CGPoint) {
+        containerView.visibledCells
+            .compactMap { $0 as? MenuBarCellable }
+            .filter {
+                $0.index == selectedIndex
+            }.forEach { view in
+                view.setHighlighted(true, animated: true)
+            }
+        containerView.scrollOffsetTo(offset, animated: true)
     }
 
     func contentDidChangePage(AtIndex index: Int) {
