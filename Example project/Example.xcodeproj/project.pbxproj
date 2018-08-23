@@ -16,6 +16,9 @@
 		65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E573A11B42A34D00F252C1 /* CustomViewController.swift */; };
 		A1629B0C20CBAF7B0005B972 /* CustomMenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1629B0B20CBAF7B0005B972 /* CustomMenuBarCell.swift */; };
 		A1629B0E20CBAF870005B972 /* CustomMenuBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1629B0D20CBAF870005B972 /* CustomMenuBarCell.xib */; };
+		A18CF7BA212ED0210045FA63 /* UseStoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18CF7B9212ED0210045FA63 /* UseStoryboardViewController.swift */; };
+		A18CF7BC212ED0290045FA63 /* UseStoryboardContentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A18CF7BB212ED0290045FA63 /* UseStoryboardContentViewController.storyboard */; };
+		A18CF7BE212ED0AF0045FA63 /* UseStoryboardContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18CF7BD212ED0AF0045FA63 /* UseStoryboardContentViewController.swift */; };
 		A1BE23191B41B2BE003316CF /* PageController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE23181B41B2BE003316CF /* PageController.framework */; };
 		A1ED17481B47062600CE20BB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A1ED17471B47062600CE20BB /* icon.png */; };
 		A1ED174A1B483A1C00CE20BB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */; };
@@ -35,6 +38,9 @@
 		65E573A11B42A34D00F252C1 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		A1629B0B20CBAF7B0005B972 /* CustomMenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuBarCell.swift; sourceTree = "<group>"; };
 		A1629B0D20CBAF870005B972 /* CustomMenuBarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMenuBarCell.xib; sourceTree = "<group>"; };
+		A18CF7B9212ED0210045FA63 /* UseStoryboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseStoryboardViewController.swift; sourceTree = "<group>"; };
+		A18CF7BB212ED0290045FA63 /* UseStoryboardContentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UseStoryboardContentViewController.storyboard; sourceTree = "<group>"; };
+		A18CF7BD212ED0AF0045FA63 /* UseStoryboardContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseStoryboardContentViewController.swift; sourceTree = "<group>"; };
 		A1BE23181B41B2BE003316CF /* PageController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PageController.framework; path = "build/Debug-iphoneos/PageController.framework"; sourceTree = "<group>"; };
 		A1ED17471B47062600CE20BB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -76,9 +82,12 @@
 			children = (
 				65C4FF7B1B3ACCDC0010CA5B /* AppDelegate.swift */,
 				65C4FF7D1B3ACCDC0010CA5B /* ViewController.swift */,
-				65E573A11B42A34D00F252C1 /* CustomViewController.swift */,
 				65C4FFAB1B3ADD460010CA5B /* ContentViewController.swift */,
+				65E573A11B42A34D00F252C1 /* CustomViewController.swift */,
 				A1ED17491B483A1C00CE20BB /* ItemsCollectionViewController.swift */,
+				A18CF7B9212ED0210045FA63 /* UseStoryboardViewController.swift */,
+				A18CF7BD212ED0AF0045FA63 /* UseStoryboardContentViewController.swift */,
+				A18CF7BB212ED0290045FA63 /* UseStoryboardContentViewController.storyboard */,
 				A1ED174B1B48401900CE20BB /* ItemCell.swift */,
 				A1ED174C1B48401900CE20BB /* ItemCell.xib */,
 				65C4FF7F1B3ACCDC0010CA5B /* Main.storyboard */,
@@ -161,6 +170,7 @@
 			files = (
 				A1ED17481B47062600CE20BB /* icon.png in Resources */,
 				65C4FF811B3ACCDC0010CA5B /* Main.storyboard in Resources */,
+				A18CF7BC212ED0290045FA63 /* UseStoryboardContentViewController.storyboard in Resources */,
 				A1ED174E1B48401900CE20BB /* ItemCell.xib in Resources */,
 				65C4FF861B3ACCDC0010CA5B /* LaunchScreen.xib in Resources */,
 				65C4FF831B3ACCDC0010CA5B /* Images.xcassets in Resources */,
@@ -178,8 +188,10 @@
 				65C4FFAD1B3ADD460010CA5B /* ContentViewController.swift in Sources */,
 				65C4FF7E1B3ACCDC0010CA5B /* ViewController.swift in Sources */,
 				65C4FF7C1B3ACCDC0010CA5B /* AppDelegate.swift in Sources */,
+				A18CF7BA212ED0210045FA63 /* UseStoryboardViewController.swift in Sources */,
 				A1ED174D1B48401900CE20BB /* ItemCell.swift in Sources */,
 				A1629B0C20CBAF7B0005B972 /* CustomMenuBarCell.swift in Sources */,
+				A18CF7BE212ED0AF0045FA63 /* UseStoryboardContentViewController.swift in Sources */,
 				65E573A21B42A34D00F252C1 /* CustomViewController.swift in Sources */,
 				A1ED174A1B483A1C00CE20BB /* ItemsCollectionViewController.swift in Sources */,
 			);
