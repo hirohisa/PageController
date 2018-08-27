@@ -223,12 +223,16 @@ open class PageController: UIViewController {
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
         guard !childViewControllers.contains(viewController), !viewController.view.isDescendant(of: containerView) else {
             // already added
+            viewController.view.translatesAutoresizingMaskIntoConstraints = true
             viewController.view.frame = frame
+            viewController.view.translatesAutoresizingMaskIntoConstraints = false
             return
         }
         viewController.willMove(toParentViewController: self)
         addChildViewController(viewController)
+        viewController.view.translatesAutoresizingMaskIntoConstraints = true
         viewController.view.frame = frame
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(viewController.view)
         viewController.didMove(toParentViewController: self)
     }
