@@ -18,15 +18,29 @@ class UseStoryboardContentViewController: UIViewController, UITableViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         automaticallyAdjustsScrollViewInsets = false
         tableView.backgroundColor = .blue
+        view.backgroundColor = .red
+        print(#function)
+        print(tableView.frame)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print(#function)
+        print(tableView.frame)
         print(tableView.contentInset)
         print(tableView.contentOffset)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // XXX: index 0, set wrong frame size to tableView
+        if #available(iOS 11.0, *) {} else {
+            if tableView.frame != view.bounds {
+                tableView.frame = view.bounds
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

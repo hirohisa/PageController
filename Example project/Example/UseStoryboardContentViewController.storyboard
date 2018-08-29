@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IfY-aS-ALn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IfY-aS-ALn">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="O3E-re-0RS" customClass="TableViewCell" customModule="Example" customModuleProvider="target">
@@ -55,10 +55,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="IfY-aS-ALn" firstAttribute="top" secondItem="KbK-B1-rGO" secondAttribute="top" id="SH1-Yr-OIj"/>
-                            <constraint firstItem="IfY-aS-ALn" firstAttribute="leading" secondItem="KbK-B1-rGO" secondAttribute="leading" id="xaV-Jd-NZU"/>
-                            <constraint firstAttribute="bottom" secondItem="IfY-aS-ALn" secondAttribute="bottom" id="yhN-qb-hcx"/>
-                            <constraint firstAttribute="trailing" secondItem="IfY-aS-ALn" secondAttribute="trailing" id="zT5-e5-Ivi"/>
+                            <constraint firstItem="IfY-aS-ALn" firstAttribute="top" secondItem="o0z-pL-VXd" secondAttribute="top" id="SH1-Yr-OIj"/>
+                            <constraint firstItem="IfY-aS-ALn" firstAttribute="leading" secondItem="o0z-pL-VXd" secondAttribute="leading" id="xaV-Jd-NZU"/>
+                            <constraint firstItem="o0z-pL-VXd" firstAttribute="bottom" secondItem="IfY-aS-ALn" secondAttribute="bottom" id="yhN-qb-hcx"/>
+                            <constraint firstItem="o0z-pL-VXd" firstAttribute="trailing" secondItem="IfY-aS-ALn" secondAttribute="trailing" id="zT5-e5-Ivi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="o0z-pL-VXd"/>
                     </view>

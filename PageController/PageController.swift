@@ -57,7 +57,7 @@ open class PageController: UIViewController {
 
     /// set frame to containerView.frame on viewDidLoad
     open var frameForScrollView: CGRect {
-        return CGRect(x: 0, y: 0, width: containerView.bounds.width, height: containerView.bounds.height)
+        return CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
     }
 
     var frameForLeftContentController: CGRect {
@@ -83,8 +83,6 @@ open class PageController: UIViewController {
         if #available(iOS 11.0, *) {
             containerView.contentInsetAdjustmentBehavior = .never
         }
-//        view.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.frame = view.bounds
         containerView.contentSize = CGSize(width: containerView.frame.width * 3, height: containerView.frame.height)
         view.addSubview(containerView)
