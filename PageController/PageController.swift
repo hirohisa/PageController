@@ -37,11 +37,6 @@ open class PageController: UIViewController {
         configure()
     }
 
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureDidLayout()
-    }
-
     /// the top from adjusted content inset with menu bar frame
     public var adjustedContentInsetTop: CGFloat {
         if #available(iOS 11.0, *) {
@@ -62,7 +57,7 @@ open class PageController: UIViewController {
 
     /// set frame to containerView.frame on viewDidLoad
     open var frameForScrollView: CGRect {
-        return CGRect(x: 0, y: 0, width: containerView.bounds.width, height: containerView.bounds.height)
+        return CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
     }
 
     var frameForLeftContentController: CGRect {
@@ -84,26 +79,15 @@ open class PageController: UIViewController {
     }
 
     func configure() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(containerView)
+        automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
             containerView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
         }
-        view.addConstraints([
-            makeConstraint(item: containerView, .top, to: view, .top),
-            makeConstraint(item: containerView, .bottom, to: view, .bottom),
-            makeConstraint(item: containerView, .left, to: view, .left),
-            makeConstraint(item: containerView, .right, to: view, .right)
-            ])
+        containerView.frame = view.bounds
+        containerView.contentSize = CGSize(width: containerView.frame.width * 3, height: containerView.frame.height)
+        view.addSubview(containerView)
         menuBar.frame = frameForMenuBar
         view.addSubview(menuBar)
-    }
-
-    func configureDidLayout() {
-        guard containerView.contentSize == .zero else { return }
-        containerView.contentSize = CGSize(width: containerView.frame.width * 3, height: containerView.frame.height)
         containerView.controller = self
         menuBar.controller = self
         reloadPages(at: 0)
