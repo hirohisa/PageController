@@ -128,7 +128,7 @@ public func register(_ nib: UINib) {
 
 **MenuBarCellable**
 
-```
+```swift
 public protocol MenuBarCellable {
 
     // it's used by PageController
