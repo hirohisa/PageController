@@ -34,7 +34,11 @@ public class MenuBar: UIView {
         self.nib = nib
     }
 
-    public var selectedIndex: Int = 0
+    public var selectedIndex: Int = 0 {
+        willSet (newValue){
+            reloadData(atIndex: newValue)
+        }
+    }
 
     public override var frame: CGRect {
         didSet {
