@@ -35,7 +35,7 @@ public class MenuBar: UIView {
     }
 
     public var selectedIndex: Int = 0 {
-        didSet (newValue){
+        willSet (newValue){
             reloadData(atIndex: newValue)
         }
     }
