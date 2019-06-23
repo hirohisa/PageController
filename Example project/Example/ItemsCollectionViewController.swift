@@ -39,12 +39,12 @@ class ItemsCollectionViewController: UICollectionViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("title: \(title), \(#function)")
+        print("title: \(title ?? ""), \(#function)")
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("title: \(title), \(#function)")
+        print("title: \(title ?? ""), \(#function)")
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -96,7 +96,7 @@ open class PageController: UIViewController {
 
     public func reloadPages(at index: Int) {
 //        print("Function: \(#function), line: \(#line), index: \(index) ")
-        for viewController in childViewControllers {
+        for viewController in children {
             if viewController != viewControllers[index] {
                 hideViewController(viewController)
             }
@@ -134,7 +134,7 @@ open class PageController: UIViewController {
 
         // offsetX < 0 or offsetX > contentSize.width
         let frameOfContentSize = CGRect(x: 0, y: 0, width: containerView.contentSize.width, height: containerView.contentSize.height)
-        for viewController in childViewControllers {
+        for viewController in children {
             if viewController != visibleViewController && !viewController.view.include(frameOfContentSize) {
                 hideViewController(viewController)
             }
@@ -144,13 +144,13 @@ open class PageController: UIViewController {
         displayViewController(visibleViewController, frame: frameForCenterContentController)
 
         // left
-        var exists = childViewControllers.filter { $0.view.include(frameForLeftContentController) }
+        var exists = children.filter { $0.view.include(frameForLeftContentController) }
         if exists.isEmpty {
             displayViewController(viewControllers[(index - 1).relative(viewControllers.count)], frame: frameForLeftContentController)
         }
 
         // right
-        exists = childViewControllers.filter { $0.view.include(frameForRightContentController) }
+        exists = children.filter { $0.view.include(frameForRightContentController) }
         if exists.isEmpty {
             displayViewController(viewControllers[(index + 1).relative(viewControllers.count)], frame: frameForRightContentController)
         }
@@ -205,24 +205,24 @@ open class PageController: UIViewController {
     }
 
     func displayViewController(_ viewController: UIViewController, frame: CGRect) {
-        guard !childViewControllers.contains(viewController), !viewController.view.isDescendant(of: containerView) else {
+        guard !children.contains(viewController), !viewController.view.isDescendant(of: containerView) else {
             // already added
             viewController.view.frame = frame
             return
         }
-        viewController.willMove(toParentViewController: self)
-        addChildViewController(viewController)
+        viewController.willMove(toParent: self)
+        addChild(viewController)
         viewController.view.frame = frame
         containerView.addSubview(viewController.view)
-        viewController.didMove(toParentViewController: self)
+        viewController.didMove(toParent: self)
     }
 
     func hideViewController(_ viewController: UIViewController) {
-        guard childViewControllers.contains(viewController), viewController.view.isDescendant(of: containerView) else { return }
-        viewController.willMove(toParentViewController: nil)
+        guard children.contains(viewController), viewController.view.isDescendant(of: containerView) else { return }
+        viewController.willMove(toParent: nil)
         viewController.view.removeFromSuperview()
-        viewController.removeFromParentViewController()
-        viewController.didMove(toParentViewController: nil)
+        viewController.removeFromParent()
+        viewController.didMove(toParent: nil)
     }
 
 }
