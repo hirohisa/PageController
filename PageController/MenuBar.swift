@@ -108,7 +108,7 @@ public class MenuBar: UIView {
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
 
-        let size = cell.systemLayoutSizeFitting(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriority(rawValue: 50), verticalFittingPriority: UILayoutPriority(rawValue: 50))
+        let size = cell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriority(rawValue: 50), verticalFittingPriority: UILayoutPriority(rawValue: 50))
         // => systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         cell.frame = CGRect(x: 0, y: 0, width: size.width, height: frame.height)
 

@@ -51,8 +51,8 @@ class MenuBarCell: UIView, MenuBarCellable {
     func makeConstraints() -> [NSLayoutConstraint] {
         let views = ["view": titleLabel]
 
-        return NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[view]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views) +
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        return NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[view]-10-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: views) +
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view]-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: views)
     }
 
     func updateContentInset() {
